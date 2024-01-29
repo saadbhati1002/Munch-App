@@ -1,3 +1,5 @@
+import 'package:app/screen/splash/splash_screen.dart';
+import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: AppConstant.appName,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        fontFamily: "rubik",
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: ColorConstant.backGroundColor),
         useMaterial3: true,
       ),
-      // home: const ,
+      home: const SplashScreen(),
     );
   }
 }
-
