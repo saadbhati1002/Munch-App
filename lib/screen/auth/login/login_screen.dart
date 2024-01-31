@@ -1,3 +1,4 @@
+import 'package:app/screen/auth/signup/signup_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_button.dart';
@@ -134,7 +135,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: ColorConstant.white,
                 textColor: ColorConstant.black,
                 title: "Signup",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignupScreen(),
+                    ),
+                  );
+                },
               ),
             ),
           ],
