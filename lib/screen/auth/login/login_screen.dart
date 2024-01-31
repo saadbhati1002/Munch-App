@@ -1,5 +1,6 @@
 import 'package:app/screen/auth/forgot_password/forgot_password_screen.dart';
 import 'package:app/screen/auth/signup/signup_screen.dart';
+import 'package:app/screen/dashboard/dashborad_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_button.dart';
@@ -111,7 +112,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: ColorConstant.mainColor,
                 textColor: ColorConstant.white,
                 title: "Login",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashBoardScreen(),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(
