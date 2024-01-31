@@ -56,6 +56,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flutter_otp_text_field",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_otp_text_field-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///D:/flutter%20version/flutter_windows_3.16.8-stable/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -152,7 +158,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-01-29T09:02:47.286401Z",
+  "generated": "2024-01-31T11:53:51.216053Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

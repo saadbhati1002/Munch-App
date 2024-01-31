@@ -1,5 +1,4 @@
-import 'package:app/screen/auth/forgot_password/forgot_password_screen.dart';
-import 'package:app/screen/auth/signup/signup_screen.dart';
+import 'package:app/screen/auth/forgot_password/verify_otp_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_button.dart';
@@ -7,16 +6,14 @@ import 'package:app/widgets/common_text_field.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool isPassword = true;
-
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * .08,
+              height: MediaQuery.of(context).size.height * .12,
             ),
             Container(
               alignment: Alignment.center,
               child: const Text(
-                "Login",
+                "Forgot Password",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -47,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Image.asset(Images.logo),
             ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             Container(
               decoration: BoxDecoration(
@@ -60,91 +57,40 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   commonTextFieldText(title: 'Email'),
                   CustomTextFormField(
-                    hintText: 'User Email',
+                    hintText: 'Enter your registered Email',
                     context: context,
                   ),
                   const SizedBox(
-                    height: 12,
-                  ),
-                  commonTextFieldText(title: 'Password'),
-                  CustomTextFormField(
-                    isObscureText: isPassword,
-                    hintText: 'User Password',
-                    context: context,
+                    height: 15,
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 15,
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ForgotPasswordScreen(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorConstant.greyDarkColor),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 35,
+              height: 50,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CommonButton(
                 color: ColorConstant.mainColor,
                 textColor: ColorConstant.white,
-                title: "Login",
-                onTap: () {},
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: const Text(
-                "OR",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorConstant.greyDarkColor),
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CommonButton(
-                color: ColorConstant.white,
-                textColor: ColorConstant.black,
-                title: "Signup",
+                title: "Send OTP",
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SignupScreen(),
+                      builder: (context) => const VerifyOTPScreen(),
                     ),
                   );
                 },
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),
