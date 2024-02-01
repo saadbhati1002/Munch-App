@@ -12,65 +12,74 @@ customAppBar(
     elevation: 0,
     toolbarHeight: 60,
     titleSpacing: 0,
-    backgroundColor: ColorConstant.white,
+    backgroundColor: ColorConstant.backGroundColor,
     centerTitle: false,
     automaticallyImplyLeading: false,
     title: GestureDetector(
       onTap: () {
         // Get.to(() => const ProfileScreen());
       },
-      child: Container(
-        margin: const EdgeInsets.only(top: 9.5, bottom: 9.5, left: 9.5),
-        height: 47,
-        width: MediaQuery.of(context!).size.width * .6,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CustomImage(
-                height: 32,
-                width: 32,
-                isFromAppBar: true,
-                imagePath: "",
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CustomImage(
+              height: 45,
+              width: 45,
+              imagePath: "",
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context!).size.width * .56,
+              child: const Text(
+                "Demo User",
+                maxLines: 1,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: ColorConstant.black,
+                    fontWeight: FontWeight.w700),
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * .37,
-                child: const Text(
-                  "Demo User",
-                  maxLines: 1,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: ColorConstant.white,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     ),
     actions: [
       Padding(
-        padding: const EdgeInsets.only(top: 3, right: 10),
+        padding: const EdgeInsets.only(top: 3, right: 20),
         child: GestureDetector(
           onTap: () {
             key.currentState!.openEndDrawer();
           },
-          child: const FaIcon(
-            FontAwesomeIcons.bars,
+          child: const Icon(
+            Icons.notifications,
             color: ColorConstant.mainColor,
           ),
         ),
-      )
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 3, right: 15),
+        child: GestureDetector(
+          onTap: () {
+            key.currentState!.openEndDrawer();
+          },
+          child: Container(
+            height: 38,
+            width: 38,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle, color: ColorConstant.white),
+            child: const FaIcon(
+              FontAwesomeIcons.bars,
+              color: ColorConstant.mainColor,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }

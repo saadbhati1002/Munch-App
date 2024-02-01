@@ -1,3 +1,4 @@
+import 'package:app/screen/home/home_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +12,8 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _currentIndex = 0;
 
-  var _children = [
-    // Home(),
-    // CategoryList(
-    //   is_base_category: true,
-    // ),
-    // SpinnerVoucherScreen(),
-    // BuyNowPayLaterScreen()
+  final _children = const [
+    HomeScreen(),
   ];
 
   void onTapped(int i) {
@@ -35,7 +31,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      // body: _children[_currentIndex],
+      body: _children[_currentIndex],
       bottomNavigationBar: SizedBox(
         height: 65,
         child: BottomNavigationBar(
