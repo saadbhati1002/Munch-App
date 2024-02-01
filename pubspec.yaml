@@ -31,7 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_otp_text_field: ^1.1.1
-  flutter_svg: ^2.0.9
+  font_awesome_flutter: ^10.7.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
 
 
   # The following adds the Cupertino Icons font to your application.
