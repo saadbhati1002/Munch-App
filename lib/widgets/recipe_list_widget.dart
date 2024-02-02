@@ -56,13 +56,13 @@ Widget recipeListWidget({BuildContext? context}) {
         const SizedBox(
           height: 15,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -85,7 +85,34 @@ Widget recipeListWidget({BuildContext? context}) {
                   ],
                 ),
               ),
-              SizedBox(
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                height: 30,
+                decoration: BoxDecoration(
+                  color: ColorConstant.greyColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      color: ColorConstant.mainColor,
+                      size: 18,
+                    ),
+                    SizedBox(
+                      width: 7,
+                    ),
+                    Text(
+                      "102 Likes",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: ColorConstant.black,
+                          fontWeight: FontWeight.w400),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,9 +169,42 @@ Widget recipeListWidget({BuildContext? context}) {
           ),
         ),
         const SizedBox(
-          height: 40,
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              categoryBox(title: "Indian", context: context),
+              categoryBox(title: "Spicy", context: context),
+              categoryBox(title: "Italian", context: context),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
+    ),
+  );
+}
+
+Widget categoryBox({String? title, BuildContext? context}) {
+  return Container(
+    height: 24,
+    width: MediaQuery.of(context!).size.width * .29,
+    decoration: BoxDecoration(
+      color: ColorConstant.mainColor,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    alignment: Alignment.center,
+    child: Text(
+      title!,
+      style: const TextStyle(
+          fontSize: 14,
+          color: ColorConstant.white,
+          fontWeight: FontWeight.w400),
     ),
   );
 }

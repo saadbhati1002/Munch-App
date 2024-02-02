@@ -1,3 +1,4 @@
+import 'package:app/screen/recipe_detail_screen.dart/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_drawer.dart';
@@ -165,7 +166,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return recipeListWidget(context: context);
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RecipeDetailScreen(),
+                          ),
+                        );
+                      },
+                      child: recipeListWidget(context: context));
                 }),
           ],
         ),
