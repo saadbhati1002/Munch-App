@@ -1,5 +1,6 @@
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
+import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: const CommonDrawer(),
       key: _key,
       backgroundColor: ColorConstant.backGroundColor,
       appBar: customAppBar(

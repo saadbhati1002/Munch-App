@@ -1,4 +1,4 @@
-#Thu Feb 01 16:02:14 IST 2024
+#Fri Feb 02 15:20:08 IST 2024
 base.0=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
