@@ -1,3 +1,4 @@
+import 'package:app/screen/recipe/add_comment/add_comment_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/common_comment_widget.dart';
@@ -21,6 +22,33 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
         onTap: () {
           Navigator.pop(context);
         },
+      ),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddCommentScreen(),
+            ),
+          );
+        },
+        child: Container(
+            height: 38,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              color: ColorConstant.mainColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Add a Comment",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, color: ColorConstant.white),
+                ),
+              ],
+            )),
       ),
       body: SingleChildScrollView(
         child: Column(

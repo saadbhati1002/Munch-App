@@ -21,6 +21,7 @@ class CustomSearchTextField extends StatelessWidget {
       this.onTap,
       this.context,
       this.isMaxLine,
+      this.borderRadius,
       Key? key})
       : super(key: key);
 
@@ -40,7 +41,7 @@ class CustomSearchTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
 
   final int? maxLines;
-
+  final double? borderRadius;
   final String? hintText;
 
   final Widget? prefix;
@@ -87,36 +88,46 @@ class CustomSearchTextField extends StatelessWidget {
         maxLines: isMaxLine == true ? 7 : 1,
         decoration: InputDecoration(
           hintText: hintText ?? "",
-          hintStyle: const TextStyle(
-            color: ColorConstant.greyColor,
+          hintStyle: TextStyle(
+            color: borderRadius != null
+                ? ColorConstant.black
+                : ColorConstant.greyColor,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: ColorConstant.greyColor,
+            borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            borderSide: BorderSide(
+              color: borderRadius == null
+                  ? ColorConstant.greyColor
+                  : ColorConstant.white,
               width: 1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: ColorConstant.greyColor,
+            borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            borderSide: BorderSide(
+              color: borderRadius == null
+                  ? ColorConstant.greyColor
+                  : ColorConstant.white,
               width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: ColorConstant.greyColor,
+            borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            borderSide: BorderSide(
+              color: borderRadius == null
+                  ? ColorConstant.greyColor
+                  : ColorConstant.white,
               width: 1,
             ),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: ColorConstant.greyColor,
+            borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            borderSide: BorderSide(
+              color: borderRadius == null
+                  ? ColorConstant.greyColor
+                  : ColorConstant.white,
               width: 1,
             ),
           ),
