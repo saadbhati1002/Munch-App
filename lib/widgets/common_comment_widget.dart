@@ -3,18 +3,21 @@ import 'package:app/utility/images.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
 
-Widget commonComment({BuildContext? context, bool? isComment}) {
+Widget commonCommentWidget(
+    {BuildContext? context, bool? isComment, bool? isQuestionReply}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
-    color: ColorConstant.white,
+    color: isQuestionReply == true ? Colors.transparent : ColorConstant.white,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 1,
-          width: MediaQuery.of(context).size.width * 1,
-          color: ColorConstant.greyColor,
-        ),
+        isQuestionReply == true
+            ? const SizedBox()
+            : Container(
+                height: 1,
+                width: MediaQuery.of(context).size.width * 1,
+                color: ColorConstant.greyColor,
+              ),
         const SizedBox(
           height: 15,
         ),

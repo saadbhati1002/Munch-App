@@ -1,4 +1,5 @@
 import 'package:app/screen/q_and_a/add_question/add_question.dart';
+import 'package:app/screen/q_and_a/question_reply/question_reply_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/common_comment_widget.dart';
@@ -110,7 +111,17 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
               itemCount: 10,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return commonComment(context: context, isComment: false);
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const QuestionReplyScreen(),
+                        ),
+                      );
+                    },
+                    child: commonCommentWidget(
+                        context: context, isComment: false));
               },
             )
           ],
