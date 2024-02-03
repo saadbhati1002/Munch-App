@@ -4,14 +4,14 @@ import 'package:app/widgets/common_button.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 
-class AddCommentScreen extends StatefulWidget {
-  const AddCommentScreen({super.key});
+class AddQuestionsScreen extends StatefulWidget {
+  const AddQuestionsScreen({super.key});
 
   @override
-  State<AddCommentScreen> createState() => _AddCommentScreenState();
+  State<AddQuestionsScreen> createState() => _AddQuestionsScreenState();
 }
 
-class _AddCommentScreenState extends State<AddCommentScreen> {
+class _AddQuestionsScreenState extends State<AddQuestionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
             Container(
               alignment: Alignment.center,
               child: const Text(
-                'Add Comment',
+                'POST YOUR QUESTION',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: ColorConstant.mainColor,
@@ -47,7 +47,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
               child: CustomSearchTextField(
                 context: context,
                 borderRadius: 10,
-                hintText: "Write the title",
+                hintText: "Write the title of the question",
               ),
             ),
             const SizedBox(
@@ -59,7 +59,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                 context: context,
                 borderRadius: 10,
                 isMaxLine: true,
-                hintText: "Write your comment",
+                hintText: "Write the description",
               ),
             ),
             const SizedBox(
