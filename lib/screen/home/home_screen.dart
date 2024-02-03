@@ -1,4 +1,4 @@
-import 'package:app/screen/recipe_detail_screen.dart/recipe_detail_screen.dart';
+import 'package:app/screen/recipe/recipe_detail_screen.dart/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_drawer.dart';
