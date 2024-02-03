@@ -108,7 +108,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
               itemCount: 10,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return commonComment(context: context);
+                return commonComment(context: context, isComment: true);
               },
             )
           ],

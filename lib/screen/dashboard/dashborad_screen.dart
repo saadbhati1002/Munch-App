@@ -1,4 +1,5 @@
 import 'package:app/screen/home/home_screen.dart';
+import 'package:app/screen/q_and_a/q_and_a_list/q_and_a_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +13,7 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _currentIndex = 0;
 
-  final _children = const [
-    HomeScreen(),
-  ];
+  final _children = const [HomeScreen(), QuestionAndAnswerScreen()];
 
   void onTapped(int i) {
     setState(() {

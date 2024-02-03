@@ -3,7 +3,7 @@ import 'package:app/utility/images.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
 
-Widget commonComment({BuildContext? context}) {
+Widget commonComment({BuildContext? context, bool? isComment}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
     color: ColorConstant.white,
@@ -71,12 +71,12 @@ Widget commonComment({BuildContext? context}) {
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Icon(
@@ -96,6 +96,15 @@ Widget commonComment({BuildContext? context}) {
                   ),
                 ],
               ),
+              isComment == false
+                  ? const Text(
+                      "20 Replays",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: ColorConstant.black,
+                          fontWeight: FontWeight.w700),
+                    )
+                  : const SizedBox()
             ],
           ),
         ),
