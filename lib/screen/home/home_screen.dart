@@ -158,21 +158,22 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 40,
             ),
             ListView.builder(
-                itemCount: 5,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RecipeDetailScreen(),
-                          ),
-                        );
-                      },
-                      child: recipeListWidget(context: context));
-                }),
+              itemCount: 5,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RecipeDetailScreen(),
+                        ),
+                      );
+                    },
+                    child: recipeListWidget(context: context));
+              },
+            ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:app/screen/Favorite/Favorite_screen.dart';
 import 'package:app/screen/contest/contest_list/contest_list_screen.dart';
 import 'package:app/screen/home/home_screen.dart';
 import 'package:app/screen/q_and_a/q_and_a_list/q_and_a_screen.dart';
@@ -18,6 +19,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     HomeScreen(),
     QuestionAndAnswerScreen(),
     ContestListScreen(),
+    FavoriteScreen(),
   ];
 
   void onTapped(int i) {
