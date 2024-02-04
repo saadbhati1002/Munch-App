@@ -1,3 +1,4 @@
+import 'package:app/screen/contest/participate/participate_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/common_button.dart';
@@ -104,12 +105,12 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                 textColor: ColorConstant.white,
                 title: "Participate",
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const DashBoardScreen(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ParticipateScreen(),
+                    ),
+                  );
                 },
               ),
             ],
