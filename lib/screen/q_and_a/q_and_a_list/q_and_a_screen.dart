@@ -1,8 +1,10 @@
 import 'package:app/screen/q_and_a/add_question/add_question.dart';
 import 'package:app/screen/q_and_a/question_reply/question_reply_screen.dart';
 import 'package:app/utility/color.dart';
-import 'package:app/widgets/app_bar_back.dart';
+
 import 'package:app/widgets/common_comment_widget.dart';
+import 'package:app/widgets/common_drawer.dart';
+import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -15,15 +17,17 @@ class QuestionAndAnswerScreen extends StatefulWidget {
 }
 
 class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: const CommonDrawer(),
+      key: _key,
       backgroundColor: ColorConstant.backGroundColor,
-      appBar: customAppBarBack(
+      appBar: customAppBar(
+        _key,
         context: context,
-        onTap: () {
-          Navigator.pop(context);
-        },
       ),
       floatingActionButton: GestureDetector(
         onTap: () {

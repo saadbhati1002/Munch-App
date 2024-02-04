@@ -19,9 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List mainBannerList = [Images.slider, Images.slider, Images.slider];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   bool isRecipe = true;
-  setStateNow() {
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: customAppBar(
         _key,
         context: context,
-        setState: setStateNow(),
       ),
       body: SingleChildScrollView(
         child: Column(

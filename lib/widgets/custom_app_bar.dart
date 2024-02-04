@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 customAppBar(
   key, {
   BuildContext? context,
-  Function? setState,
 }) {
   return AppBar(
     elevation: 0,

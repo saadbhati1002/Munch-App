@@ -1,3 +1,4 @@
+import 'package:app/screen/contest/contest_list/contest_list_screen.dart';
 import 'package:app/screen/home/home_screen.dart';
 import 'package:app/screen/q_and_a/q_and_a_list/q_and_a_screen.dart';
 import 'package:app/utility/color.dart';
@@ -13,7 +14,11 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _currentIndex = 0;
 
-  final _children = const [HomeScreen(), QuestionAndAnswerScreen()];
+  final _children = const [
+    HomeScreen(),
+    QuestionAndAnswerScreen(),
+    ContestListScreen(),
+  ];
 
   void onTapped(int i) {
     setState(() {
