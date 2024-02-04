@@ -1,7 +1,5 @@
-import 'package:app/screen/q_and_a/add_question/add_question.dart';
-import 'package:app/screen/q_and_a/question_reply/question_reply_screen.dart';
+import 'package:app/screen/contest/contest_detail/contest_detail_screen.dart';
 import 'package:app/utility/color.dart';
-import 'package:app/widgets/common_comment_widget.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/contest_list_widget.dart';
 import 'package:app/widgets/custom_app_bar.dart';
@@ -27,34 +25,6 @@ class _ContestListScreenState extends State<ContestListScreen> {
       appBar: customAppBar(
         _key,
         context: context,
-      ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddQuestionsScreen(),
-            ),
-          );
-        },
-        child: Container(
-            height: 38,
-            margin: const EdgeInsets.only(bottom: 60),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: ColorConstant.mainColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Add a question",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: ColorConstant.white),
-                ),
-              ],
-            )),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -94,7 +64,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const QuestionReplyScreen(),
+                        builder: (context) => const ContestDetailScreen(),
                       ),
                     );
                   },
