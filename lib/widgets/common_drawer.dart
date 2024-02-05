@@ -1,3 +1,4 @@
+import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,7 +47,14 @@ class _CommonDrawerState extends State<CommonDrawer> {
               ),
               commonRaw(
                 icon: const FaIcon(FontAwesomeIcons.userSecret),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeMakerScreen(),
+                    ),
+                  );
+                },
                 title: "Meet The Homemakers",
               ),
               const SizedBox(
@@ -143,20 +151,23 @@ class _CommonDrawerState extends State<CommonDrawer> {
   }
 
   Widget commonRaw({FaIcon? icon, String? title, VoidCallback? onTap}) {
-    return Row(
-      children: [
-        icon!,
-        const SizedBox(
-          width: 15,
-        ),
-        Text(
-          title!,
-          style: const TextStyle(
-              fontSize: 14,
-              color: ColorConstant.black,
-              fontWeight: FontWeight.w500),
-        )
-      ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          icon!,
+          const SizedBox(
+            width: 15,
+          ),
+          Text(
+            title!,
+            style: const TextStyle(
+                fontSize: 14,
+                color: ColorConstant.black,
+                fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
     );
   }
 }
