@@ -108,9 +108,9 @@ class _CommonDrawerState extends State<CommonDrawer> {
                 height: 20,
               ),
               commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.gear),
+                icon: const FaIcon(FontAwesomeIcons.dollar),
                 onTap: () {},
-                title: "Setting",
+                title: "Payments",
               ),
               const SizedBox(
                 height: 20,
