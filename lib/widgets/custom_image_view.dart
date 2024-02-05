@@ -19,7 +19,10 @@ class CustomImage extends StatelessWidget {
         ? SizedBox(
             height: height,
             width: width,
-            child: Image.asset(imagePath!, fit: BoxFit.contain),
+            child: Image.asset(
+              imagePath!,
+              fit: BoxFit.fill,
+            ),
           )
         : (imagePath != null && imagePath!.isNotEmpty)
             ? ClipRRect(

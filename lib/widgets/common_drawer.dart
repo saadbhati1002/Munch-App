@@ -1,5 +1,6 @@
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
+import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -78,7 +79,14 @@ class _CommonDrawerState extends State<CommonDrawer> {
               ),
               commonRaw(
                 icon: const FaIcon(FontAwesomeIcons.bookOpen),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyPlanesScreen(),
+                    ),
+                  );
+                },
                 title: "My Plans",
               ),
               const SizedBox(
