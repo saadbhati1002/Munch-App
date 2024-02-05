@@ -53,7 +53,6 @@ class CustomSearchTextField extends StatelessWidget {
   final BuildContext? context;
   final BoxConstraints? suffixConstraints;
   final bool? isMaxLine;
-
   final FormFieldValidator<String>? validator;
 
   @override
