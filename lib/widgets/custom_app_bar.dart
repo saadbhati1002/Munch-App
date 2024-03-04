@@ -1,3 +1,4 @@
+import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,12 @@ customAppBar(
     automaticallyImplyLeading: false,
     title: GestureDetector(
       onTap: () {
-        // Get.to(() => const ProfileScreen());
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfileScreen(),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
