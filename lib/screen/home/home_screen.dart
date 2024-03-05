@@ -1,6 +1,7 @@
 import 'package:app/api/repository/banner/banner.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/banner/banner_model.dart';
+import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/recipe_detail_screen.dart/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
@@ -9,6 +10,7 @@ import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/show_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isRecipe = true;
   bool isBannerLoading = false;
   bool isRecipeLoading = false;
+  bool isLoading = false;
+
   @override
   void initState() {
     _getData();
@@ -88,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           recipeList[i].isVideoThumbnailLoading = true;
         });
-        print("${AppConstant.imagePath}${recipeList[i].media}");
+
         recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
             video: "${AppConstant.imagePath}${recipeList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,
@@ -114,166 +118,184 @@ class _HomeScreenState extends State<HomeScreen> {
         _key,
         context: context,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              width: MediaQuery.of(context).size.width,
-              height: 45,
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                color: ColorConstant.white,
-                borderRadius: BorderRadius.circular(22),
-                border: Border.all(width: 1, color: ColorConstant.greyColor),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: ColorConstant.greyColor,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Search for Recipes",
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: ColorConstant.greyColor,
-                          fontWeight: FontWeight.w400),
-                    )
-                  ],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: isBannerLoading ? errorImageBuilder() : mainSlider(),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * .75,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.greyColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  width: MediaQuery.of(context).size.width,
+                  height: 45,
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    borderRadius: BorderRadius.circular(22),
+                    border:
+                        Border.all(width: 1, color: ColorConstant.greyColor),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isRecipe = true;
-                            });
-                          },
-                          child: Container(
-                            height: 35,
-                            width: MediaQuery.of(context).size.width * .375,
-                            decoration: BoxDecoration(
-                              color: isRecipe
-                                  ? ColorConstant.mainColor
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Recipe",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: isRecipe
-                                      ? ColorConstant.white
-                                      : ColorConstant.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
+                        Icon(
+                          Icons.search,
+                          color: ColorConstant.greyColor,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isRecipe = false;
-                            });
-                          },
-                          child: Container(
-                            height: 35,
-                            width: MediaQuery.of(context).size.width * .375,
-                            decoration: BoxDecoration(
-                              color: !isRecipe
-                                  ? ColorConstant.mainColor
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Articles",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: !isRecipe
-                                      ? ColorConstant.white
-                                      : ColorConstant.greyDarkColor,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
+                        SizedBox(
+                          width: 10,
                         ),
+                        Text(
+                          "Search for Recipes",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: ColorConstant.greyColor,
+                              fontWeight: FontWeight.w400),
+                        )
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            isRecipeLoading == false
-                ? ListView.builder(
-                    itemCount: recipeList.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RecipeDetailScreen(),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: isBannerLoading ? errorImageBuilder() : mainSlider(),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * .75,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: ColorConstant.greyColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isRecipe = true;
+                                });
+                              },
+                              child: Container(
+                                height: 35,
+                                width: MediaQuery.of(context).size.width * .375,
+                                decoration: BoxDecoration(
+                                  color: isRecipe
+                                      ? ColorConstant.mainColor
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Recipe",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isRecipe
+                                          ? ColorConstant.white
+                                          : ColorConstant.black,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
                             ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isRecipe = false;
+                                });
+                              },
+                              child: Container(
+                                height: 35,
+                                width: MediaQuery.of(context).size.width * .375,
+                                decoration: BoxDecoration(
+                                  color: !isRecipe
+                                      ? ColorConstant.mainColor
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Articles",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: !isRecipe
+                                          ? ColorConstant.white
+                                          : ColorConstant.greyDarkColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                isRecipeLoading == false
+                    ? ListView.builder(
+                        itemCount: recipeList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RecipeDetailScreen(),
+                                ),
+                              );
+                            },
+                            child: recipeListWidget(
+                                context: context,
+                                recipeData: recipeList[index],
+                                onTap: () {
+                                  if (recipeList[index].isLikedByMe == true) {
+                                    _recipeUnlike(
+                                        recipeID: recipeList[index].id,
+                                        index: index);
+                                  } else {
+                                    _recipeLike(
+                                      recipeID: recipeList[index].id,
+                                      index: index,
+                                    );
+                                  }
+                                }),
                           );
                         },
-                        child: recipeListWidget(
-                          context: context,
-                          recipeData: recipeList[index],
-                        ),
-                      );
-                    },
-                  )
-                : ListView.builder(
-                    itemCount: 10,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return recipeSkeleton();
-                    },
-                  ),
-          ],
-        ),
+                      )
+                    : ListView.builder(
+                        itemCount: 10,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return recipeSkeleton();
+                        },
+                      ),
+              ],
+            ),
+          ),
+          isLoading ? const ShowProgressBar() : const SizedBox()
+        ],
       ),
     );
   }
@@ -367,5 +389,55 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  _recipeLike({String? recipeID, int? index}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      LikeUnlikeRes response =
+          await RecipeRepository().recipeLikeApiCall(recipeID: recipeID);
+      if (response.success == true) {
+        recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
+        recipeList[index].isLikedByMe = true;
+        toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+        if (response.message!.trim() == "You are already Like This Recipy.") {
+          recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
+          recipeList[index].isLikedByMe = true;
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  _recipeUnlike({String? recipeID, int? index}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      LikeUnlikeRes response =
+          await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
+      if (response.success == true) {
+        recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
+        recipeList[index].isLikedByMe = false;
+        toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

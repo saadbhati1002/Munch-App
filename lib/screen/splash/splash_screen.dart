@@ -6,7 +6,6 @@ import 'package:app/screen/dashboard/dashboard_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

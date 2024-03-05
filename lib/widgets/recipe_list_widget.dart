@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 Widget recipeListWidget(
-    {BuildContext? context, RecipeData? recipeData, String? videoPath}) {
+    {BuildContext? context, RecipeData? recipeData, VoidCallback? onTap}) {
   return SizedBox(
     width: MediaQuery.of(context!).size.width,
     child: Column(
@@ -140,24 +140,29 @@ Widget recipeListWidget(
                   color: ColorConstant.greyColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.favorite,
-                      color: ColorConstant.mainColor,
-                      size: 18,
-                    ),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    Text(
-                      "${recipeData.likeCount} Likes",
-                      style: const TextStyle(
-                          fontSize: 12,
-                          color: ColorConstant.black,
-                          fontWeight: FontWeight.w400),
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: recipeData.isLikedByMe == true
+                            ? ColorConstant.mainColor
+                            : ColorConstant.greyDarkColor,
+                        size: 18,
+                      ),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      Text(
+                        "${recipeData.likeCount} Likes",
+                        style: const TextStyle(
+                            fontSize: 12,
+                            color: ColorConstant.black,
+                            fontWeight: FontWeight.w400),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

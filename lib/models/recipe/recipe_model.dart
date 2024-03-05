@@ -28,6 +28,7 @@ class RecipeRes {
 }
 
 class RecipeData {
+  String? id;
   String? nameDish;
   List<String>? categories;
   String? media;
@@ -68,9 +69,11 @@ class RecipeData {
       userImage,
       this.isLikedByMe,
       this.likeCount,
-      this.isVideoThumbnailLoading});
+      this.isVideoThumbnailLoading,
+      this.id});
 
   RecipeData.fromJson(Map<String, dynamic> json) {
+    id = json['id'].toString();
     nameDish = json['name_dish'];
     categories = json['categories'].cast<String>();
     media = json['media'];
@@ -91,6 +94,7 @@ class RecipeData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['name_dish'] = nameDish;
     data['categories'] = categories;
     data['media'] = media;
