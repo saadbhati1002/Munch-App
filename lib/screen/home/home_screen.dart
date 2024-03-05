@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           recipeList[i].isVideoThumbnailLoading = true;
         });
+        print("${AppConstant.imagePath}${recipeList[i].media}");
         recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
             video: "${AppConstant.imagePath}${recipeList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,

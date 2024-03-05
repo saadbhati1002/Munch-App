@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/models/recipe/recipe_model.dart';
+import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
@@ -8,6 +9,7 @@ import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 Widget recipeListWidget(
     {BuildContext? context, RecipeData? recipeData, String? videoPath}) {
@@ -52,38 +54,46 @@ Widget recipeListWidget(
           height: 15,
         ),
         recipeData.media.toString().contains('.mp4')
-            ? SizedBox(
-                width: MediaQuery.of(context).size.width * 1,
-                height: MediaQuery.of(context).size.height * .45,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 1,
-                      height: MediaQuery.of(context).size.height * .45,
-                      child: recipeData.isVideoThumbnailLoading == true
-                          ? Container(
-                              color: ColorConstant.white,
-                            )
-                          : Image.file(
-                              File(recipeData.videoThumbnail ?? ""),
-                              fit: BoxFit.fill,
-                            ),
-                    ),
-                    Center(
-                      child: Container(
-                        height: 45,
-                        width: 45,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorConstant.greyColor),
-                        child: const Icon(
-                          Icons.play_arrow,
-                          size: 35,
-                          color: ColorConstant.mainColor,
-                        ),
+            ? GestureDetector(
+                onTap: () {
+                  Get.to(() => VideoPlayerScreen(
+                        videoPath:
+                            "${AppConstant.imagePath}${recipeData.media}",
+                      ));
+                },
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * .45,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 1,
+                        height: MediaQuery.of(context).size.height * .45,
+                        child: recipeData.isVideoThumbnailLoading == true
+                            ? Container(
+                                color: ColorConstant.white,
+                              )
+                            : Image.file(
+                                File(recipeData.videoThumbnail ?? ""),
+                                fit: BoxFit.fill,
+                              ),
                       ),
-                    )
-                  ],
+                      Center(
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorConstant.greyColor),
+                          child: const Icon(
+                            Icons.play_arrow,
+                            size: 35,
+                            color: ColorConstant.mainColor,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             : CustomImage(
