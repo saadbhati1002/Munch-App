@@ -470,6 +470,54 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.2.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_ios-6.2.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_linux-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_macos-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_platform_interface-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_web-2.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_windows-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "uuid",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.3.3",
       "packageUri": "lib/",
@@ -506,7 +554,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-04T17:18:31.346942Z",
+  "generated": "2024-03-05T09:54:12.094438Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

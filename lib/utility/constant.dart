@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppConstant {
   static const String appName = 'Munch Monday';
   static const String baseUrl = 'https://alghurfah.net/munch/public/api/';
+  static const String imagePath = 'https://alghurfah.net/munch/public/';
   static String bearerToken = "null";
   static UserData? userData;
   static userDetailSaved(String userDetail) async {

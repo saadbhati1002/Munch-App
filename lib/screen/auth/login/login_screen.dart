@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:app/api/repository/auth.dart';
+import 'package:app/api/repository/auth/auth.dart';
 import 'package:app/models/user/user_model.dart';
 import 'package:app/screen/auth/forgot_password/forgot_password_screen.dart';
 import 'package:app/screen/auth/signup/signup_screen.dart';
-import 'package:app/screen/dashboard/dashborad_screen.dart';
+import 'package:app/screen/dashboard/dashboard_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';

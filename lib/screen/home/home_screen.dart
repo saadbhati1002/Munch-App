@@ -1,12 +1,17 @@
+import 'package:app/api/repository/banner/banner.dart';
+import 'package:app/models/banner/banner_model.dart';
 import 'package:app/screen/recipe/recipe_detail_screen.dart/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,8 +22,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List mainBannerList = [Images.slider, Images.slider, Images.slider];
+  List<BannerData> bannerList = [];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   bool isRecipe = true;
+  bool isBannerLoading = false;
+  @override
+  void initState() {
+    _getData();
+    super.initState();
+  }
+
+  _getData() async {
+    await _getBanners();
+  }
+
+  Future _getBanners() async {
+    try {
+      setState(() {
+        isBannerLoading = true;
+      });
+      BannerRes response = await BannerRepository().getBannerApiCall();
+      if (response.data.isNotEmpty) {
+        bannerList = response.data;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isBannerLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: mainSlider(),
+              child: isBannerLoading ? errorImageBuilder() : mainSlider(),
             ),
             const SizedBox(
               height: 40,
@@ -188,55 +222,40 @@ class _HomeScreenState extends State<HomeScreen> {
         scale: 0.75,
         pagination: const SwiperPagination(),
         viewportFraction: 0.95,
-        itemCount: mainBannerList.length,
+        itemCount: bannerList.length,
         onTap: (index) {
-          // if (sponsorBannerList[index].bannerLink != null ||
-          //     sponsorBannerList[index].bannerLink != "") {
-          //   launchUrl(Uri.parse(sponsorBannerList[index].bannerLink!));
-          // }
+          if (bannerList[index].url != null || bannerList[index].url != "") {
+            launchUrl(Uri.parse(bannerList[index].url!));
+          }
         },
         itemBuilder: (context, index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * .23,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+          return CachedNetworkImage(
+            imageUrl: "${AppConstant.imagePath}${bannerList[index].image!}",
+            imageBuilder: (context, imageProvider) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * .75,
+                  height: MediaQuery.of(context).size.height * .25,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                image: DecorationImage(
-                    image: AssetImage(Images.slider), fit: BoxFit.fill),
-              ),
-            ),
+              );
+            },
+            placeholder: (context, url) {
+              return errorImageBuilder();
+            },
+            errorWidget: (context, url, error) {
+              return errorImageBuilder();
+            },
           );
-          //  CachedNetworkImage(
-          //   imageUrl: sponsorBannerList[index].bannerImage!,
-          //   imageBuilder: (context, imageProvider) {
-          //     return ClipRRect(
-          //       borderRadius: BorderRadius.circular(15),
-          //       child: Container(
-          //         width: MediaQuery.of(context).size.width * .75,
-          //         height: MediaQuery.of(context).size.height * .25,
-          //         decoration: BoxDecoration(
-          //           borderRadius: const BorderRadius.all(
-          //             Radius.circular(5),
-          //           ),
-          //           image: DecorationImage(
-          //             image: imageProvider,
-          //             fit: BoxFit.cover,
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   },
-          //   placeholder: (context, url) {
-          //     return errorImageBuilder();
-          //   },
-          //   errorWidget: (context, url, error) {
-          //     return errorImageBuilder();
-          //   },
-          // );
         },
       ),
     );

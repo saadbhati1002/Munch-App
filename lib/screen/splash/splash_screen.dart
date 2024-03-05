@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:app/models/user/user_model.dart';
 import 'package:app/screen/auth/login/login_screen.dart';
-import 'package:app/screen/dashboard/dashborad_screen.dart';
+import 'package:app/screen/dashboard/dashboard_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
