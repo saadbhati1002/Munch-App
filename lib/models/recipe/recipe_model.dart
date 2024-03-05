@@ -46,6 +46,8 @@ class RecipeData {
   String? userImage;
   int? likeCount = 0;
   bool? isLikedByMe = false;
+  String? videoThumbnail;
+  bool? isVideoThumbnailLoading = false;
 
   RecipeData(
       {nameDish,
@@ -65,7 +67,8 @@ class RecipeData {
       user,
       userImage,
       this.isLikedByMe,
-      this.likeCount});
+      this.likeCount,
+      this.isVideoThumbnailLoading});
 
   RecipeData.fromJson(Map<String, dynamic> json) {
     nameDish = json['name_dish'];

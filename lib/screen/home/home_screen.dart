@@ -12,8 +12,10 @@ import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,9 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       debugPrint(e.toString());
     } finally {
-      setState(() {
-        isBannerLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          isBannerLoading = false;
+        });
+      }
     }
   }
 
@@ -65,13 +69,37 @@ class _HomeScreenState extends State<HomeScreen> {
       RecipeRes response = await RecipeRepository().getRecipesApiCall();
       if (response.data.isNotEmpty) {
         recipeList = response.data;
+        _getVideoThumbnail();
       }
     } catch (e) {
       debugPrint(e.toString());
     } finally {
-      setState(() {
-        isRecipeLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          isRecipeLoading = false;
+        });
+      }
+    }
+  }
+
+  Future _getVideoThumbnail() async {
+    for (int i = 0; i < recipeList.length; i++) {
+      if (recipeList[i].media.toString().contains(".mp4")) {
+        setState(() {
+          recipeList[i].isVideoThumbnailLoading = true;
+        });
+        recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
+            video: "${AppConstant.imagePath}${recipeList[i].media}",
+            thumbnailPath: (await getTemporaryDirectory()).path,
+            imageFormat: ImageFormat.PNG,
+            quality: 75,
+            maxHeight: 100);
+        if (mounted) {
+          setState(() {
+            recipeList[i].isVideoThumbnailLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -228,7 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         child: recipeListWidget(
-                            context: context, recipeData: recipeList[index]),
+                          context: context,
+                          recipeData: recipeList[index],
+                        ),
                       );
                     },
                   )
@@ -328,7 +358,9 @@ class _HomeScreenState extends State<HomeScreen> {
             themeMode: ThemeMode.light,
             child: SkeletonAvatar(
               style: SkeletonAvatarStyle(
-                  height: 150, width: MediaQuery.of(context).size.width),
+                height: MediaQuery.of(context).size.height * .4,
+                width: MediaQuery.of(context).size.width,
+              ),
             ),
           ),
         ),
