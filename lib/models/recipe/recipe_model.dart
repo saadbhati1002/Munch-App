@@ -44,7 +44,7 @@ class RecipeData {
   String? isApproved;
   String? user;
   String? userImage;
-  int? likeCount;
+  int? likeCount = 0;
   bool? isLikedByMe = false;
 
   RecipeData(

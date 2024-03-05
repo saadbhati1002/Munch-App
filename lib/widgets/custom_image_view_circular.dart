@@ -1,4 +1,5 @@
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,7 +20,7 @@ class CustomImageCircular extends StatelessWidget {
         ? ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: CachedNetworkImage(
-              imageUrl: imagePath!,
+              imageUrl: "${AppConstant.imagePath}$imagePath",
               imageBuilder: (context, imageProvider) {
                 return Container(
                   height: height,

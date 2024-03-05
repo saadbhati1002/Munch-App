@@ -1,10 +1,13 @@
+import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:app/widgets/custom_image_view.dart';
+import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget recipeListWidget({BuildContext? context}) {
+Widget recipeListWidget({BuildContext? context, RecipeData? recipeData}) {
   return SizedBox(
     width: MediaQuery.of(context!).size.width,
     child: Column(
@@ -18,24 +21,24 @@ Widget recipeListWidget({BuildContext? context}) {
         const SizedBox(
           height: 15,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomImage(
-                imagePath: "",
+              CustomImageCircular(
+                imagePath: recipeData!.userImage ?? "",
                 height: 35,
                 width: 35,
               ),
               Text(
-                "Demo User",
-                style: TextStyle(
-                    fontSize: 13,
+                recipeData.user ?? AppConstant.appName,
+                style: const TextStyle(
+                    fontSize: 14,
                     color: ColorConstant.black,
                     fontWeight: FontWeight.w500),
               ),
-              FaIcon(
+              const FaIcon(
                 FontAwesomeIcons.ellipsis,
                 color: ColorConstant.black,
               )
@@ -45,14 +48,13 @@ Widget recipeListWidget({BuildContext? context}) {
         const SizedBox(
           height: 15,
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 1,
-          height: MediaQuery.of(context).size.height * .45,
-          child: Image.asset(
-            Images.recipe,
-            fit: BoxFit.fill,
-          ),
-        ),
+        recipeData.media.toString().contains('.mp4')
+            ? const SizedBox()
+            : CustomImage(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * .45,
+                imagePath: recipeData.media,
+              ),
         const SizedBox(
           height: 15,
         ),
@@ -92,19 +94,19 @@ Widget recipeListWidget({BuildContext? context}) {
                   color: ColorConstant.greyColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.favorite,
                       color: ColorConstant.mainColor,
                       size: 18,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 7,
                     ),
                     Text(
-                      "102 Likes",
-                      style: TextStyle(
+                      "${recipeData.likeCount} Likes",
+                      style: const TextStyle(
                           fontSize: 12,
                           color: ColorConstant.black,
                           fontWeight: FontWeight.w400),
@@ -140,24 +142,27 @@ Widget recipeListWidget({BuildContext? context}) {
         const SizedBox(
           height: 15,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SizedBox(
-            child: Text.rich(
-              TextSpan(
-                children: [
+            child: RichText(
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                text: 'Hello ',
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
                   TextSpan(
-                    text: 'Name of the dish - ',
-                    style: TextStyle(
+                    text: '${recipeData.nameDish} - ',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: ColorConstant.mainColor,
                       fontSize: 14,
                     ),
                   ),
                   TextSpan(
-                    text:
-                        'how to prepare or make something, especially a of prepared food. A sub-recipe or sub recipe is a recipe for an that will be called for in the instructions for the main recipe.',
-                    style: TextStyle(
+                    text: recipeData.smallDesc,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: ColorConstant.black,
                       fontSize: 14,
@@ -173,13 +178,20 @@ Widget recipeListWidget({BuildContext? context}) {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              categoryBox(title: "Indian", context: context),
-              categoryBox(title: "Spicy", context: context),
-              categoryBox(title: "Italian", context: context),
-            ],
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 10.0,
+              childAspectRatio: 4,
+              crossAxisSpacing: 12,
+            ),
+            itemCount: recipeData.categories!.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return categoryBox(
+                  title: recipeData.categories![index], context: context);
+            },
           ),
         ),
         const SizedBox(
@@ -196,7 +208,7 @@ Widget categoryBox({String? title, BuildContext? context}) {
     width: MediaQuery.of(context!).size.width * .29,
     decoration: BoxDecoration(
       color: ColorConstant.mainColor,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(15),
     ),
     alignment: Alignment.center,
     child: Text(

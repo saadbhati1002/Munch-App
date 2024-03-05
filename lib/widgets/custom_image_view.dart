@@ -1,4 +1,5 @@
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,15 +29,12 @@ class CustomImage extends StatelessWidget {
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: CachedNetworkImage(
-                  imageUrl: imagePath!,
+                  imageUrl: "${AppConstant.imagePath}$imagePath",
                   imageBuilder: (context, imageProvider) {
                     return Container(
                       height: height,
                       width: width,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(5),
-                        ),
                         image: DecorationImage(
                           image: imageProvider,
                           fit: BoxFit.cover,
@@ -55,7 +53,6 @@ class CustomImage extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: ColorConstant.white,
-                          shape: BoxShape.circle,
                           border: Border.all(
                               width: 1, color: ColorConstant.greyColor),
                           image: const DecorationImage(
