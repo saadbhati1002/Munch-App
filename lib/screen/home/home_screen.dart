@@ -1,5 +1,7 @@
 import 'package:app/api/repository/banner/banner.dart';
+import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/banner/banner_model.dart';
+import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/recipe_detail_screen.dart/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -23,9 +25,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List mainBannerList = [Images.slider, Images.slider, Images.slider];
   List<BannerData> bannerList = [];
+  List<RecipeData> recipeList = [];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   bool isRecipe = true;
   bool isBannerLoading = false;
+  bool isRecipeLoading = false;
   @override
   void initState() {
     _getData();
@@ -33,14 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _getData() async {
+    setState(() {
+      isBannerLoading = true;
+      isRecipeLoading = true;
+    });
     await _getBanners();
+    await _getRecipeList();
   }
 
   Future _getBanners() async {
     try {
-      setState(() {
-        isBannerLoading = true;
-      });
       BannerRes response = await BannerRepository().getBannerApiCall();
       if (response.data.isNotEmpty) {
         bannerList = response.data;
@@ -50,6 +56,21 @@ class _HomeScreenState extends State<HomeScreen> {
     } finally {
       setState(() {
         isBannerLoading = false;
+      });
+    }
+  }
+
+  Future _getRecipeList() async {
+    try {
+      RecipeRes response = await RecipeRepository().getRecipesApiCall();
+      if (response.data.isNotEmpty) {
+        recipeList = response.data;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isRecipeLoading = false;
       });
     }
   }
@@ -191,23 +212,34 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 40,
             ),
-            ListView.builder(
-              itemCount: 5,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RecipeDetailScreen(),
-                        ),
-                      );
+            isRecipeLoading == false
+                ? ListView.builder(
+                    itemCount: recipeList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const RecipeDetailScreen(),
+                              ),
+                            );
+                          },
+                          child: recipeListWidget(context: context));
                     },
-                    child: recipeListWidget(context: context));
-              },
-            ),
+                  )
+                : ListView.builder(
+                    itemCount: 10,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return recipeSkeleton();
+                    },
+                  ),
           ],
         ),
       ),
@@ -272,6 +304,31 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BoxShape.rectangle,
             height: MediaQuery.of(context).size.height * .24,
             width: MediaQuery.of(context).size.width * 1,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget recipeSkeleton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Material(
+        elevation: 2,
+        borderRadius: BorderRadius.circular(10),
+        shadowColor: ColorConstant.mainColor,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
+          ),
+          child: SkeletonTheme(
+            themeMode: ThemeMode.light,
+            child: SkeletonAvatar(
+              style: SkeletonAvatarStyle(
+                  height: 150, width: MediaQuery.of(context).size.width),
+            ),
           ),
         ),
       ),
