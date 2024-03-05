@@ -1,6 +1,7 @@
 import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/utility/color.dart';
-import 'package:app/widgets/custom_image_view.dart';
+import 'package:app/utility/constant.dart';
+import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -30,20 +31,20 @@ customAppBar(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomImage(
+            CustomImageCircular(
               height: 45,
               width: 45,
-              imagePath: "",
+              imagePath: AppConstant.userData!.image ?? '',
             ),
             const SizedBox(
               width: 10,
             ),
             SizedBox(
               width: MediaQuery.of(context!).size.width * .56,
-              child: const Text(
-                "Demo User",
+              child: Text(
+                AppConstant.userData!.name ?? AppConstant.appName,
                 maxLines: 1,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     color: ColorConstant.black,
                     fontWeight: FontWeight.w700),

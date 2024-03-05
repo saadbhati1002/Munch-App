@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
-class CustomImage extends StatelessWidget {
+class CustomImageCircular extends StatelessWidget {
   final double? width;
   final double? height;
   final String? imagePath;
   final bool? isFromAppBar;
 
-  const CustomImage(
+  const CustomImageCircular(
       {super.key, this.height, this.imagePath, this.width, this.isFromAppBar});
 
   @override
