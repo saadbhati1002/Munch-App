@@ -12,6 +12,7 @@ import 'package:app/widgets/common_button.dart';
 import 'package:app/widgets/common_text_field.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/show_progress_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -167,23 +168,23 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: passwordController,
                         context: context,
                         isObscureText: passwordVisibility,
-                        suffix: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              passwordVisibility = !passwordVisibility;
-                            });
-                          },
-                          child: Icon(
-                            passwordVisibility
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
-                            size: 17,
-                          ),
-                        ),
+                        // suffix: GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       passwordVisibility = !passwordVisibility;
+                        //     });
+                        //   },
+                        //   child: Icon(
+                        //     passwordVisibility
+                        //         ? Icons.visibility_off
+                        //         : Icons.remove_red_eye,
+                        //     size: 17,
+                        //   ),
+                        // ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      // const SizedBox(
+                      //   height: 17,
+                      // ),
                       commonTextFieldText(title: 'Your Bio'),
                       CustomTextFormField(
                         controller: bioController,
@@ -232,7 +233,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (context) => const LoginScreen(),
                         ),
                       );
@@ -408,6 +409,8 @@ class _SignupScreenState extends State<SignupScreen> {
       if (response.success == true) {
         AppConstant.bearerToken = response.data!.token!;
         AppConstant.userData = response.data;
+        response.data!.userEmail = emailController.text.trim();
+        response.data!.userBio = bioController.text.trim();
         await AppConstant.userDetailSaved(json.encode(response));
         toastShow(message: response.message);
         Get.to(() => const DashBoardScreen());

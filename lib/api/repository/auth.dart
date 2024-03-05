@@ -22,4 +22,9 @@ class AuthRepository {
     });
     return await AuthNetwork.registerUser(body);
   }
+
+  Future<dynamic> userLoginApiCall({String? email, String? password}) async {
+    final params = {"email": email, "password": password};
+    return await AuthNetwork.loginUser(params);
+  }
 }
