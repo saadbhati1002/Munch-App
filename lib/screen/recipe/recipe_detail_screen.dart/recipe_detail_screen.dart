@@ -169,8 +169,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const RecipeCommentsScreen(),
+                                builder: (context) => RecipeCommentsScreen(
+                                  recipeID: widget.recipeData!.id,
+                                ),
                               ),
                             );
                           },

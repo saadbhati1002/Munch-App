@@ -18,4 +18,22 @@ class RecipeRepository {
     };
     return await RecipeNetwork.recipeUnlike(pram);
   }
+
+  Future<dynamic> getCommentListApiCall({String? recipeID}) async {
+    return await RecipeNetwork.getCommentList(recipeID);
+  }
+
+  Future<dynamic> commentLikeApiCall({String? commentID}) async {
+    final pram = {
+      "id": commentID,
+    };
+    return await RecipeNetwork.commentLike(pram);
+  }
+
+  Future<dynamic> commentUnlikeApiCall({String? commentID}) async {
+    final pram = {
+      "id": commentID,
+    };
+    return await RecipeNetwork.commentUnlike(pram);
+  }
 }

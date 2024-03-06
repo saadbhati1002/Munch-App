@@ -1,10 +1,15 @@
+import 'package:app/models/recipe/comment/comment_model.dart';
 import 'package:app/utility/color.dart';
-import 'package:app/utility/images.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
 
 Widget commonCommentWidget(
-    {BuildContext? context, bool? isComment, bool? isQuestionReply}) {
+    {BuildContext? context,
+    bool? isComment,
+    bool? isQuestionReply,
+    CommentData? commentData,
+    VoidCallback? onLikeUnlikeTap}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
     color: isQuestionReply == true ? Colors.transparent : ColorConstant.white,
@@ -21,23 +26,23 @@ Widget commonCommentWidget(
         const SizedBox(
           height: 15,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomImage(
-                imagePath: Images.logo,
-                isAssetsImage: true,
+                imagePath: commentData!.userImage,
+                isAssetsImage: false,
                 height: 25,
                 width: 25,
               ),
-              SizedBox(
-                width: 5,
+              const SizedBox(
+                width: 7,
               ),
               Text(
-                "Demo User",
-                style: TextStyle(
+                commentData.userName ?? AppConstant.appName,
+                style: const TextStyle(
                     fontSize: 13,
                     color: ColorConstant.black,
                     fontWeight: FontWeight.w500),
@@ -48,11 +53,11 @@ Widget commonCommentWidget(
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            "Best recipe ever",
-            style: TextStyle(
+            commentData.title ?? AppConstant.appName,
+            style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: ColorConstant.black),
@@ -61,11 +66,11 @@ Widget commonCommentWidget(
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            "A recipe is a set of instructions that describes how to prepare or make something, especially a of prepared food. A sub-recipe or sub recipe is a recipe for an that will be called for in the instructions for the main recipe.",
-            style: TextStyle(
+            commentData.description ?? AppConstant.appName,
+            style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: ColorConstant.black),
@@ -79,20 +84,25 @@ Widget commonCommentWidget(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.favorite,
-                    color: ColorConstant.greyColor,
-                    size: 17,
+                  GestureDetector(
+                    onTap: onLikeUnlikeTap,
+                    child: Icon(
+                      Icons.favorite,
+                      color: commentData.isLikedByMe
+                          ? ColorConstant.mainColor
+                          : ColorConstant.greyColor,
+                      size: 17,
+                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "100 Likes",
-                    style: TextStyle(
+                    "${commentData.count} Likes",
+                    style: const TextStyle(
                         fontSize: 12,
                         color: ColorConstant.black,
                         fontWeight: FontWeight.w500),
