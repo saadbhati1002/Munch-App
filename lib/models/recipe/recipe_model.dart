@@ -37,7 +37,7 @@ class RecipeData {
   String? cookingTime;
   String? smallDesc;
   String? servingPotions;
-  String? ingredientList;
+  List ingredientList = [];
   String? method;
   String? methodTagline;
   String? chefsWhisper;
@@ -82,7 +82,7 @@ class RecipeData {
     cookingTime = json['cooking_time'];
     smallDesc = json['small_desc'];
     servingPotions = json['serving_potions'];
-    ingredientList = json['ingredient_list'];
+    ingredientList = json['ingredient_list'].split(',');
     method = json['method'];
     methodTagline = json['method_tagline'];
     chefsWhisper = json['chefs_whisper'];

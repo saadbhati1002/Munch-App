@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/api/repository/banner/banner.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/banner/banner_model.dart';
@@ -14,6 +16,7 @@ import 'package:app/widgets/show_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -255,14 +258,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RecipeDetailScreen(),
+                            onTap: () async {
+                              print("saad");
+                              var response = await Get.to(
+                                () => RecipeDetailScreen(
+                                  recipeData: recipeList[index],
                                 ),
                               );
+                              if (response != null) {
+                                if (response == 0 &&
+                                    recipeList[index].isLikedByMe == false) {
+                                  recipeList[index].isLikedByMe = true;
+                                  recipeList[index].likeCount =
+                                      recipeList[index].likeCount! + 1;
+                                } else if (response == 1 &&
+                                    recipeList[index].isLikedByMe == true) {
+                                  recipeList[index].isLikedByMe = false;
+                                  recipeList[index].likeCount =
+                                      recipeList[index].likeCount! - 1;
+                                }
+                                setState(() {});
+                              }
                             },
                             child: recipeListWidget(
                                 context: context,
