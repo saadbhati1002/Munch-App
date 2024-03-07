@@ -12,6 +12,9 @@ class RecipeNetwork {
   static const String commentListUrl = "comments?id=";
   static const String commentLikeUrl = "comment/like";
   static const String commentUnlikeUrl = "comment/unlike";
+  static const String recipeAddToCalenderUrl = "recipy/calender";
+  static const String recipeRemoveFromCalenderUrl = "recipy/calender/delete";
+  static const String calenderRecipeUrl = "recipy/calenders";
 
   static Future<dynamic> getRecipeList() async {
     final result = await httpManager.get(url: recipeUrl);

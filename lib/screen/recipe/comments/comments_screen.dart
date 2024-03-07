@@ -44,6 +44,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
           .getCommentListApiCall(recipeID: widget.recipeID);
       if (response.comments.isNotEmpty) {
         commentList = response.comments;
+        await _checkForUserCommentLike();
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -52,6 +53,19 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
         isLoading = false;
       });
     }
+  }
+
+  Future _checkForUserCommentLike() async {
+    for (int i = 0; i < commentList.length; i++) {
+      commentList[i].count = commentList[i].likedUsers.length;
+      var contain = commentList[i].likedUsers.where(
+          (element) => element.id.toString() == AppConstant.userData!.id);
+      if (contain.isNotEmpty) {
+        commentList[i].isLikedByMe = true;
+      }
+    }
+    setState(() {});
+    return commentList;
   }
 
   @override
@@ -90,7 +104,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
               ),
             ),
           );
-          print(response);
+
           if (response != null) {
             CommentData newComment = CommentData.fromJson(jsonDecode(response));
             commentList.add(newComment);
@@ -214,12 +228,14 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                         : SizedBox(
                             height: MediaQuery.of(context).size.height * .45,
                             width: MediaQuery.of(context).size.width * 1,
-                            child: const Text(
-                              "No Comment Fount",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: ColorConstant.greyColor,
-                                  fontWeight: FontWeight.w500),
+                            child: const Center(
+                              child: Text(
+                                "No Comment Fount",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: ColorConstant.greyColor,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           )
                     : ListView.builder(
