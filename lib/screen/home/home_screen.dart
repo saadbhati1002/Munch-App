@@ -4,7 +4,8 @@ import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/banner/banner_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
-import 'package:app/screen/recipe/recipe_detail_screen.dart/recipe_detail_screen.dart';
+import 'package:app/screen/article/detail/article_detail_screen.dart';
+import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
@@ -373,26 +374,27 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () async {
-                                  // var response = await Get.to(
-                                  //   () => RecipeDetailScreen(
-                                  //     recipeData: recipeList[index],
-                                  //   ),
-                                  // );
-                                  // if (response != null) {
-                                  //   if (response == 0 &&
-                                  //       recipeList[index].isLikedByMe ==
-                                  //           false) {
-                                  //     recipeList[index].isLikedByMe = true;
-                                  //     recipeList[index].likeCount =
-                                  //         recipeList[index].likeCount! + 1;
-                                  //   } else if (response == 1 &&
-                                  //       recipeList[index].isLikedByMe == true) {
-                                  //     recipeList[index].isLikedByMe = false;
-                                  //     recipeList[index].likeCount =
-                                  //         recipeList[index].likeCount! - 1;
-                                  //   }
-                                  //   setState(() {});
-                                  // }
+                                  var response = await Get.to(
+                                    () => ArticleDetailScreen(
+                                      articleDate: articleList[index],
+                                    ),
+                                  );
+                                  if (response != null) {
+                                    if (response == 0 &&
+                                        articleList[index].isLikedByMe ==
+                                            false) {
+                                      articleList[index].isLikedByMe = true;
+                                      articleList[index].likeCount =
+                                          articleList[index].likeCount! + 1;
+                                    } else if (response == 1 &&
+                                        articleList[index].isLikedByMe ==
+                                            true) {
+                                      articleList[index].isLikedByMe = false;
+                                      articleList[index].likeCount =
+                                          articleList[index].likeCount! - 1;
+                                    }
+                                    setState(() {});
+                                  }
                                 },
                                 child: recipeListWidget(
                                     context: context,
