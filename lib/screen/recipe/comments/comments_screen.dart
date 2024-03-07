@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/recipe/comment/comment_model.dart';
@@ -80,13 +81,21 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
         },
       ),
       floatingActionButton: GestureDetector(
-        onTap: () {
-          Navigator.push(
+        onTap: () async {
+          var response = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddCommentScreen(),
+              builder: (context) => AddCommentScreen(
+                recipeID: widget.recipeID,
+              ),
             ),
           );
+          print(response);
+          if (response != null) {
+            CommentData newComment = CommentData.fromJson(jsonDecode(response));
+            commentList.add(newComment);
+            setState(() {});
+          }
         },
         child: Container(
             height: 38,
@@ -204,6 +213,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                           )
                         : SizedBox(
                             height: MediaQuery.of(context).size.height * .45,
+                            width: MediaQuery.of(context).size.width * 1,
                             child: const Text(
                               "No Comment Fount",
                               style: TextStyle(

@@ -19,6 +19,16 @@ class RecipeRepository {
     return await RecipeNetwork.recipeUnlike(pram);
   }
 
+  Future<dynamic> addCommentApiCall(
+      {String? recipeID, String? title, String? comment}) async {
+    final param = {
+      "recipy_id": recipeID,
+      "title": title,
+      "desc": comment,
+    };
+    return await RecipeNetwork.addComment(param);
+  }
+
   Future<dynamic> getCommentListApiCall({String? recipeID}) async {
     return await RecipeNetwork.getCommentList(recipeID);
   }

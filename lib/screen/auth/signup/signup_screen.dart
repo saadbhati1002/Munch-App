@@ -399,6 +399,7 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         isLoading = true;
       });
+      FocusManager.instance.primaryFocus?.unfocus();
       UserRes response = await AuthRepository().userRegisterApiCall(
         bio: bioController.text.trim(),
         email: emailController.text.trim(),

@@ -186,12 +186,14 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isLoading = true;
       });
+      FocusManager.instance.primaryFocus?.unfocus();
       UserRes response = await AuthRepository().userLoginApiCall(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
       if (response.success == true) {
         AppConstant.bearerToken = response.data!.token!;
+        print(AppConstant.bearerToken);
         AppConstant.userData = response.data;
         response.data!.userEmail = emailController.text.trim();
 
@@ -199,13 +201,13 @@ class _LoginScreenState extends State<LoginScreen> {
         toastShow(message: response.message);
         Get.to(() => const DashBoardScreen());
       } else {
-        toastShow(message: "Email already exists");
+        toastShow(message: "Invalid email or password");
       }
     } catch (e) {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = true;
+        isLoading = false;
       });
     }
   }
