@@ -48,6 +48,7 @@ class RecipeData {
   int? likeCount = 0;
   bool? isLikedByMe = false;
   String? videoThumbnail;
+  List<LikedUsers> likedUsers = [];
   bool? isVideoThumbnailLoading = false;
 
   RecipeData(
@@ -67,6 +68,7 @@ class RecipeData {
       isApproved,
       user,
       userImage,
+      likedUsers,
       this.isLikedByMe,
       this.likeCount,
       this.isVideoThumbnailLoading,
@@ -90,6 +92,13 @@ class RecipeData {
     isApproved = json['is_approved'];
     user = json['user'];
     userImage = json['user_image'];
+    likeCount = int.parse(json['like_count'] ?? '0');
+    if (json['liked_users'] != null) {
+      likedUsers = <LikedUsers>[];
+      json['liked_users'].forEach((v) {
+        likedUsers.add(LikedUsers.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -111,6 +120,28 @@ class RecipeData {
     data['is_approved'] = isApproved;
     data['user'] = user;
     data['user_image'] = userImage;
+    if (likedUsers.isNotEmpty) {
+      data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class LikedUsers {
+  int? id;
+  String? name;
+
+  LikedUsers({this.id, this.name});
+
+  LikedUsers.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

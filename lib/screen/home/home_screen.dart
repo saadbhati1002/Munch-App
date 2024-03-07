@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       RecipeRes response = await RecipeRepository().getRecipesApiCall();
       if (response.data.isNotEmpty) {
         recipeList = response.data;
+        _checkForUserRecipeLike();
         _getVideoThumbnail();
       }
     } catch (e) {
@@ -85,6 +86,17 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     }
+  }
+
+  _checkForUserRecipeLike() {
+    for (int i = 0; i < recipeList.length; i++) {
+      var contain = recipeList[i].likedUsers.where(
+          (element) => element.id.toString() == AppConstant.userData!.id);
+      if (contain.isNotEmpty) {
+        recipeList[i].isLikedByMe = true;
+      }
+    }
+    setState(() {});
   }
 
   Future _getVideoThumbnail() async {
