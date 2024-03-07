@@ -12,7 +12,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 Widget recipeListWidget(
-    {BuildContext? context, RecipeData? recipeData, VoidCallback? onTap}) {
+    {BuildContext? context,
+    RecipeData? recipeData,
+    VoidCallback? onTap,
+    bool? isFromRecipe}) {
   return SizedBox(
     width: MediaQuery.of(context!).size.width,
     child: Column(
@@ -224,27 +227,29 @@ Widget recipeListWidget(
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: isFromRecipe == true ? 10 : 0,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 10.0,
-              childAspectRatio: 4,
-              crossAxisSpacing: 12,
-            ),
-            itemCount: recipeData.categories!.length,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return categoryBox(
-                  title: recipeData.categories![index], context: context);
-            },
-          ),
-        ),
+        isFromRecipe == true
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10.0,
+                    childAspectRatio: 4,
+                    crossAxisSpacing: 12,
+                  ),
+                  itemCount: recipeData.categories!.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return categoryBox(
+                        title: recipeData.categories![index], context: context);
+                  },
+                ),
+              )
+            : const SizedBox(),
         const SizedBox(
           height: 20,
         ),

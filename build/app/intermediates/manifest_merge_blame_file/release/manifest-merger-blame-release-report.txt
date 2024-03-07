@@ -5,86 +5,185 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="19"
+8        android:minSdkVersion="22"
 8-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
-9        android:targetSdkVersion="33" />
+9        android:targetSdkVersion="34" />
 9-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
 10
-11    <application
-12        android:name="android.app.Application"
-12-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:4:9-42
-13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.6.0] C:\Users\saadb\.gradle\caches\transforms-3\d08c73bfb05384f2e52578171dbd141e\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
-14        android:enableOnBackInvokedCallback="true"
-14-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:6:9-51
-15        android:icon="@mipmap/ic_launcher"
-15-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:5:9-43
-16        android:label="Munch Monday" >
-16-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:3:9-37
-17        <activity
-17-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:7:9-27:20
-18            android:name="com.example.app.MainActivity"
-18-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:8:13-41
-19            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-19-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:12:13-163
-20            android:exported="true"
-20-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:9:13-36
-21            android:hardwareAccelerated="true"
-21-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-47
-22            android:launchMode="singleTop"
-22-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:10:13-43
-23            android:theme="@style/LaunchTheme"
-23-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:11:13-47
-24            android:windowSoftInputMode="adjustResize" >
-24-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:14:13-55
-25
-26            <!--
-27                 Specifies an Android theme to apply to this Activity as soon as
-28                 the Android process has started. This theme is visible to the user
-29                 while the Flutter UI initializes. After that, this theme continues
-30                 to determine the Window background behind the Flutter UI.
-31            -->
-32            <meta-data
-32-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:19:13-22:17
-33                android:name="io.flutter.embedding.android.NormalTheme"
-33-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:20:15-70
-34                android:resource="@style/NormalTheme" />
-34-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:21:15-52
-35
-36            <intent-filter>
-36-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:23:13-26:29
-37                <action android:name="android.intent.action.MAIN" />
-37-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:24:17-68
-37-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:24:25-66
-38
-39                <category android:name="android.intent.category.LAUNCHER" />
-39-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:25:17-76
-39-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:25:27-74
-40            </intent-filter>
-41        </activity>
-42        <!--
-43             Don't delete the meta-data below.
-44             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-45        -->
-46        <meta-data
-46-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:30:9-32:33
-47            android:name="flutterEmbedding"
-47-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:31:13-44
-48            android:value="2" />
-48-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:32:13-30
-49
-50        <uses-library
-50-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
-51            android:name="androidx.window.extensions"
-51-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
-52            android:required="false" />
-52-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
-53        <uses-library
-53-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
-54            android:name="androidx.window.sidecar"
-54-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
-55            android:required="false" />
-55-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
-56    </application>
-57
-58</manifest>
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:2:5-67
+11-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:2:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\98211325724c98e4e72cf2943cba61bf\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:5-79
+12-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\98211325724c98e4e72cf2943cba61bf\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:22-76
+13
+14    <permission
+14-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+15        android:name="com.example.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="com.example.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+19
+20    <application
+21        android:name="android.app.Application"
+21-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:6:9-42
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+23        android:enableOnBackInvokedCallback="true"
+23-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:8:9-51
+24        android:icon="@mipmap/ic_launcher"
+24-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:7:9-43
+25        android:label="Munch Monday" >
+25-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:5:9-37
+26        <activity
+26-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:9:9-29:20
+27            android:name="com.example.app.MainActivity"
+27-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:10:13-41
+28            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+28-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:14:13-163
+29            android:exported="true"
+29-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:11:13-36
+30            android:hardwareAccelerated="true"
+30-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:15:13-47
+31            android:launchMode="singleTop"
+31-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:12:13-43
+32            android:theme="@style/LaunchTheme"
+32-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-47
+33            android:windowSoftInputMode="adjustResize" >
+33-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:16:13-55
+34
+35            <!--
+36                 Specifies an Android theme to apply to this Activity as soon as
+37                 the Android process has started. This theme is visible to the user
+38                 while the Flutter UI initializes. After that, this theme continues
+39                 to determine the Window background behind the Flutter UI.
+40            -->
+41            <meta-data
+41-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:21:13-24:17
+42                android:name="io.flutter.embedding.android.NormalTheme"
+42-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:22:15-70
+43                android:resource="@style/NormalTheme" />
+43-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:23:15-52
+44
+45            <intent-filter>
+45-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:25:13-28:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:26:17-68
+46-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:26:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:27:17-76
+48-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:27:27-74
+49            </intent-filter>
+50        </activity>
+51        <!--
+52             Don't delete the meta-data below.
+53             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+54        -->
+55        <meta-data
+55-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:32:9-34:33
+56            android:name="flutterEmbedding"
+56-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:33:13-44
+57            android:value="2" />
+57-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:34:13-30
+58
+59        <provider
+59-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-18:20
+60            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+60-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-82
+61            android:authorities="com.example.app.flutter.image_provider"
+61-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-74
+62            android:exported="false"
+62-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-37
+63            android:grantUriPermissions="true" >
+63-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:13-47
+64            <meta-data
+64-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-17:75
+65                android:name="android.support.FILE_PROVIDER_PATHS"
+65-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:16:17-67
+66                android:resource="@xml/flutter_image_picker_file_paths" />
+66-->[:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:17:17-72
+67        </provider>
+68
+69        <activity
+69-->[:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-13:74
+70            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+70-->[:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-74
+71            android:exported="false"
+71-->[:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-37
+72            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+72-->[:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-71
+73
+74        <uses-library
+74-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+75            android:name="androidx.window.extensions"
+75-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+76            android:required="false" />
+76-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+77        <uses-library
+77-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+78            android:name="androidx.window.sidecar"
+78-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+79            android:required="false" />
+79-->[androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+80
+81        <provider
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+82            android:name="androidx.startup.InitializationProvider"
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:25:13-67
+83            android:authorities="com.example.app.androidx-startup"
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:26:13-68
+84            android:exported="false" >
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:27:13-37
+85            <meta-data
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+87                android:value="androidx.startup" />
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+88        </provider>
+89
+90        <receiver
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+92            android:directBootAware="false"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+93            android:enabled="true"
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+94            android:exported="true"
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+95            android:permission="android.permission.DUMP" >
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+101            </intent-filter>
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+103                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+106                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\b92cbf7d134b1c7f58467c023b6e5f48\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+107            </intent-filter>
+108        </receiver>
+109    </application>
+110
+111</manifest>

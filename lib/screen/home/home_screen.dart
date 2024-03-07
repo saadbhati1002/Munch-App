@@ -1,3 +1,4 @@
+import 'package:app/api/repository/article/article.dart';
 import 'package:app/api/repository/banner/banner.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/banner/banner_model.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List mainBannerList = [Images.slider, Images.slider, Images.slider];
   List<BannerData> bannerList = [];
   List<RecipeData> recipeList = [];
+  List<RecipeData> articleList = [];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   bool isRecipe = true;
   bool isBannerLoading = false;
@@ -50,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     await _getBanners();
     await _getRecipeList();
+    await _getArticleList();
   }
 
   Future _getBanners() async {
@@ -115,6 +118,58 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted) {
           setState(() {
             recipeList[i].isVideoThumbnailLoading = false;
+          });
+        }
+      }
+    }
+  }
+
+  Future _getArticleList() async {
+    try {
+      RecipeRes response = await ArticleRepository().getArticlesApiCall();
+      if (response.data.isNotEmpty) {
+        articleList = response.data;
+        _checkForUserArticleLike();
+        _getArticleVideoThumbnail();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isRecipeLoading = false;
+        });
+      }
+    }
+  }
+
+  _checkForUserArticleLike() {
+    for (int i = 0; i < articleList.length; i++) {
+      var contain = articleList[i].likedUsers.where(
+          (element) => element.id.toString() == AppConstant.userData!.id);
+      if (contain.isNotEmpty) {
+        articleList[i].isLikedByMe = true;
+      }
+    }
+    setState(() {});
+  }
+
+  Future _getArticleVideoThumbnail() async {
+    for (int i = 0; i < recipeList.length; i++) {
+      if (articleList[i].media.toString().contains(".mp4")) {
+        setState(() {
+          articleList[i].isVideoThumbnailLoading = true;
+        });
+
+        articleList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
+            video: "${AppConstant.imagePath}${recipeList[i].media}",
+            thumbnailPath: (await getTemporaryDirectory()).path,
+            imageFormat: ImageFormat.PNG,
+            quality: 75,
+            maxHeight: 100);
+        if (mounted) {
+          setState(() {
+            articleList[i].isVideoThumbnailLoading = false;
           });
         }
       }
@@ -262,52 +317,103 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 40,
                 ),
                 isRecipeLoading == false
-                    ? ListView.builder(
-                        itemCount: recipeList.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () async {
-                              print("saad");
-                              var response = await Get.to(
-                                () => RecipeDetailScreen(
-                                  recipeData: recipeList[index],
-                                ),
-                              );
-                              if (response != null) {
-                                if (response == 0 &&
-                                    recipeList[index].isLikedByMe == false) {
-                                  recipeList[index].isLikedByMe = true;
-                                  recipeList[index].likeCount =
-                                      recipeList[index].likeCount! + 1;
-                                } else if (response == 1 &&
-                                    recipeList[index].isLikedByMe == true) {
-                                  recipeList[index].isLikedByMe = false;
-                                  recipeList[index].likeCount =
-                                      recipeList[index].likeCount! - 1;
-                                }
-                                setState(() {});
-                              }
-                            },
-                            child: recipeListWidget(
-                                context: context,
-                                recipeData: recipeList[index],
-                                onTap: () {
-                                  if (recipeList[index].isLikedByMe == true) {
-                                    _recipeUnlike(
-                                        recipeID: recipeList[index].id,
-                                        index: index);
-                                  } else {
-                                    _recipeLike(
-                                      recipeID: recipeList[index].id,
-                                      index: index,
-                                    );
+                    ? isRecipe
+                        ? ListView.builder(
+                            itemCount: recipeList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  var response = await Get.to(
+                                    () => RecipeDetailScreen(
+                                      recipeData: recipeList[index],
+                                    ),
+                                  );
+                                  if (response != null) {
+                                    if (response == 0 &&
+                                        recipeList[index].isLikedByMe ==
+                                            false) {
+                                      recipeList[index].isLikedByMe = true;
+                                      recipeList[index].likeCount =
+                                          recipeList[index].likeCount! + 1;
+                                    } else if (response == 1 &&
+                                        recipeList[index].isLikedByMe == true) {
+                                      recipeList[index].isLikedByMe = false;
+                                      recipeList[index].likeCount =
+                                          recipeList[index].likeCount! - 1;
+                                    }
+                                    setState(() {});
                                   }
-                                }),
-                          );
-                        },
-                      )
+                                },
+                                child: recipeListWidget(
+                                    isFromRecipe: true,
+                                    context: context,
+                                    recipeData: recipeList[index],
+                                    onTap: () {
+                                      if (recipeList[index].isLikedByMe ==
+                                          true) {
+                                        _recipeUnlike(
+                                            recipeID: recipeList[index].id,
+                                            index: index);
+                                      } else {
+                                        _recipeLike(
+                                          recipeID: recipeList[index].id,
+                                          index: index,
+                                        );
+                                      }
+                                    }),
+                              );
+                            },
+                          )
+                        : ListView.builder(
+                            itemCount: articleList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  // var response = await Get.to(
+                                  //   () => RecipeDetailScreen(
+                                  //     recipeData: recipeList[index],
+                                  //   ),
+                                  // );
+                                  // if (response != null) {
+                                  //   if (response == 0 &&
+                                  //       recipeList[index].isLikedByMe ==
+                                  //           false) {
+                                  //     recipeList[index].isLikedByMe = true;
+                                  //     recipeList[index].likeCount =
+                                  //         recipeList[index].likeCount! + 1;
+                                  //   } else if (response == 1 &&
+                                  //       recipeList[index].isLikedByMe == true) {
+                                  //     recipeList[index].isLikedByMe = false;
+                                  //     recipeList[index].likeCount =
+                                  //         recipeList[index].likeCount! - 1;
+                                  //   }
+                                  //   setState(() {});
+                                  // }
+                                },
+                                child: recipeListWidget(
+                                    context: context,
+                                    recipeData: articleList[index],
+                                    isFromRecipe: false,
+                                    onTap: () {
+                                      if (articleList[index].isLikedByMe ==
+                                          true) {
+                                        _articleUnlike(
+                                            articleID: articleList[index].id,
+                                            index: index);
+                                      } else {
+                                        _articleLike(
+                                          articleID: articleList[index].id,
+                                          index: index,
+                                        );
+                                      }
+                                    }),
+                              );
+                            },
+                          )
                     : ListView.builder(
                         itemCount: 10,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -454,6 +560,56 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
         recipeList[index].isLikedByMe = false;
+        toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  _articleLike({String? articleID, int? index}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      LikeUnlikeRes response =
+          await ArticleRepository().articleLikeApiCall(articleID: articleID);
+      if (response.success == true) {
+        articleList[index!].likeCount = articleList[index].likeCount! + 1;
+        articleList[index].isLikedByMe = true;
+        toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+        if (response.message!.trim() == "You are already Like This Recipy.") {
+          articleList[index!].likeCount = articleList[index].likeCount! + 1;
+          articleList[index].isLikedByMe = true;
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  _articleUnlike({String? articleID, int? index}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      LikeUnlikeRes response =
+          await ArticleRepository().articleUnlikeApiCall(articleID: articleID);
+      if (response.success == true) {
+        articleList[index!].likeCount = articleList[index].likeCount! - 1;
+        articleList[index].isLikedByMe = false;
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);

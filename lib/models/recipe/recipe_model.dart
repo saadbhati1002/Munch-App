@@ -77,14 +77,17 @@ class RecipeData {
   RecipeData.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
     nameDish = json['name_dish'];
-    categories = json['categories'].cast<String>();
+    categories =
+        json['categories'] != null ? json['categories'].cast<String>() : [];
     media = json['media'];
     tagLine = json['tag_line'];
     preparationTime = json['preparation_time'];
     cookingTime = json['cooking_time'];
     smallDesc = json['small_desc'];
     servingPotions = json['serving_potions'];
-    ingredientList = json['ingredient_list'].split(',');
+    ingredientList = json['ingredient_list'] != null
+        ? json['ingredient_list'].split(',')
+        : [];
     method = json['method'];
     methodTagline = json['method_tagline'];
     chefsWhisper = json['chefs_whisper'];
