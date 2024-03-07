@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/api/repository/article/article.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
+import 'package:app/screen/article/commnets/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -165,14 +166,14 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => RecipeCommentsScreen(
-                            //       recipeID: widget.recipeData!.id,
-                            //     ),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ArticleCommentScreen(
+                                  articleID: widget.articleDate!.id,
+                                ),
+                              ),
+                            );
                           },
                           child: const SizedBox(
                             child: Row(
@@ -317,7 +318,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already Like This Artical.") {
           widget.articleDate!.likeCount = widget.articleDate!.likeCount! + 1;
           widget.articleDate!.isLikedByMe = true;
         }

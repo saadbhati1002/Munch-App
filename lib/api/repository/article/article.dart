@@ -18,4 +18,32 @@ class ArticleRepository {
     };
     return await ArticleNetwork.articleUnlike(pram);
   }
+
+  Future<dynamic> addCommentApiCall(
+      {String? articleID, String? title, String? comment}) async {
+    final param = {
+      "artical_id": articleID,
+      "title": title,
+      "desc": comment,
+    };
+    return await ArticleNetwork.addComment(param);
+  }
+
+  Future<dynamic> getCommentListApiCall({String? articleID}) async {
+    return await ArticleNetwork.getCommentList(articleID);
+  }
+
+  Future<dynamic> commentLikeApiCall({String? commentID}) async {
+    final pram = {
+      "id": commentID,
+    };
+    return await ArticleNetwork.commentLike(pram);
+  }
+
+  Future<dynamic> commentUnlikeApiCall({String? commentID}) async {
+    final pram = {
+      "id": commentID,
+    };
+    return await ArticleNetwork.commentUnlike(pram);
+  }
 }

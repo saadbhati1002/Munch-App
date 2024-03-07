@@ -588,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already Like This Artical.") {
           articleList[index!].likeCount = articleList[index].likeCount! + 1;
           articleList[index].isLikedByMe = true;
         }
