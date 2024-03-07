@@ -46,4 +46,10 @@ class RecipeRepository {
     };
     return await RecipeNetwork.commentUnlike(pram);
   }
+
+  Future<dynamic> saveToMyCalenderApiCall(
+      {String? recipeID, String? date}) async {
+    final pram = {"id": recipeID, "date": date};
+    return await RecipeNetwork.saveToMyCalender(pram);
+  }
 }

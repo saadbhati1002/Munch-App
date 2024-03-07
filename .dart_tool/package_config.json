@@ -260,6 +260,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -602,7 +608,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-05T18:21:11.120738Z",
+  "generated": "2024-03-07T11:06:02.748222Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

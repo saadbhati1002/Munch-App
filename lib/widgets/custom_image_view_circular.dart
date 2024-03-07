@@ -27,9 +27,6 @@ class CustomImageCircular extends StatelessWidget {
                   width: width,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
                     image: DecorationImage(
                       image: imageProvider,
                       fit: BoxFit.cover,

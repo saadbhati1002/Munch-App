@@ -14,6 +14,7 @@ import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeData? recipeData;
@@ -281,27 +282,32 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Save to meal plan",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: ColorConstant.black,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 2.5),
-                          child: Icon(
-                            Icons.arrow_right,
-                            color: ColorConstant.mainColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Save to meal plan",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: ColorConstant.black,
+                                fontWeight: FontWeight.w400),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: EdgeInsets.only(top: 2.5),
+                            child: Icon(
+                              Icons.arrow_right,
+                              color: ColorConstant.mainColor,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -554,6 +560,39 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             fontWeight: FontWeight.w500),
       ),
     );
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      _saveToMyCalender(date: DateFormat('yyyy-MM-dd').format(picked));
+    }
+  }
+
+  _saveToMyCalender({String? date}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      LikeUnlikeRes response = await RecipeRepository()
+          .saveToMyCalenderApiCall(date: date, recipeID: widget.recipeData!.id);
+      if (response.success == true) {
+        toastShow(message: "Saved to my calender successfully");
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   _recipeLike() async {
