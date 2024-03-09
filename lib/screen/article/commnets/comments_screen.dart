@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:app/api/repository/article/article.dart';
 import 'package:app/models/recipe/comment/comment_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
+import 'package:app/screen/article/add_comment/add_comment_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
@@ -93,20 +95,20 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          // var response = await Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => AddCommentScreen(
-          //       recipeID: widget.recipeID,
-          //     ),
-          //   ),
-          // );
+          var response = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddCommentScreen(
+                articleID: widget.articleID,
+              ),
+            ),
+          );
 
-          // if (response != null) {
-          //   CommentData newComment = CommentData.fromJson(jsonDecode(response));
-          //   commentList.add(newComment);
-          //   setState(() {});
-          // }
+          if (response != null) {
+            CommentData newComment = CommentData.fromJson(jsonDecode(response));
+            commentList.add(newComment);
+            setState(() {});
+          }
         },
         child: Container(
             height: 38,

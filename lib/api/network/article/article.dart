@@ -8,7 +8,7 @@ class ArticleNetwork {
   static const String articleUrl = "artical";
   static const String articleLikeUrl = "artical/like";
   static const String articleUnlikeUrl = "artical/unlike";
-  static const String articleCommentAddUrl = "comment";
+  static const String articleCommentAddUrl = "artical/comment";
   static const String commentListUrl = "artical/comments?id=";
   static const String commentLikeUrl = "comment/like";
   static const String commentUnlikeUrl = "comment/unlike";
