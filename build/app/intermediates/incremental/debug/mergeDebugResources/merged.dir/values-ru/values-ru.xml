@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-=======
     <string msgid="881409763997275156" name="call_notification_answer_action">"Ответить"</string>
     <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Видео"</string>
     <string msgid="3229508546291798546" name="call_notification_decline_action">"Отклонить"</string>
@@ -22,6 +20,5 @@
     <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Копировать ссылку"</string>
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Открыть в браузере"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Отправить ссылку"</string>
->>>>>>> development
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">">999"</string>
 </resources>

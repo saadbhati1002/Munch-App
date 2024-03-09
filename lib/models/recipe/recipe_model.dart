@@ -50,6 +50,7 @@ class RecipeData {
   String? videoThumbnail;
   List<LikedUsers> likedUsers = [];
   bool? isVideoThumbnailLoading = false;
+  String? userID;
 
   RecipeData(
       {nameDish,
@@ -72,7 +73,8 @@ class RecipeData {
       this.isLikedByMe,
       this.likeCount,
       this.isVideoThumbnailLoading,
-      this.id});
+      this.id,
+      this.userID});
 
   RecipeData.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
@@ -96,6 +98,7 @@ class RecipeData {
     user = json['user'];
     userImage = json['user_image'];
     likeCount = int.parse(json['like_count'] ?? '0');
+    userID = json['user_id'].toString();
     if (json['liked_users'] != null) {
       likedUsers = <LikedUsers>[];
       json['liked_users'].forEach((v) {

@@ -100,7 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
         recipeList[i].isLikedByMe = true;
       }
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future _getVideoThumbnail() async {
@@ -152,16 +154,19 @@ class _HomeScreenState extends State<HomeScreen> {
         articleList[i].isLikedByMe = true;
       }
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future _getArticleVideoThumbnail() async {
     for (int i = 0; i < recipeList.length; i++) {
       if (articleList[i].media.toString().contains(".mp4")) {
-        setState(() {
-          articleList[i].isVideoThumbnailLoading = true;
-        });
-
+        if (mounted) {
+          setState(() {
+            articleList[i].isVideoThumbnailLoading = true;
+          });
+        }
         articleList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
             video: "${AppConstant.imagePath}${recipeList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,

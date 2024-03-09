@@ -52,4 +52,8 @@ class RecipeRepository {
     final pram = {"id": recipeID, "date": date};
     return await RecipeNetwork.saveToMyCalender(pram);
   }
+
+  Future<dynamic> getMyLikedRecipeApiCall() async {
+    return await RecipeNetwork.getRecipeList();
+  }
 }

@@ -17,10 +17,7 @@ attr fontProviderSystemFontFamily
 attr fontStyle
 attr fontVariationSettings
 attr fontWeight
-<<<<<<< HEAD
-=======
 attr lStar
->>>>>>> development
 attr nestedScrollViewStyle
 attr placeholderActivityName
 attr primaryActivityName
@@ -35,10 +32,6 @@ attr splitRatio
 attr ttcIndex
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
-<<<<<<< HEAD
-color notification_action_color_filter
-color notification_icon_bg_color
-=======
 color browser_actions_bg_grey
 color browser_actions_divider_color
 color browser_actions_text_color
@@ -49,7 +42,6 @@ color notification_action_color_filter
 color notification_icon_bg_color
 dimen browser_actions_context_menu_max_width
 dimen browser_actions_context_menu_min_padding
->>>>>>> development
 dimen compat_button_inset_horizontal_material
 dimen compat_button_inset_vertical_material
 dimen compat_button_padding_horizontal_material
@@ -72,8 +64,6 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
-<<<<<<< HEAD
-=======
 drawable corner
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -81,7 +71,6 @@ drawable ic_call_answer_video
 drawable ic_call_answer_video_low
 drawable ic_call_decline
 drawable ic_call_decline_low
->>>>>>> development
 drawable launch_background
 drawable notification_action_background
 drawable notification_bg
@@ -95,10 +84,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-<<<<<<< HEAD
-=======
 drawable toast_bg
->>>>>>> development
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -140,14 +126,11 @@ id actions
 id androidx_window_activity_scope
 id async
 id blocking
-<<<<<<< HEAD
-=======
 id browser_actions_header_text
 id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
->>>>>>> development
 id chronometer
 id dialog_button
 id forever
@@ -163,10 +146,7 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
-<<<<<<< HEAD
-=======
 id report_drawn
->>>>>>> development
 id right_icon
 id right_side
 id rtl
@@ -187,9 +167,6 @@ id text
 id text2
 id time
 id title
-<<<<<<< HEAD
-integer status_bar_notification_info_maxnum
-=======
 id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
 id view_tree_saved_state_registry_owner
@@ -197,7 +174,6 @@ id view_tree_view_model_store_owner
 integer status_bar_notification_info_maxnum
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
->>>>>>> development
 layout custom_dialog
 layout notification_action
 layout notification_action_tombstone
@@ -205,9 +181,6 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
-<<<<<<< HEAD
-mipmap ic_launcher
-=======
 layout toast_custom
 mipmap ic_launcher
 string androidx_startup
@@ -231,7 +204,6 @@ string exo_download_removing
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
->>>>>>> development
 string status_bar_notification_info_overflow
 style LaunchTheme
 style NormalTheme
@@ -245,11 +217,7 @@ style Widget_Compat_NotificationActionText
 styleable ActivityFilter activityAction activityName
 styleable ActivityRule alwaysExpand
 styleable Capability queryPatterns shortcutMatchRequired
-<<<<<<< HEAD
-styleable ColorStateListItem android_color android_alpha alpha
-=======
 styleable ColorStateListItem android_color android_alpha android_lStar alpha lStar
->>>>>>> development
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery fontProviderSystemFontFamily
 styleable FontFamilyFont android_font android_fontWeight android_fontStyle android_ttcIndex android_fontVariationSettings font fontStyle fontVariationSettings fontWeight ttcIndex
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
@@ -257,8 +225,5 @@ styleable GradientColorItem android_color android_offset
 styleable SplitPairFilter primaryActivityName secondaryActivityAction secondaryActivityName
 styleable SplitPairRule clearTop finishPrimaryWithSecondary finishSecondaryWithPrimary splitLayoutDirection splitMinSmallestWidth splitMinWidth splitRatio
 styleable SplitPlaceholderRule placeholderActivityName splitLayoutDirection splitMinSmallestWidth splitMinWidth splitRatio
-<<<<<<< HEAD
-=======
 xml flutter_image_picker_file_paths
 xml image_share_filepaths
->>>>>>> development

@@ -230,7 +230,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                             width: MediaQuery.of(context).size.width * 1,
                             child: const Center(
                               child: Text(
-                                "No Comment Fount",
+                                "No Comment Found",
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: ColorConstant.greyColor,

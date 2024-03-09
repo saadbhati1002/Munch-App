@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-#Mon Jan 29 11:11:33 IST 2024
-base.0=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
-=======
-#Fri Mar 08 12:39:35 IST 2024
+#Sat Mar 09 19:15:13 IST 2024
 base.0=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
@@ -23,4 +17,3 @@ renamed.2=classes3.dex
 renamed.3=classes4.dex
 renamed.4=classes5.dex
 renamed.5=classes6.dex
->>>>>>> development

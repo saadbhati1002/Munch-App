@@ -1,18 +1,6 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
-            "outputFile": "com.example.app-mergeDebugResources-9:/values-kn/values-kn.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\d08c73bfb05384f2e52578171dbd141e\\transformed\\core-1.6.0\\res\\values-kn\\values-kn.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-=======
             "outputFile": "com.example.app-mergeDebugResources-22:/values-kn/values-kn.xml",
             "map": [
                 {
@@ -64,7 +52,6 @@
                         "startOffsets": "914,988,1052,1129,1200,1281,1363,1464,1557",
                         "endColumns": "73,63,76,70,80,81,100,92,85",
                         "endOffsets": "983,1047,1124,1195,1276,1358,1459,1552,1638"
->>>>>>> development
                     }
                 }
             ]
