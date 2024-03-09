@@ -7,22 +7,14 @@ import 'package:flutter/material.dart';
 Widget commonCommentWidget(
     {BuildContext? context,
     bool? isComment,
-    bool? isQuestionReply,
     CommentData? commentData,
     VoidCallback? onLikeUnlikeTap}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
-    color: isQuestionReply == true ? Colors.transparent : ColorConstant.white,
+    color: ColorConstant.white,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        isQuestionReply == true
-            ? const SizedBox()
-            : Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width * 1,
-                color: ColorConstant.greyColor,
-              ),
         const SizedBox(
           height: 15,
         ),

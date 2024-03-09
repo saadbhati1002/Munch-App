@@ -53,7 +53,9 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return commonCommentWidget(
-                    context: context, isComment: true, isQuestionReply: true);
+                  context: context,
+                  isComment: true,
+                );
               },
             )
           ],
