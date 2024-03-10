@@ -1,11 +1,16 @@
+import 'dart:convert';
+import 'package:app/models/contest/contest_model.dart';
 import 'package:app/screen/contest/participate/participate_screen.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContestDetailScreen extends StatefulWidget {
-  const ContestDetailScreen({super.key});
+  final ContestData? contestData;
+  const ContestDetailScreen({super.key, this.contestData});
 
   @override
   State<ContestDetailScreen> createState() => _ContestDetailScreenState();
@@ -19,7 +24,7 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
       appBar: customAppBarBack(
         context: context,
         onTap: () {
-          Navigator.pop(context);
+          Navigator.pop(context, json.encode(widget.contestData));
         },
       ),
       body: SingleChildScrollView(
@@ -32,9 +37,9 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                "20 Participant",
-                style: TextStyle(
+              Text(
+                "${widget.contestData!.numOfParticipate} Participant",
+                style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,
                     fontWeight: FontWeight.w700),
@@ -42,9 +47,9 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                'Contest Name',
-                style: TextStyle(
+              Text(
+                widget.contestData!.title ?? AppConstant.appName,
+                style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   color: ColorConstant.mainColor,
                   fontSize: 20,
@@ -53,9 +58,9 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "A recipe is a set of instructions that describes how to prepare or make something, especially a of prepared food. A sub-recipe or sub recipe is a recipe for an that will be called for in the instructions for the main recipe.",
-                style: TextStyle(
+              Text(
+                widget.contestData!.titleTagline ?? AppConstant.appName,
+                style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: ColorConstant.black),
@@ -83,13 +88,13 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: widget.contestData!.rules!.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return const Text(
-                      '\u2022 1 cup quinoa',
-                      style: TextStyle(
+                    return Text(
+                      '\u2022 1 ${widget.contestData!.rules![index]}',
+                      style: const TextStyle(
                           fontSize: 14,
                           color: ColorConstant.black,
                           fontWeight: FontWeight.w400),
@@ -104,13 +109,15 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                 color: ColorConstant.mainColor,
                 textColor: ColorConstant.white,
                 title: "Participate",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ParticipateScreen(),
-                    ),
-                  );
+                onTap: () async {
+                  var response = await Get.to(() => const ParticipateScreen());
+                  if (response != null) {
+                    widget.contestData!.numOfParticipate = (int.parse(
+                                widget.contestData!.numOfParticipate ?? '0') +
+                            1)
+                        .toString();
+                    setState(() {});
+                  }
                 },
               ),
             ],

@@ -31,7 +31,7 @@ class ContestData {
   int? id;
   String? title;
   String? titleTagline;
-  String? rules;
+  List? rules;
   String? numOfParticipate;
 
   ContestData({id, title, titleTagline, rules, numOfParticipate});
@@ -40,7 +40,7 @@ class ContestData {
     id = json['id'];
     title = json['title'];
     titleTagline = json['title_tagline'];
-    rules = json['rules'];
+    rules = json['rules'] != null ? json['rules'].split(',') : [];
     numOfParticipate = json['num_of_participate'];
   }
 

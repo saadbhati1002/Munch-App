@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:app/api/repository/contest/contest.dart';
 import 'package:app/models/contest/contest_model.dart';
@@ -10,6 +11,7 @@ import 'package:app/widgets/contest_list_widget.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContestListScreen extends StatefulWidget {
   const ContestListScreen({super.key});
@@ -107,14 +109,18 @@ class _ContestListScreenState extends State<ContestListScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ContestDetailScreen(),
+                            onTap: () async {
+                              var response = await Get.to(
+                                () => ContestDetailScreen(
+                                  contestData: contestList[index],
                                 ),
                               );
+                              if (response != null) {
+                                ContestData responseData =
+                                    ContestData.fromJson(jsonDecode(response));
+                                contestList[index].numOfParticipate =
+                                    responseData.numOfParticipate;
+                              }
                             },
                             child: contestListWidget(
                               contestData: contestList[index],
