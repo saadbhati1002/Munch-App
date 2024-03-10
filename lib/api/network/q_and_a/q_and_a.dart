@@ -2,6 +2,7 @@ import 'package:app/api/http_manager.dart';
 import 'package:app/models/q_and_a/add/add_question_model.dart';
 import 'package:app/models/q_and_a/question_model.dart';
 import 'package:app/models/q_and_a/reply/reply_model.dart';
+import 'package:app/models/q_and_a/reply_add/reply_add_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 
 class QAndANetwork {
@@ -43,7 +44,7 @@ class QAndANetwork {
   static Future<dynamic> addReply(param) async {
     final result = await httpManager.post(url: addReplyUrl, data: param);
 
-    AddQuestionRes loginRes = AddQuestionRes.fromJson(result);
+    ReplyAddRes loginRes = ReplyAddRes.fromJson(result);
     return loginRes;
   }
 
@@ -56,9 +57,8 @@ class QAndANetwork {
   }
 
   static Future<dynamic> replyLike(param) async {
-    print(param);
     final result = await httpManager.post(url: replyLikeUrl, data: param);
-    print(result);
+
     LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
     return loginRes;
   }

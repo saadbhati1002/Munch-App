@@ -45,4 +45,12 @@ class QAndARepository {
     };
     return await QAndANetwork.replyUnlike(pram);
   }
+
+  Future<dynamic> addReplyApiCall({String? questionID, String? reply}) async {
+    final param = {
+      "id": questionID,
+      "text": reply,
+    };
+    return await QAndANetwork.addReply(param);
+  }
 }

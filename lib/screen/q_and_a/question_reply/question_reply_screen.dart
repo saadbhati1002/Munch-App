@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/api/repository/q_and_a/q_and_a.dart';
 import 'package:app/models/q_and_a/question_model.dart';
 import 'package:app/models/q_and_a/reply/reply_model.dart';
+import 'package:app/models/q_and_a/reply_add/reply_add_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -23,6 +24,7 @@ class QuestionReplyScreen extends StatefulWidget {
 }
 
 class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
+  TextEditingController replyController = TextEditingController();
   bool isLoading = false;
   bool isApiLoading = false;
   List<ReplyData> replyList = [];
@@ -88,13 +90,19 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: CustomSearchTextField(
+              controller: replyController,
               borderRadius: 10,
               context: context,
               hintText: "Write your reply",
-              suffix: const Icon(
-                Icons.send,
-                size: 23,
-                color: ColorConstant.black,
+              suffix: GestureDetector(
+                onTap: () {
+                  _questionReply();
+                },
+                child: const Icon(
+                  Icons.send,
+                  size: 23,
+                  color: ColorConstant.black,
+                ),
               ),
             ),
           ),
@@ -265,6 +273,50 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
         replyList[index].likeCount =
             (int.parse(replyList[index].likeCount!) - 1).toString();
         replyList[index].isLikedByMe = false;
+        toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isApiLoading = false;
+      });
+    }
+  }
+
+  Future _questionReply() async {
+    if (replyController.text.isEmpty) {
+      toastShow(message: "Please enter your reply");
+      return;
+    }
+    try {
+      FocusManager.instance.primaryFocus?.unfocus();
+
+      setState(() {
+        isApiLoading = true;
+      });
+      ReplyAddRes response = await QAndARepository().addReplyApiCall(
+        questionID: widget.questionData!.id.toString(),
+        reply: replyController.text.toString().trim(),
+      );
+      if (response.success == true) {
+        replyList.add(ReplyData());
+        replyController.clear();
+        replyList[replyList.length - 1].id = response.data!.id;
+        replyList[replyList.length - 1].isLikedByMe = false;
+        replyList[replyList.length - 1].likeCount = '0';
+        replyList[replyList.length - 1].likedUsers = [];
+        replyList[replyList.length - 1].questionId =
+            widget.questionData!.id.toString();
+        replyList[replyList.length - 1].questionTitle =
+            widget.questionData!.questionTitle;
+        replyList[replyList.length - 1].replyText =
+            replyController.text.toString().trim();
+        replyList[replyList.length - 1].user = AppConstant.userData!.name;
+        replyList[replyList.length - 1].userImage = AppConstant.userData!.image;
+
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
