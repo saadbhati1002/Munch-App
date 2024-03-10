@@ -1,11 +1,9 @@
+import 'package:app/models/contest/contest_model.dart';
 import 'package:app/utility/color.dart';
-import 'package:app/utility/images.dart';
-import 'package:app/widgets/custom_image_view.dart';
+import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
 
-Widget contestListWidget({
-  BuildContext? context,
-}) {
+Widget contestListWidget({BuildContext? context, ContestData? contestData}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
     color: ColorConstant.white,
@@ -20,38 +18,11 @@ Widget contestListWidget({
         const SizedBox(
           height: 15,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomImage(
-                imagePath: Images.logo,
-                isAssetsImage: true,
-                height: 25,
-                width: 25,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Demo User",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: ColorConstant.black,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            "Best recipe ever",
-            style: TextStyle(
+            contestData!.title ?? AppConstant.appName,
+            style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: ColorConstant.black),
@@ -60,11 +31,12 @@ Widget contestListWidget({
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            "A recipe is a set of instructions that describes how to prepare or make something, especially a of prepared food. A sub-recipe or sub recipe is a recipe for an that will be called for in the instructions for the main recipe.",
-            style: TextStyle(
+            contestData.titleTagline ?? AppConstant.appName,
+            maxLines: 4,
+            style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: ColorConstant.black),
@@ -73,19 +45,19 @@ Widget contestListWidget({
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "20 Participant",
-                style: TextStyle(
+                "${contestData.numOfParticipate} Participant",
+                style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,
                     fontWeight: FontWeight.w700),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
