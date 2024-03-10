@@ -322,12 +322,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(width: 0.9, color: ColorConstant.mainColor),
           ),
-          child: SkeletonTheme(
-            themeMode: ThemeMode.light,
-            child: SkeletonAvatar(
-              style: SkeletonAvatarStyle(
-                height: MediaQuery.of(context).size.height * .4,
-                width: MediaQuery.of(context).size.width,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SkeletonTheme(
+              themeMode: ThemeMode.light,
+              child: SkeletonAvatar(
+                style: SkeletonAvatarStyle(
+                  height: MediaQuery.of(context).size.height * .4,
+                  width: MediaQuery.of(context).size.width,
+                ),
               ),
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:app/models/q_and_a/add/add_question_model.dart';
 import 'package:app/models/q_and_a/question_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/screen/q_and_a/add_question/add_question.dart';
+import 'package:app/screen/q_and_a/question_reply/question_reply_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
@@ -81,7 +82,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
           var response = await Get.to(
             () => const AddQuestionsScreen(),
           );
-          print(response);
+
           if (response != null) {
             try {
               AddQuestionData addedQuestionData = AddQuestionData.fromJson(
@@ -201,34 +202,63 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return searchedName == null || searchedName == ""
-                                  ? questionWidget(
-                                      context: context,
-                                      isComment: true,
-                                      questionData: questionList[index],
-                                      onLikeUnlikeTap: () {
-                                        if (questionList[index].isLikedByMe ==
-                                            true) {
-                                          _questionUnlike(index: index);
-                                        } else {
-                                          _questionLike(index: index);
-                                        }
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => QuestionReplyScreen(
+                                              questionData: questionList[index],
+                                            ));
                                       },
+                                      child: questionWidget(
+                                        context: context,
+                                        isReply: false,
+                                        questionData: questionList[index],
+                                        onLikeUnlikeTap: () {
+                                          if (questionList[index].isLikedByMe ==
+                                              true) {
+                                            _questionUnlike(index: index);
+                                          } else {
+                                            _questionLike(index: index);
+                                          }
+                                        },
+                                      ),
                                     )
                                   : searchedName!.contains(
                                           questionList[index].questionTitle!)
-                                      ? questionWidget(
-                                          context: context,
-                                          isComment: true,
-                                          questionData: questionList[index],
-                                          onLikeUnlikeTap: () {
-                                            if (questionList[index]
-                                                    .isLikedByMe ==
-                                                true) {
-                                              _questionUnlike(index: index);
-                                            } else {
-                                              _questionLike(index: index);
+                                      ? GestureDetector(
+                                          onTap: () async {
+                                            var response = await Get.to(
+                                              () => QuestionReplyScreen(
+                                                questionData:
+                                                    questionList[index],
+                                              ),
+                                            );
+                                            if (response != null) {
+                                              QuestionData questionResponse =
+                                                  QuestionData.fromJson(
+                                                      jsonDecode(response));
+                                              questionList[index].isLikedByMe =
+                                                  questionResponse.isLikedByMe;
+                                              questionList[index].likeCount =
+                                                  questionResponse.likeCount;
+                                              questionList[index].replyCount =
+                                                  questionResponse.replyCount;
+                                              setState(() {});
                                             }
                                           },
+                                          child: questionWidget(
+                                            context: context,
+                                            isReply: false,
+                                            questionData: questionList[index],
+                                            onLikeUnlikeTap: () {
+                                              if (questionList[index]
+                                                      .isLikedByMe ==
+                                                  true) {
+                                                _questionUnlike(index: index);
+                                              } else {
+                                                _questionLike(index: index);
+                                              }
+                                            },
+                                          ),
                                         )
                                       : const SizedBox();
                             },
@@ -302,7 +332,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       if (response.success == true) {
         questionList[index].likeCount =
             (int.parse(questionList[index].likeCount!) - 1).toString();
-        questionList[index].isLikedByMe = true;
+        questionList[index].isLikedByMe = false;
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);

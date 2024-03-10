@@ -1,17 +1,16 @@
-import 'package:app/models/q_and_a/question_model.dart';
+import 'package:app/models/q_and_a/reply/reply_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 
-Widget questionWidget(
+Widget replyWidget(
     {BuildContext? context,
-    bool? isReply,
-    QuestionData? questionData,
+    ReplyData? replyData,
     VoidCallback? onLikeUnlikeTap}) {
   return Container(
     width: MediaQuery.of(context!).size.width * 1,
-    color: ColorConstant.white,
+    color: Colors.transparent,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,7 +23,7 @@ Widget questionWidget(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomImageCircular(
-                imagePath: questionData!.userImage,
+                imagePath: replyData!.userImage,
                 height: 25,
                 width: 25,
               ),
@@ -32,7 +31,7 @@ Widget questionWidget(
                 width: 7,
               ),
               Text(
-                questionData.user ?? AppConstant.appName,
+                replyData.user ?? AppConstant.appName,
                 style: const TextStyle(
                     fontSize: 13,
                     color: ColorConstant.black,
@@ -47,20 +46,7 @@ Widget questionWidget(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            questionData.questionTitle ?? AppConstant.appName,
-            style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: ColorConstant.black),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            questionData.questionAnswer ?? AppConstant.appName,
+            replyData.replyText ?? AppConstant.appName,
             style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -73,40 +59,28 @@ Widget questionWidget(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: onLikeUnlikeTap,
-                    child: Icon(
-                      Icons.favorite,
-                      color: questionData.isLikedByMe
-                          ? ColorConstant.mainColor
-                          : ColorConstant.greyColor,
-                      size: 17,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "${questionData.likeCount} Likes",
-                    style: const TextStyle(
-                        fontSize: 12,
-                        color: ColorConstant.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
+              GestureDetector(
+                onTap: onLikeUnlikeTap,
+                child: Icon(
+                  Icons.favorite,
+                  color: replyData.isLikedByMe
+                      ? ColorConstant.mainColor
+                      : ColorConstant.greyColor,
+                  size: 17,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
               ),
               Text(
-                "${questionData.replyCount} Replays",
+                "${replyData.likeCount} Likes",
                 style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,
-                    fontWeight: FontWeight.w700),
-              )
+                    fontWeight: FontWeight.w500),
+              ),
             ],
           ),
         ),

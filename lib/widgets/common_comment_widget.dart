@@ -1,7 +1,8 @@
 import 'package:app/models/recipe/comment/comment_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/widgets/custom_image_view.dart';
+
+import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 
 Widget commonCommentWidget(
@@ -23,9 +24,8 @@ Widget commonCommentWidget(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CustomImage(
+              CustomImageCircular(
                 imagePath: commentData!.userImage,
-                isAssetsImage: false,
                 height: 25,
                 width: 25,
               ),
