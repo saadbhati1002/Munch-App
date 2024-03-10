@@ -18,4 +18,13 @@ class QAndARepository {
     };
     return await QAndANetwork.commentUnlike(pram);
   }
+
+  Future<dynamic> addQuestionApiCall(
+      {String? question, String? description}) async {
+    final param = {
+      "title": question,
+      "answer": description,
+    };
+    return await QAndANetwork.addQuestion(param);
+  }
 }

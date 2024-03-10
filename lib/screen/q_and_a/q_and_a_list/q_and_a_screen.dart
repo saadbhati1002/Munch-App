@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:app/api/repository/q_and_a/q_and_a.dart';
+import 'package:app/models/q_and_a/add/add_question_model.dart';
 import 'package:app/models/q_and_a/question_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/screen/q_and_a/add_question/add_question.dart';
@@ -12,6 +14,7 @@ import 'package:app/widgets/question_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class QuestionAndAnswerScreen extends StatefulWidget {
   const QuestionAndAnswerScreen({super.key});
@@ -74,13 +77,46 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
         context: context,
       ),
       floatingActionButton: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddQuestionsScreen(),
-            ),
+        onTap: () async {
+          var response = await Get.to(
+            () => const AddQuestionsScreen(),
           );
+          print(response);
+          if (response != null) {
+            try {
+              AddQuestionData addedQuestionData = AddQuestionData.fromJson(
+                jsonDecode(response),
+              );
+
+              questionList.add(
+                QuestionData(
+                  id: addedQuestionData.id,
+                  likeCount: "0",
+                  likedUsers: [],
+                  questionTitle: addedQuestionData.questionTitle,
+                  questionAnswer: addedQuestionData.questionAnswer,
+                  replyCount: "0",
+                  user: AppConstant.userData!.name,
+                  userImage: AppConstant.userData!.image,
+                ),
+              );
+              questionList[questionList.length - 1].id = addedQuestionData.id;
+              questionList[questionList.length - 1].likeCount = '0';
+              questionList[questionList.length - 1].likedUsers = [];
+              questionList[questionList.length - 1].questionTitle =
+                  addedQuestionData.questionTitle;
+              questionList[questionList.length - 1].questionAnswer =
+                  addedQuestionData.questionAnswer;
+              questionList[questionList.length - 1].user =
+                  AppConstant.userData!.name;
+              questionList[questionList.length - 1].userImage =
+                  AppConstant.userData!.image;
+            } catch (e) {
+              debugPrint(e.toString());
+            }
+
+            setState(() {});
+          }
         },
         child: Container(
             height: 38,
