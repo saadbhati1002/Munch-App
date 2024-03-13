@@ -1,4 +1,5 @@
 import 'package:app/api/network/recipe/recipe.dart';
+import 'package:app/utility/constant.dart';
 
 class RecipeRepository {
   Future<dynamic> getRecipesApiCall() async {
@@ -54,6 +55,7 @@ class RecipeRepository {
   }
 
   Future<dynamic> getMyLikedRecipeApiCall() async {
-    return await RecipeNetwork.getRecipeList();
+    final param = {"id": AppConstant.userData!.id};
+    return await RecipeNetwork.getMyLikeRecipe(param);
   }
 }

@@ -15,7 +15,7 @@ class RecipeNetwork {
   static const String recipeAddToCalenderUrl = "recipy/calender";
   static const String recipeRemoveFromCalenderUrl = "recipy/calender/delete";
   static const String calenderRecipeUrl = "recipy/calenders";
-  static const String myLikedRecipeUrl = "recipy/calenders";
+  static const String myLikedRecipeUrl = "liked-recipes";
 
   static Future<dynamic> getRecipeList() async {
     final result = await httpManager.get(url: recipeUrl);
@@ -69,9 +69,10 @@ class RecipeNetwork {
     return loginRes;
   }
 
-  static Future<dynamic> getMyLikeRecipe() async {
-    final result = await httpManager.get(url: myLikedRecipeUrl);
-
+  static Future<dynamic> getMyLikeRecipe(param) async {
+    print(param);
+    final result = await httpManager.get(url: myLikedRecipeUrl, params: param);
+    print(result);
     RecipeRes loginRes = RecipeRes.fromJson(result);
     return loginRes;
   }
