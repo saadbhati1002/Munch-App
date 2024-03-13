@@ -13,6 +13,7 @@ import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -166,38 +167,40 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RecipeCommentsScreen(
-                                  recipeID: widget.recipeData!.id,
-                                ),
+                          onTap: () async {
+                            var response = await Get.to(
+                              () => RecipeCommentsScreen(
+                                recipeID: widget.recipeData!.id,
                               ),
                             );
+                            if (response != null && response != "0") {
+                              widget.recipeData!.commentCount =
+                                  int.parse(response);
+                              setState(() {});
+                            }
                           },
-                          child: const SizedBox(
+                          child: SizedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                CustomImage(
+                                const CustomImage(
                                   imagePath: Images.comment,
                                   isAssetsImage: true,
                                   width: 18,
                                   height: 18,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
                                 Text(
-                                  "Comment",
-                                  style: TextStyle(
+                                  "${widget.recipeData!.commentCount} Comment",
+                                  style: const TextStyle(
                                       fontSize: 12,
                                       color: ColorConstant.black,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.arrow_right,
                                   color: ColorConstant.mainColor,
                                 )
@@ -381,7 +384,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             alignment: Alignment.center,
                             height: 35,
                             decoration: BoxDecoration(
-                              color: ColorConstant.greyColor,
+                              color: ColorConstant.greyColor.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Text(
@@ -410,23 +413,61 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               horizontal: 15, vertical: 10),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: ColorConstant.greyColor,
+                            color: ColorConstant.greyColor.withOpacity(0.4),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: ListView.builder(
-                            itemCount: widget.recipeData!.ingredientList.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Text(
-                                '\u2022 ${widget.recipeData!.ingredientList[index]}',
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    color: ColorConstant.black,
-                                    fontWeight: FontWeight.w400),
-                              );
-                            },
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  await Clipboard.setData(
+                                    ClipboardData(
+                                      text: widget.recipeData!.ingredientList
+                                          .toString(),
+                                    ),
+                                  );
+                                  toastShow(
+                                      message: "Copy to device clipboard");
+                                },
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'Save List',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: ColorConstant.black,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(
+                                      Icons.copy,
+                                      color: ColorConstant.black,
+                                      size: 18,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ListView.builder(
+                                itemCount:
+                                    widget.recipeData!.ingredientList.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Text(
+                                    '\u2022 ${widget.recipeData!.ingredientList[index]}',
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        color: ColorConstant.black,
+                                        fontWeight: FontWeight.w400),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         )
                       : const SizedBox(),
@@ -547,7 +588,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       height: 35,
       width: MediaQuery.of(context).size.width * .46,
       decoration: BoxDecoration(
-        color: ColorConstant.greyColor,
+        color: ColorConstant.greyColor.withOpacity(0.4),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Text(

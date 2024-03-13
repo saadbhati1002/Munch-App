@@ -84,179 +84,192 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
     });
   }
 
+  Future<bool> willPopScope() {
+    Navigator.pop(context, commentList.length.toString());
+
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConstant.backGroundColor,
-      appBar: customAppBarBack(
-        context: context,
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-      floatingActionButton: GestureDetector(
-        onTap: () async {
-          var response = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddCommentScreen(
-                recipeID: widget.recipeID,
+    return WillPopScope(
+      onWillPop: willPopScope,
+      child: Scaffold(
+        backgroundColor: ColorConstant.backGroundColor,
+        appBar: customAppBarBack(
+          context: context,
+          onTap: () {
+            Navigator.pop(context, commentList.length.toString());
+          },
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: () async {
+            var response = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddCommentScreen(
+                  recipeID: widget.recipeID,
+                ),
+              ),
+            );
+
+            if (response != null) {
+              CommentData newComment =
+                  CommentData.fromJson(jsonDecode(response));
+              commentList.add(newComment);
+              setState(() {});
+            }
+          },
+          child: Container(
+              height: 38,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: ColorConstant.mainColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Add a Comment",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: ColorConstant.white),
+                  ),
+                ],
+              )),
+        ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Comment',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: ColorConstant.organColor,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Write, communicate & express',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: ColorConstant.greyColor,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: CustomSearchTextField(
+                      onChanged: _onSearchChanged,
+                      context: context,
+                      hintText: 'Search for User Comments',
+                      prefix: const Icon(
+                        Icons.search,
+                        size: 25,
+                        color: ColorConstant.greyColor,
+                      ),
+                      suffix: const Icon(
+                        Icons.filter_alt_rounded,
+                        size: 25,
+                        color: ColorConstant.greyColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  isLoading == false
+                      ? commentList.isNotEmpty
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: commentList.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                int itemCount = commentList.length;
+                                int reversedIndex = itemCount - 1 - index;
+                                return searchedName == null ||
+                                        searchedName == ""
+                                    ? commonCommentWidget(
+                                        context: context,
+                                        isComment: true,
+                                        commentData: commentList[reversedIndex],
+                                        onLikeUnlikeTap: () {
+                                          if (commentList[reversedIndex]
+                                                  .isLikedByMe ==
+                                              true) {
+                                            _commentUnlike(
+                                                index: reversedIndex);
+                                          } else {
+                                            _commentLike(index: reversedIndex);
+                                          }
+                                        },
+                                      )
+                                    : searchedName!.contains(
+                                            commentList[reversedIndex]
+                                                .userName!)
+                                        ? commonCommentWidget(
+                                            context: context,
+                                            isComment: true,
+                                            commentData:
+                                                commentList[reversedIndex],
+                                            onLikeUnlikeTap: () {
+                                              if (commentList[reversedIndex]
+                                                      .isLikedByMe ==
+                                                  true) {
+                                                _commentUnlike(
+                                                    index: reversedIndex);
+                                              } else {
+                                                _commentLike(
+                                                    index: reversedIndex);
+                                              }
+                                            },
+                                          )
+                                        : const SizedBox();
+                              },
+                            )
+                          : SizedBox(
+                              height: MediaQuery.of(context).size.height * .45,
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: const Center(
+                                child: Text(
+                                  "No Comment Found",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: ColorConstant.greyColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 10,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return const CommonSkeleton();
+                          },
+                        )
+                ],
               ),
             ),
-          );
-
-          if (response != null) {
-            CommentData newComment = CommentData.fromJson(jsonDecode(response));
-            commentList.add(newComment);
-            setState(() {});
-          }
-        },
-        child: Container(
-            height: 38,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: ColorConstant.mainColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Add a Comment",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: ColorConstant.white),
-                ),
-              ],
-            )),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Comment',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: ColorConstant.organColor,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Write, communicate & express',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: ColorConstant.greyColor,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: CustomSearchTextField(
-                    onChanged: _onSearchChanged,
-                    context: context,
-                    hintText: 'Search for User Comments',
-                    prefix: const Icon(
-                      Icons.search,
-                      size: 25,
-                      color: ColorConstant.greyColor,
-                    ),
-                    suffix: const Icon(
-                      Icons.filter_alt_rounded,
-                      size: 25,
-                      color: ColorConstant.greyColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                isLoading == false
-                    ? commentList.isNotEmpty
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: commentList.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              int itemCount = commentList.length;
-                              int reversedIndex = itemCount - 1 - index;
-                              return searchedName == null || searchedName == ""
-                                  ? commonCommentWidget(
-                                      context: context,
-                                      isComment: true,
-                                      commentData: commentList[reversedIndex],
-                                      onLikeUnlikeTap: () {
-                                        if (commentList[reversedIndex]
-                                                .isLikedByMe ==
-                                            true) {
-                                          _commentUnlike(index: reversedIndex);
-                                        } else {
-                                          _commentLike(index: reversedIndex);
-                                        }
-                                      },
-                                    )
-                                  : searchedName!.contains(
-                                          commentList[reversedIndex].userName!)
-                                      ? commonCommentWidget(
-                                          context: context,
-                                          isComment: true,
-                                          commentData:
-                                              commentList[reversedIndex],
-                                          onLikeUnlikeTap: () {
-                                            if (commentList[reversedIndex]
-                                                    .isLikedByMe ==
-                                                true) {
-                                              _commentUnlike(
-                                                  index: reversedIndex);
-                                            } else {
-                                              _commentLike(
-                                                  index: reversedIndex);
-                                            }
-                                          },
-                                        )
-                                      : const SizedBox();
-                            },
-                          )
-                        : SizedBox(
-                            height: MediaQuery.of(context).size.height * .45,
-                            width: MediaQuery.of(context).size.width * 1,
-                            child: const Center(
-                              child: Text(
-                                "No Comment Found",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: ColorConstant.greyColor,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return const CommonSkeleton();
-                        },
-                      )
-              ],
-            ),
-          ),
-          isApiLoading ? const ShowProgressBar() : const SizedBox()
-        ],
+            isApiLoading ? const ShowProgressBar() : const SizedBox()
+          ],
+        ),
       ),
     );
   }

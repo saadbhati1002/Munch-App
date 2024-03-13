@@ -46,6 +46,7 @@ class RecipeData {
   String? user;
   String? userImage;
   int? likeCount = 0;
+  int? commentCount = 0;
   bool? isLikedByMe = false;
   String? videoThumbnail;
   List<LikedUsers> likedUsers = [];
