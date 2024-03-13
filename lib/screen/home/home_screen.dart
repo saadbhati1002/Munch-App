@@ -261,9 +261,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  isRecipe = true;
-                                });
+                                if (isRecipe == false) {
+                                  setState(() {
+                                    isRecipeLoading = true;
+                                    isRecipe = true;
+                                  });
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) {
+                                    setState(() {
+                                      isRecipeLoading = false;
+                                    });
+                                  });
+                                }
                               },
                               child: Container(
                                 height: 35,
@@ -288,9 +297,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  isRecipe = false;
-                                });
+                                if (isRecipe == true) {
+                                  setState(() {
+                                    isRecipeLoading = true;
+                                    isRecipe = false;
+                                  });
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) {
+                                    setState(() {
+                                      isRecipeLoading = false;
+                                    });
+                                  });
+                                }
                               },
                               child: Container(
                                 height: 35,

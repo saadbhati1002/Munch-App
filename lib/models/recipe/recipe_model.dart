@@ -99,6 +99,7 @@ class RecipeData {
     user = json['user'];
     userImage = json['user_image'];
     likeCount = int.parse(json['like_count'] ?? '0');
+    commentCount = int.parse(json['comment_count'] ?? '0');
     userID = json['user_id'].toString();
     if (json['liked_users'] != null) {
       likedUsers = <LikedUsers>[];
@@ -127,6 +128,7 @@ class RecipeData {
     data['is_approved'] = isApproved;
     data['user'] = user;
     data['user_image'] = userImage;
+    data['comment_count'] = commentCount;
     if (likedUsers.isNotEmpty) {
       data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }
