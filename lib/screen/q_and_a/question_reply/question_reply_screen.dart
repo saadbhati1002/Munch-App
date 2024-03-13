@@ -170,6 +170,9 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
                             return const CommonSkeleton();
                           },
                         ),
+                  const SizedBox(
+                    height: 60,
+                  )
                 ],
               ),
             ),
@@ -303,7 +306,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       );
       if (response.success == true) {
         replyList.add(ReplyData());
-        replyController.clear();
+
         replyList[replyList.length - 1].id = response.data!.id;
         replyList[replyList.length - 1].isLikedByMe = false;
         replyList[replyList.length - 1].likeCount = '0';
@@ -316,7 +319,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
             replyController.text.toString().trim();
         replyList[replyList.length - 1].user = AppConstant.userData!.name;
         replyList[replyList.length - 1].userImage = AppConstant.userData!.image;
-
+        replyController.clear();
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);

@@ -84,7 +84,7 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: ColorConstant.greyColor,
+                  color: ColorConstant.greyColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListView.builder(
@@ -110,7 +110,10 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                 textColor: ColorConstant.white,
                 title: "Participate",
                 onTap: () async {
-                  var response = await Get.to(() => const ParticipateScreen());
+                  var response = await Get.to(
+                    () => ParticipateScreen(
+                        contestID: widget.contestData!.id.toString()),
+                  );
                   if (response != null) {
                     widget.contestData!.numOfParticipate = (int.parse(
                                 widget.contestData!.numOfParticipate ?? '0') +

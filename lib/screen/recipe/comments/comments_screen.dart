@@ -192,33 +192,39 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                             itemCount: commentList.length,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
+                              int itemCount = commentList.length;
+                              int reversedIndex = itemCount - 1 - index;
                               return searchedName == null || searchedName == ""
                                   ? commonCommentWidget(
                                       context: context,
                                       isComment: true,
-                                      commentData: commentList[index],
+                                      commentData: commentList[reversedIndex],
                                       onLikeUnlikeTap: () {
-                                        if (commentList[index].isLikedByMe ==
+                                        if (commentList[reversedIndex]
+                                                .isLikedByMe ==
                                             true) {
-                                          _commentUnlike(index: index);
+                                          _commentUnlike(index: reversedIndex);
                                         } else {
-                                          _commentLike(index: index);
+                                          _commentLike(index: reversedIndex);
                                         }
                                       },
                                     )
                                   : searchedName!.contains(
-                                          commentList[index].userName!)
+                                          commentList[reversedIndex].userName!)
                                       ? commonCommentWidget(
                                           context: context,
                                           isComment: true,
-                                          commentData: commentList[index],
+                                          commentData:
+                                              commentList[reversedIndex],
                                           onLikeUnlikeTap: () {
-                                            if (commentList[index]
+                                            if (commentList[reversedIndex]
                                                     .isLikedByMe ==
                                                 true) {
-                                              _commentUnlike(index: index);
+                                              _commentUnlike(
+                                                  index: reversedIndex);
                                             } else {
-                                              _commentLike(index: index);
+                                              _commentLike(
+                                                  index: reversedIndex);
                                             }
                                           },
                                         )
