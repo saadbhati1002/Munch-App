@@ -208,27 +208,32 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CustomImage(
-                                imagePath: Images.share,
-                                isAssetsImage: true,
-                                width: 21,
-                                height: 19,
-                              ),
-                              SizedBox(
-                                width: 7,
-                              ),
-                              Text(
-                                "Share",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: ColorConstant.black,
-                                    fontWeight: FontWeight.w400),
-                              )
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            AppConstant.shareAppLink();
+                          },
+                          child: const SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomImage(
+                                  imagePath: Images.share,
+                                  isAssetsImage: true,
+                                  width: 21,
+                                  height: 19,
+                                ),
+                                SizedBox(
+                                  width: 7,
+                                ),
+                                Text(
+                                  "Share",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorConstant.black,
+                                      fontWeight: FontWeight.w400),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ],

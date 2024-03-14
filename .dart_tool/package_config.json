@@ -362,6 +362,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "share_plus",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus-7.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "share_plus_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_platform_interface-3.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences-2.2.2",
       "packageUri": "lib/",
@@ -608,7 +620,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-09T07:51:38.079022Z",
+  "generated": "2024-03-13T12:44:32.885764Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

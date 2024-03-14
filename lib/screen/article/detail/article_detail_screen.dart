@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:app/api/repository/article/article.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
-import 'package:app/screen/article/commnets/comments_screen.dart';
+import 'package:app/screen/article/comments/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -165,38 +165,40 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ArticleCommentScreen(
-                                  articleID: widget.articleDate!.id,
-                                ),
+                          onTap: () async {
+                            var response = await Get.to(
+                              () => ArticleCommentScreen(
+                                articleID: widget.articleDate!.id,
                               ),
                             );
+                            if (response != null && response != "0") {
+                              widget.articleDate!.commentCount =
+                                  int.parse(response);
+                              setState(() {});
+                            }
                           },
-                          child: const SizedBox(
+                          child: SizedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                CustomImage(
+                                const CustomImage(
                                   imagePath: Images.comment,
                                   isAssetsImage: true,
                                   width: 18,
                                   height: 18,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
                                 Text(
-                                  "Comment",
-                                  style: TextStyle(
+                                  "${widget.articleDate!.commentCount} Comment",
+                                  style: const TextStyle(
                                       fontSize: 12,
                                       color: ColorConstant.black,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.arrow_right,
                                   color: ColorConstant.mainColor,
                                 )
@@ -204,27 +206,32 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CustomImage(
-                                imagePath: Images.share,
-                                isAssetsImage: true,
-                                width: 21,
-                                height: 19,
-                              ),
-                              SizedBox(
-                                width: 7,
-                              ),
-                              Text(
-                                "Share",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: ColorConstant.black,
-                                    fontWeight: FontWeight.w400),
-                              )
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            AppConstant.shareAppLink();
+                          },
+                          child: const SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomImage(
+                                  imagePath: Images.share,
+                                  isAssetsImage: true,
+                                  width: 21,
+                                  height: 19,
+                                ),
+                                SizedBox(
+                                  width: 7,
+                                ),
+                                Text(
+                                  "Share",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorConstant.black,
+                                      fontWeight: FontWeight.w400),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ],

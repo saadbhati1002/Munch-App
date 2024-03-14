@@ -203,10 +203,24 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                             itemBuilder: (context, index) {
                               return searchedName == null || searchedName == ""
                                   ? GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => QuestionReplyScreen(
-                                              questionData: questionList[index],
-                                            ));
+                                      onTap: () async {
+                                        var response = await Get.to(
+                                          () => QuestionReplyScreen(
+                                            questionData: questionList[index],
+                                          ),
+                                        );
+                                        if (response != null) {
+                                          QuestionData questionResponse =
+                                              QuestionData.fromJson(
+                                                  jsonDecode(response));
+                                          questionList[index].isLikedByMe =
+                                              questionResponse.isLikedByMe;
+                                          questionList[index].likeCount =
+                                              questionResponse.likeCount;
+                                          questionList[index].replyCount =
+                                              questionResponse.replyCount;
+                                          setState(() {});
+                                        }
                                       },
                                       child: questionWidget(
                                         context: context,

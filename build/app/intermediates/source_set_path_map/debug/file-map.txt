@@ -27,8 +27,9 @@ com.example.app-packaged_res-25 D:\projects\Munch-App\build\flutter_plugin_andro
 com.example.app-packaged_res-26 D:\projects\Munch-App\build\fluttertoast\intermediates\packaged_res\debug
 com.example.app-packaged_res-27 D:\projects\Munch-App\build\image_picker_android\intermediates\packaged_res\debug
 com.example.app-packaged_res-28 D:\projects\Munch-App\build\path_provider_android\intermediates\packaged_res\debug
-com.example.app-packaged_res-29 D:\projects\Munch-App\build\shared_preferences_android\intermediates\packaged_res\debug
-com.example.app-packaged_res-30 D:\projects\Munch-App\build\sqflite\intermediates\packaged_res\debug
-com.example.app-packaged_res-31 D:\projects\Munch-App\build\url_launcher_android\intermediates\packaged_res\debug
-com.example.app-packaged_res-32 D:\projects\Munch-App\build\video_player_android\intermediates\packaged_res\debug
-com.example.app-packaged_res-33 D:\projects\Munch-App\build\video_thumbnail\intermediates\packaged_res\debug
+com.example.app-packaged_res-29 D:\projects\Munch-App\build\share_plus\intermediates\packaged_res\debug
+com.example.app-packaged_res-30 D:\projects\Munch-App\build\shared_preferences_android\intermediates\packaged_res\debug
+com.example.app-packaged_res-31 D:\projects\Munch-App\build\sqflite\intermediates\packaged_res\debug
+com.example.app-packaged_res-32 D:\projects\Munch-App\build\url_launcher_android\intermediates\packaged_res\debug
+com.example.app-packaged_res-33 D:\projects\Munch-App\build\video_player_android\intermediates\packaged_res\debug
+com.example.app-packaged_res-34 D:\projects\Munch-App\build\video_thumbnail\intermediates\packaged_res\debug

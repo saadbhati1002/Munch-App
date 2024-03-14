@@ -306,7 +306,8 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       );
       if (response.success == true) {
         replyList.add(ReplyData());
-
+        widget.questionData!.replyCount =
+            (int.parse(widget.questionData!.replyCount!) + 1).toString();
         replyList[replyList.length - 1].id = response.data!.id;
         replyList[replyList.length - 1].isLikedByMe = false;
         replyList[replyList.length - 1].likeCount = '0';
