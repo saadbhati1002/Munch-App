@@ -1,4 +1,5 @@
 import 'package:app/api/http_manager.dart';
+import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/comment/add_comment_model.dart';
 import 'package:app/models/recipe/comment/comment_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
@@ -69,10 +70,16 @@ class RecipeNetwork {
     return loginRes;
   }
 
-  static Future<dynamic> getMyLikeRecipe(param) async {
-    print(param);
-    final result = await httpManager.get(url: myLikedRecipeUrl, params: param);
+  static Future<dynamic> getSavedCalenderRecipe() async {
+    final result = await httpManager.get(url: calenderRecipeUrl);
     print(result);
+    CalenderRes loginRes = CalenderRes.fromJson(result);
+    return loginRes;
+  }
+
+  static Future<dynamic> getMyLikeRecipe(param) async {
+    final result = await httpManager.get(url: myLikedRecipeUrl, params: param);
+
     RecipeRes loginRes = RecipeRes.fromJson(result);
     return loginRes;
   }

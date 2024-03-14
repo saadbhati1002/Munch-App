@@ -54,6 +54,10 @@ class RecipeRepository {
     return await RecipeNetwork.saveToMyCalender(pram);
   }
 
+  Future<dynamic> getCalenderRecipeApiCall() async {
+    return await RecipeNetwork.getSavedCalenderRecipe();
+  }
+
   Future<dynamic> getMyLikedRecipeApiCall() async {
     final param = {"id": AppConstant.userData!.id};
     return await RecipeNetwork.getMyLikeRecipe(param);
