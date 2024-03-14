@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:app/api/repository/contest/contest.dart';
 import 'package:app/models/contest/contest_model.dart';
 import 'package:app/screen/contest/contest_detail/contest_detail_screen.dart';
@@ -108,25 +106,46 @@ class _ContestListScreenState extends State<ContestListScreen> {
                         itemCount: contestList.length,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () async {
-                              var response = await Get.to(
-                                () => ContestDetailScreen(
-                                  contestData: contestList[index],
-                                ),
-                              );
-                              if (response != null) {
-                                ContestData responseData =
-                                    ContestData.fromJson(jsonDecode(response));
-                                contestList[index].numOfParticipate =
-                                    responseData.numOfParticipate;
-                              }
-                            },
-                            child: contestListWidget(
-                              contestData: contestList[index],
-                              context: context,
-                            ),
-                          );
+                          return searchedName == null || searchedName == ""
+                              ? GestureDetector(
+                                  onTap: () async {
+                                    var response = await Get.to(
+                                      () => ContestDetailScreen(
+                                        contestData: contestList[index],
+                                      ),
+                                    );
+                                    if (response != null) {
+                                      contestList[index].numOfParticipate =
+                                          response;
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: contestListWidget(
+                                    contestData: contestList[index],
+                                    context: context,
+                                  ),
+                                )
+                              : searchedName!
+                                      .contains(contestList[index].title!)
+                                  ? GestureDetector(
+                                      onTap: () async {
+                                        var response = await Get.to(
+                                          () => ContestDetailScreen(
+                                            contestData: contestList[index],
+                                          ),
+                                        );
+                                        if (response != null) {
+                                          contestList[index].numOfParticipate =
+                                              response;
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: contestListWidget(
+                                        contestData: contestList[index],
+                                        context: context,
+                                      ),
+                                    )
+                                  : const SizedBox();
                         },
                       )
                     : SizedBox(
