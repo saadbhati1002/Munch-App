@@ -59,4 +59,14 @@ class AuthRepository {
     }
     return await AuthNetwork.updateUserUser(body);
   }
+
+  Future<dynamic> changePasswordApiCall(
+      {String? oldPassword, String? newPassword}) async {
+    final params = {
+      "current_password": oldPassword,
+      "new_password": newPassword,
+      "confirm_password": newPassword
+    };
+    return await AuthNetwork.userChangePassword(params);
+  }
 }

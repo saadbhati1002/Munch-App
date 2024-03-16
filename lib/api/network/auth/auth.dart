@@ -1,10 +1,12 @@
 import 'package:app/api/http_manager.dart';
+import 'package:app/models/common_model.dart';
 import 'package:app/models/user/user_model.dart';
 
 class AuthNetwork {
   static const String registerUserUrl = "register";
   static const String loginUserUrl = "login";
   static const String userUpdateUrl = "user/update";
+  static const String changePasswordUrl = "password/change";
   static Future<dynamic> registerUser(prams) async {
     final result = await httpManager.post(url: registerUserUrl, data: prams);
 
@@ -24,5 +26,12 @@ class AuthNetwork {
 
     UserRes loginRes = UserRes.fromJson(result);
     return loginRes;
+  }
+
+  static Future<dynamic> userChangePassword(prams) async {
+    final result = await httpManager.post(url: changePasswordUrl, data: prams);
+
+    CommonRes response = CommonRes.fromJson(result);
+    return response;
   }
 }

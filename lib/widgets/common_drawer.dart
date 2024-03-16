@@ -1,5 +1,6 @@
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
+import 'package:app/screen/auth/password_change/password_change_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
@@ -128,6 +129,16 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   Get.to(() => const EditProfileScreen());
                 },
                 title: "Profile Update",
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              commonRaw(
+                icon: const FaIcon(FontAwesomeIcons.lockOpen),
+                onTap: () {
+                  Get.to(() => const ChangePasswordScreen());
+                },
+                title: "Change Password",
               ),
               const SizedBox(
                 height: 20,
