@@ -122,6 +122,14 @@ class _CommonDrawerState extends State<CommonDrawer> {
                 height: 20,
               ),
               commonRaw(
+                icon: const FaIcon(FontAwesomeIcons.userPen),
+                onTap: () {},
+                title: "Profile Update",
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              commonRaw(
                 icon: const FaIcon(FontAwesomeIcons.robot),
                 onTap: () {},
                 title: "Ask AI",
