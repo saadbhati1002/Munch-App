@@ -1,9 +1,11 @@
+import 'package:app/screen/notification/notification_screen.dart';
 import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 customAppBar(
   key, {
@@ -59,7 +61,7 @@ customAppBar(
         padding: const EdgeInsets.only(top: 3, right: 20),
         child: GestureDetector(
           onTap: () {
-            key.currentState!.openEndDrawer();
+            Get.to(() => const NotificationScreen());
           },
           child: const Icon(
             Icons.notifications,
