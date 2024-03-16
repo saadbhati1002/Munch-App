@@ -33,25 +33,28 @@ Widget recipeListWidget(
             ? const SizedBox()
             : Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomImageCircular(
-                      imagePath: recipeData!.userImage ?? "",
-                      height: 35,
-                      width: 35,
-                    ),
-                    Text(
-                      recipeData.user ?? AppConstant.appName,
-                      style: const TextStyle(
-                          fontSize: 14,
-                          color: ColorConstant.black,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomImageCircular(
+                        imagePath: recipeData!.userImage ?? "",
+                        height: 35,
+                        width: 35,
+                      ),
+                      Text(
+                        recipeData.user ?? AppConstant.appName,
+                        style: const TextStyle(
+                            fontSize: 14,
+                            color: ColorConstant.black,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ),
         const SizedBox(
