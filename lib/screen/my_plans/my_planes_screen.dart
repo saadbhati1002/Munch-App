@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
+import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
@@ -190,21 +191,30 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.mainColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Add a recipe",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: ColorConstant.white),
+                  GestureDetector(
+                    onTap: () async {
+                      var response =
+                          await Get.to(() => const AddRecipeScreen());
+                      if (response != null) {
+                        _getData();
+                      }
+                    },
+                    child: Container(
+                      height: 37,
+                      decoration: BoxDecoration(
+                        color: ColorConstant.mainColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Add a recipe",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: ColorConstant.white),
+                        ),
                       ),
                     ),
                   )

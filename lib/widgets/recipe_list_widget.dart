@@ -15,7 +15,8 @@ Widget recipeListWidget(
     {BuildContext? context,
     RecipeData? recipeData,
     VoidCallback? onTap,
-    bool? isFromRecipe}) {
+    bool? isFromRecipe,
+    bool? isMyRecipe}) {
   return SizedBox(
     width: MediaQuery.of(context!).size.width,
     child: Column(
@@ -29,34 +30,35 @@ Widget recipeListWidget(
         const SizedBox(
           height: 15,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomImageCircular(
-                imagePath: recipeData!.userImage ?? "",
-                height: 35,
-                width: 35,
+        isMyRecipe == true
+            ? const SizedBox()
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomImageCircular(
+                      imagePath: recipeData!.userImage ?? "",
+                      height: 35,
+                      width: 35,
+                    ),
+                    Text(
+                      recipeData.user ?? AppConstant.appName,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: ColorConstant.black,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
               ),
-              Text(
-                recipeData.user ?? AppConstant.appName,
-                style: const TextStyle(
-                    fontSize: 14,
-                    color: ColorConstant.black,
-                    fontWeight: FontWeight.w500),
-              ),
-              const FaIcon(
-                FontAwesomeIcons.ellipsis,
-                color: ColorConstant.black,
-              )
-            ],
-          ),
-        ),
         const SizedBox(
           height: 15,
         ),
-        recipeData.media.toString().contains('.mp4')
+        recipeData!.media.toString().contains('.mp4')
             ? GestureDetector(
                 onTap: () {
                   Get.to(() => VideoPlayerScreen(

@@ -1,6 +1,7 @@
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
+import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -97,7 +98,9 @@ class _CommonDrawerState extends State<CommonDrawer> {
               ),
               commonRaw(
                 icon: const FaIcon(FontAwesomeIcons.listCheck),
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const MyRecipeScreen());
+                },
                 title: "My List",
               ),
               const SizedBox(

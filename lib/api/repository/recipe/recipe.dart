@@ -100,4 +100,8 @@ class RecipeRepository {
     });
     return await RecipeNetwork.createRecipe(body);
   }
+
+  Future<dynamic> getMyRecipesApiCall() async {
+    return await RecipeNetwork.getMyRecipeList();
+  }
 }
