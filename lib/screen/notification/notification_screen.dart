@@ -1,5 +1,6 @@
 import 'package:app/api/repository/notification/notification.dart';
 import 'package:app/models/notification/notification_model.dart';
+import 'package:app/screen/notification/detail/notification_detail_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
@@ -93,8 +94,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GestureDetector(
         onTap: () {
-          // Get.to(() => NotificationDetailScreen(
-          //     notificationData: notificationList[index]));
+          Get.to(
+            () => NotificationDetailScreen(
+              notificationData: notificationList[index],
+            ),
+          );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
