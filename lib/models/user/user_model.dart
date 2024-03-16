@@ -29,14 +29,30 @@ class UserData {
   String? userEmail;
   String? userBio;
   String? id;
+  String? dateOfBirth;
+  String? address;
+  String? phoneNumber;
 
-  UserData({token, name, image, this.userEmail, this.userBio, this.id});
+  UserData(
+      {token,
+      name,
+      image,
+      this.userEmail,
+      this.userBio,
+      this.id,
+      this.address,
+      this.dateOfBirth,
+      this.phoneNumber});
 
   UserData.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     name = json['name'];
     image = json['image'];
     id = json['id'].toString();
+    dateOfBirth = json['dob'];
+    address = json['address'];
+    phoneNumber = json['mobile_number'];
+    userBio = json['bio'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +61,11 @@ class UserData {
     data['name'] = name;
     data['image'] = image;
     data['id'] = id;
+    data['address'] = address;
+    data['dob'] = dateOfBirth;
+    data['mobile_number'] = phoneNumber;
+    data['bio'] = userBio;
+
     return data;
   }
 }

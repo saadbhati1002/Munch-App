@@ -61,7 +61,7 @@ class HTTPManager {
         } else {
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
-
+            await AppConstant.userDetailSaved("null");
             navigation.Get.to(() => const LoginScreen());
           }
 
@@ -70,6 +70,8 @@ class HTTPManager {
       } on DioException catch (error) {
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
+          await AppConstant.userDetailSaved("null");
+
           navigation.Get.to(() => const LoginScreen());
         }
       }
@@ -106,6 +108,7 @@ class HTTPManager {
         } else {
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
+            await AppConstant.userDetailSaved("null");
 
             navigation.Get.to(() => const LoginScreen());
           }
@@ -142,6 +145,7 @@ class HTTPManager {
         } else {
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
+            await AppConstant.userDetailSaved("null");
 
             navigation.Get.to(() => const LoginScreen());
           }
@@ -150,6 +154,7 @@ class HTTPManager {
       } on DioException catch (error) {
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
+          await AppConstant.userDetailSaved("null");
 
           navigation.Get.to(() => const LoginScreen());
         }
@@ -185,6 +190,7 @@ class HTTPManager {
       } on DioException catch (error) {
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
+          await AppConstant.userDetailSaved("null");
 
           navigation.Get.to(() => const LoginScreen());
         }
@@ -222,6 +228,7 @@ class HTTPManager {
       } on DioException catch (error) {
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
+          await AppConstant.userDetailSaved("null");
 
           navigation.Get.to(() => const LoginScreen());
         }
@@ -263,6 +270,7 @@ class HTTPManager {
       } on DioException catch (error) {
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
+          await AppConstant.userDetailSaved("null");
 
           navigation.Get.to(() => const LoginScreen());
         }

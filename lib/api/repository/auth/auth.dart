@@ -27,4 +27,36 @@ class AuthRepository {
     final params = {"email": email, "password": password};
     return await AuthNetwork.loginUser(params);
   }
+
+  Future<dynamic> userProfileUpdateApiCall(
+      {String? userName,
+      String? phoneNumber,
+      String? address,
+      String? dateOfBirth,
+      String? bio,
+      File? userImage}) async {
+    var body;
+    if (userImage != null) {
+      String fileName = userImage.path.split('/').last;
+
+      body = FormData.fromMap({
+        "image":
+            await MultipartFile.fromFile(userImage.path, filename: fileName),
+        "mobile_number": phoneNumber,
+        "dob": dateOfBirth,
+        "address": address,
+        "bio": bio,
+        "name": userName
+      });
+    } else {
+      body = FormData.fromMap({
+        "mobile_number": phoneNumber,
+        "dob": dateOfBirth,
+        "address": address,
+        "bio": bio,
+        "name": userName
+      });
+    }
+    return await AuthNetwork.updateUserUser(body);
+  }
 }
