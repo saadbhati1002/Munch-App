@@ -668,7 +668,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
-  _recipeUnlike({String? recipeID, int? index}) async {
+  _recipeUnlike({String? recipeID}) async {
     try {
       setState(() {
         isLoading = true;

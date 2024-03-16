@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:app/api/network/recipe/recipe.dart';
 import 'package:app/utility/constant.dart';
+import 'package:dio/dio.dart';
 
 class RecipeRepository {
   Future<dynamic> getRecipesApiCall() async {
@@ -61,5 +64,40 @@ class RecipeRepository {
   Future<dynamic> getMyLikedRecipeApiCall() async {
     final param = {"id": AppConstant.userData!.id};
     return await RecipeNetwork.getMyLikeRecipe(param);
+  }
+
+  Future<dynamic> createRecipeApiCall(
+      {File? recipeImage,
+      String? categoryID,
+      String? recipeName,
+      String? tagLine,
+      String? preparationTime,
+      String? cookingTime,
+      String? description,
+      String? servingPortion,
+      String? ingredientList,
+      String? method,
+      String? methodTagLine,
+      String? chefWhisper,
+      String? chefWhisperTagline}) async {
+    String fileName = recipeImage!.path.split('/').last;
+
+    final body = FormData.fromMap({
+      "media":
+          await MultipartFile.fromFile(recipeImage.path, filename: fileName),
+      "category_id": categoryID!.replaceAll(' ', ""),
+      "name_dish": recipeName,
+      "tag_line": tagLine,
+      "preparation_time": preparationTime,
+      "cooking_time": cookingTime,
+      "small_desc": description,
+      "serving_potions": servingPortion,
+      "ingredient_list": ingredientList,
+      "method": method,
+      "method_tagline": methodTagLine,
+      "chefs_whisper": chefWhisper,
+      "chefs_whisper_tagline": chefWhisperTagline,
+    });
+    return await RecipeNetwork.createRecipe(body);
   }
 }

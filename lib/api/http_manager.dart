@@ -44,7 +44,6 @@ class HTTPManager {
           "Authorization": AppConstant.bearerToken != "null"
               ? "Bearer ${AppConstant.bearerToken}"
               : "",
-          "Content-Type": "application/json",
         });
 
     Dio dio = Dio(baseOptions);

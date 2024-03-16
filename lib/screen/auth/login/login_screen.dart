@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       if (response.success == true) {
         AppConstant.bearerToken = response.data!.token!;
-        print(AppConstant.bearerToken);
+
         AppConstant.userData = response.data;
         response.data!.userEmail = emailController.text.trim();
 

@@ -3,6 +3,8 @@ application
 INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:4:5-35:19
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-19:19
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-19:19
+MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-35:19
+MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-35:19
 MERGED from [:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-14:19
 MERGED from [:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-14:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
@@ -35,6 +37,7 @@ MERGED from [:shared_preferences_android] D:\projects\Munch-App\build\shared_pre
 MERGED from [:video_thumbnail] D:\projects\Munch-App\build\video_thumbnail\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\projects\Munch-App\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
+MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-37:12
 MERGED from [:sqflite] D:\projects\Munch-App\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:fluttertoast] D:\projects\Munch-App\build\fluttertoast\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-16:12
@@ -42,6 +45,7 @@ MERGED from [:path_provider_android] D:\projects\Munch-App\build\path_provider_a
 MERGED from [:video_player_android] D:\projects\Munch-App\build\video_player_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.browser:browser:1.5.0] C:\Users\saadb\.gradle\caches\transforms-3\d9d38ec9344928c1b01c151ec647a95a\transformed\browser-1.5.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.exoplayer:exoplayer-hls:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\f54c74cdf9c2b57a01da27444ceef3cd\transformed\jetified-exoplayer-hls-2.18.7\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.exoplayer:exoplayer-dash:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\03927a90f6997cefc8dd14d4ec469fe7\transformed\jetified-exoplayer-dash-2.18.7\AndroidManifest.xml:17:1-24:12
@@ -51,7 +55,6 @@ MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\saadb\.gradle\ca
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
-MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\saadb\.gradle\caches\transforms-3\06f1f6593869a63768ed146cfbaa0e2a\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
@@ -106,6 +109,8 @@ MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_and
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\projects\Munch-App\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\projects\Munch-App\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:sqflite] D:\projects\Munch-App\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:sqflite] D:\projects\Munch-App\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:fluttertoast] D:\projects\Munch-App\build\fluttertoast\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
@@ -120,6 +125,8 @@ MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\tra
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.browser:browser:1.5.0] C:\Users\saadb\.gradle\caches\transforms-3\d9d38ec9344928c1b01c151ec647a95a\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.browser:browser:1.5.0] C:\Users\saadb\.gradle\caches\transforms-3\d9d38ec9344928c1b01c151ec647a95a\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.exoplayer:exoplayer-hls:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\f54c74cdf9c2b57a01da27444ceef3cd\transformed\jetified-exoplayer-hls-2.18.7\AndroidManifest.xml:20:5-22:41
@@ -138,8 +145,6 @@ MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transfo
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:5:5-44
-MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:20:5-44
@@ -246,6 +251,28 @@ ADDED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_andr
 		ADDED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:17:17-72
 	android:name
 		ADDED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:16:17-67
+provider#dev.fluttercommunity.plus.share.ShareFileProvider
+ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:15:9-23:20
+	android:grantUriPermissions
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:19:13-47
+	android:authorities
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:17:13-74
+	android:exported
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:18:13-37
+	android:name
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:16:13-77
+receiver#dev.fluttercommunity.plus.share.SharePlusPendingIntent
+ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:28:9-34:20
+	android:exported
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:29:13-82
+intent-filter#action:name:EXTRA_CHOSEN_COMPONENT
+ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:31:13-33:29
+action#EXTRA_CHOSEN_COMPONENT
+ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:32:17-65
+	android:name
+		ADDED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:32:25-62
 activity#io.flutter.plugins.urllauncher.WebViewActivity
 ADDED from [:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-13:74
 	android:exported

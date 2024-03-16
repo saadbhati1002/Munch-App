@@ -339,7 +339,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     }
   }
 
-  _articleUnlike({String? recipeID, int? index}) async {
+  _articleUnlike({
+    String? recipeID,
+  }) async {
     try {
       setState(() {
         isLoading = true;

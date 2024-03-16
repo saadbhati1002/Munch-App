@@ -530,6 +530,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
+
     if (picked != null) {
       selectedDate = DateFormat('yyyy-MM-dd').format(picked);
       setState(() {});

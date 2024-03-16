@@ -22,6 +22,7 @@ class CustomSearchTextField extends StatelessWidget {
       this.context,
       this.isMaxLine,
       this.borderRadius,
+      this.keyboardType,
       Key? key})
       : super(key: key);
 
@@ -53,6 +54,7 @@ class CustomSearchTextField extends StatelessWidget {
   final BuildContext? context;
   final BoxConstraints? suffixConstraints;
   final bool? isMaxLine;
+  final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
 
   @override
@@ -71,6 +73,7 @@ class CustomSearchTextField extends StatelessWidget {
       margin: margin,
       height: isMaxLine == true ? 150 : 45,
       child: TextField(
+        keyboardType: keyboardType ?? TextInputType.emailAddress,
         onTap: onTap,
         onChanged: onChanged,
         cursorColor: ColorConstant.mainColor,

@@ -5,8 +5,6 @@ import 'package:app/models/user/admin_user/admin_model.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/images.dart';
-
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
@@ -194,7 +192,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                   width: 25,
                 ),
                 Text(
-                  userData!.name!,
+                  userData.name!,
                   style: const TextStyle(
                       fontSize: 13,
                       color: ColorConstant.black,

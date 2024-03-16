@@ -2,6 +2,7 @@ import 'package:app/api/http_manager.dart';
 import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/comment/add_comment_model.dart';
 import 'package:app/models/recipe/comment/comment_model.dart';
+import 'package:app/models/recipe/create/create_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 
@@ -17,6 +18,8 @@ class RecipeNetwork {
   static const String recipeRemoveFromCalenderUrl = "recipy/calender/delete";
   static const String calenderRecipeUrl = "recipy/calenders";
   static const String myLikedRecipeUrl = "liked-recipes";
+  static const String createRecipeUrl = "create/recipie";
+  static const String myRecipeUrl = "user/recipie";
 
   static Future<dynamic> getRecipeList() async {
     final result = await httpManager.get(url: recipeUrl);
@@ -72,13 +75,27 @@ class RecipeNetwork {
 
   static Future<dynamic> getSavedCalenderRecipe() async {
     final result = await httpManager.get(url: calenderRecipeUrl);
-    print(result);
+
     CalenderRes loginRes = CalenderRes.fromJson(result);
     return loginRes;
   }
 
   static Future<dynamic> getMyLikeRecipe(param) async {
     final result = await httpManager.get(url: myLikedRecipeUrl, params: param);
+
+    RecipeRes loginRes = RecipeRes.fromJson(result);
+    return loginRes;
+  }
+
+  static Future<dynamic> createRecipe(param) async {
+    final result = await httpManager.post(url: createRecipeUrl, data: param);
+
+    RecipeCreateRes loginRes = RecipeCreateRes.fromJson(result);
+    return loginRes;
+  }
+
+  static Future<dynamic> getMyRecipeList() async {
+    final result = await httpManager.get(url: myLikedRecipeUrl);
 
     RecipeRes loginRes = RecipeRes.fromJson(result);
     return loginRes;
