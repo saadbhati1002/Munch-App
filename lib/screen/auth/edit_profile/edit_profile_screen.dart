@@ -109,7 +109,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .05,
+                  height: MediaQuery.of(context).size.height * .03,
                 ),
                 Container(
                   color: ColorConstant.white,
@@ -134,6 +134,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         controller: userPhoneNumberController,
                         context: context,
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       commonTextFieldText(title: 'Date of Birth'),
                       CustomTextFormField(
                         onTap: () {
@@ -143,11 +146,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         controller: userDateOfBirthController,
                         context: context,
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       commonTextFieldText(title: 'Address'),
                       CustomTextFormField(
                         hintText: 'Your Address',
                         controller: userAddressController,
                         context: context,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       commonTextFieldText(title: 'Bio'),
                       CustomTextFormField(
