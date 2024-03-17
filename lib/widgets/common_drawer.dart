@@ -2,6 +2,7 @@ import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
+import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
@@ -117,7 +118,9 @@ class _CommonDrawerState extends State<CommonDrawer> {
               ),
               commonRaw(
                 icon: const FaIcon(FontAwesomeIcons.dollar),
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const MyMembershipScreen());
+                },
                 title: "Payments",
               ),
               const SizedBox(
