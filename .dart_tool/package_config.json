@@ -44,6 +44,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "chat_bubbles",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/chat_bubbles-1.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -626,7 +632,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-16T07:04:59.713282Z",
+  "generated": "2024-03-19T08:02:35.777736Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }
