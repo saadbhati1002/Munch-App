@@ -347,47 +347,68 @@ class _HomeScreenState extends State<HomeScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () async {
-                                  var response = await Get.to(
-                                    () => RecipeDetailScreen(
-                                      recipeData: recipeList[index],
-                                    ),
-                                  );
-                                  if (response != null) {
-                                    if (response == 0 &&
-                                        recipeList[index].isLikedByMe ==
-                                            false) {
-                                      recipeList[index].isLikedByMe = true;
-                                      recipeList[index].likeCount =
-                                          recipeList[index].likeCount! + 1;
-                                    } else if (response == 1 &&
-                                        recipeList[index].isLikedByMe == true) {
-                                      recipeList[index].isLikedByMe = false;
-                                      recipeList[index].likeCount =
-                                          recipeList[index].likeCount! - 1;
-                                    }
-                                    setState(() {});
-                                  }
-                                },
-                                child: recipeListWidget(
-                                    isFromRecipe: true,
-                                    context: context,
-                                    recipeData: recipeList[index],
-                                    onTap: () {
-                                      if (recipeList[index].isLikedByMe ==
-                                          true) {
-                                        _recipeUnlike(
-                                            recipeID: recipeList[index].id,
-                                            index: index);
-                                      } else {
-                                        _recipeLike(
-                                          recipeID: recipeList[index].id,
-                                          index: index,
+                              int itemCount = recipeList.length;
+                              int reversedIndex = itemCount - 1 - index;
+                              return recipeList[reversedIndex].isApproved == "1"
+                                  ? GestureDetector(
+                                      onTap: () async {
+                                        var response = await Get.to(
+                                          () => RecipeDetailScreen(
+                                            recipeData:
+                                                recipeList[reversedIndex],
+                                          ),
                                         );
-                                      }
-                                    }),
-                              );
+                                        if (response != null) {
+                                          if (response == 0 &&
+                                              recipeList[reversedIndex]
+                                                      .isLikedByMe ==
+                                                  false) {
+                                            recipeList[reversedIndex]
+                                                .isLikedByMe = true;
+                                            recipeList[reversedIndex]
+                                                    .likeCount =
+                                                recipeList[reversedIndex]
+                                                        .likeCount! +
+                                                    1;
+                                          } else if (response == 1 &&
+                                              recipeList[reversedIndex]
+                                                      .isLikedByMe ==
+                                                  true) {
+                                            recipeList[reversedIndex]
+                                                .isLikedByMe = false;
+                                            recipeList[reversedIndex]
+                                                    .likeCount =
+                                                recipeList[reversedIndex]
+                                                        .likeCount! -
+                                                    1;
+                                          }
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: recipeListWidget(
+                                          isFromRecipe: true,
+                                          context: context,
+                                          recipeData: recipeList[reversedIndex],
+                                          onTap: () {
+                                            if (recipeList[reversedIndex]
+                                                    .isLikedByMe ==
+                                                true) {
+                                              _recipeUnlike(
+                                                  recipeID:
+                                                      recipeList[reversedIndex]
+                                                          .id,
+                                                  index: reversedIndex);
+                                            } else {
+                                              _recipeLike(
+                                                recipeID:
+                                                    recipeList[reversedIndex]
+                                                        .id,
+                                                index: reversedIndex,
+                                              );
+                                            }
+                                          }),
+                                    )
+                                  : const SizedBox();
                             },
                           )
                         : ListView.builder(
