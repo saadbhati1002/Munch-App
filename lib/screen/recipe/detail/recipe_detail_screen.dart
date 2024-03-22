@@ -428,7 +428,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                   await Clipboard.setData(
                                     ClipboardData(
                                       text: widget.recipeData!.ingredientList
-                                          .toString(),
+                                          .toString()
+                                          .replaceAll("[", '')
+                                          .replaceAll("]", ''),
                                     ),
                                   );
                                   toastShow(
