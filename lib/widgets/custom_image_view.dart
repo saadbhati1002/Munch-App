@@ -91,7 +91,6 @@ class CustomImage extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorConstant.white,
-                  shape: BoxShape.circle,
                   border: Border.all(width: 1, color: ColorConstant.greyColor),
                   image: const DecorationImage(
                     image: AssetImage(Images.logo),

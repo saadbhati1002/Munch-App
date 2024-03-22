@@ -354,7 +354,7 @@ class _SignupScreenState extends State<SignupScreen> {
   imageFromCamera() async {
     try {
       final XFile? result =
-          await _picker.pickImage(source: ImageSource.camera, imageQuality: 75);
+          await _picker.pickImage(source: ImageSource.camera, imageQuality: 60);
       if (result != null) {
         userImage = File(result.path);
         setState(() {});
@@ -367,7 +367,7 @@ class _SignupScreenState extends State<SignupScreen> {
   imageFromGallery() async {
     try {
       final XFile? result = await _picker.pickImage(
-          source: ImageSource.gallery, imageQuality: 75);
+          source: ImageSource.gallery, imageQuality: 60);
       if (result != null) {
         userImage = File(result.path);
         setState(() {});

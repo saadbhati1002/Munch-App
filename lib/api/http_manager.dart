@@ -74,6 +74,7 @@ class HTTPManager {
 
           navigation.Get.to(() => const LoginScreen());
         }
+        return {"success": false};
       }
     } else {
       ViewUtils.checkInternetConnectionDialog();
