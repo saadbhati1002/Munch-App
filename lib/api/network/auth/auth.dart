@@ -9,7 +9,7 @@ class AuthNetwork {
   static const String changePasswordUrl = "password/change";
   static Future<dynamic> registerUser(prams) async {
     final result = await httpManager.post(url: registerUserUrl, data: prams);
-
+    print(result);
     UserRes loginRes = UserRes.fromJson(result);
     return loginRes;
   }

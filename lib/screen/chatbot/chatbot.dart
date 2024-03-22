@@ -110,8 +110,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                   const Padding(
                                     padding: EdgeInsets.only(left: 16, top: 4),
                                     child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("Typing...")),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text("Typing..."),
+                                    ),
                                   )
                                 ],
                               )
