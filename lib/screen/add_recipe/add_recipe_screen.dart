@@ -4,7 +4,6 @@ import 'package:app/api/repository/category/category.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/category/category_model.dart';
 import 'package:app/models/recipe/create/create_model.dart';
-import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
@@ -14,7 +13,6 @@ import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class AddRecipeScreen extends StatefulWidget {
@@ -25,7 +23,6 @@ class AddRecipeScreen extends StatefulWidget {
 }
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
-  TextEditingController selectedData = TextEditingController();
   TextEditingController recipeName = TextEditingController();
   TextEditingController recipeTagLine = TextEditingController();
   TextEditingController preparationTime = TextEditingController();
@@ -34,9 +31,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   TextEditingController severingPortion = TextEditingController();
   TextEditingController ingredientList = TextEditingController();
   TextEditingController method = TextEditingController();
-  TextEditingController methodTagLine = TextEditingController();
   TextEditingController chiefWhisper = TextEditingController();
-  TextEditingController chiefWhisperTagline = TextEditingController();
   bool isLoading = false;
   final ImagePicker _picker = ImagePicker();
   List<CategoryData> categoryList = [];
@@ -130,22 +125,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 ),
                 const SizedBox(
                   height: 15,
-                ),
-                commonTextWidget(title: 'Select Date'),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: CustomSearchTextField(
-                    onTap: () {
-                      _selectDate(context);
-                    },
-                    controller: selectedData,
-                    borderRadius: 10,
-                    context: context,
-                    hintText: 'Select Date',
-                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -329,22 +308,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                commonTextWidget(title: 'Method Tagline'),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: CustomSearchTextField(
-                    controller: methodTagLine,
-                    borderRadius: 10,
-                    context: context,
-                    hintText: 'Method Tagline',
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 commonTextWidget(title: 'Chefs Whisper'),
                 const SizedBox(
                   height: 5,
@@ -357,22 +320,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     controller: chiefWhisper,
                     context: context,
                     hintText: 'Chefs Whisper',
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                commonTextWidget(title: 'Chefs Whisper Tagline'),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: CustomSearchTextField(
-                    borderRadius: 10,
-                    context: context,
-                    controller: chiefWhisperTagline,
-                    hintText: 'Chefs Whisper Tagline',
                   ),
                 ),
                 const SizedBox(
@@ -506,7 +453,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   imageFromCamera() async {
     try {
       final XFile? result =
-          await _picker.pickImage(source: ImageSource.camera, imageQuality: 75);
+          await _picker.pickImage(source: ImageSource.camera, imageQuality: 60);
       if (result != null) {
         recipeImage = File(result.path);
         setState(() {});
@@ -519,7 +466,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   imageFromGallery() async {
     try {
       final XFile? result = await _picker.pickImage(
-          source: ImageSource.gallery, imageQuality: 75);
+          source: ImageSource.gallery, imageQuality: 60);
       if (result != null) {
         recipeImage = File(result.path);
         setState(() {});
@@ -542,30 +489,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     );
   }
 
-  _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    FocusManager.instance.primaryFocus?.unfocus();
-
-    if (picked != null) {
-      selectedData.text = DateFormat('yyyy-MM-dd').format(picked);
-      setState(() {});
-    }
-  }
-
   Future _createRecipe() async {
     if (recipeImage == null) {
       toastShow(message: "Please select recipe image");
       return;
     }
-    if (selectedData.text.isEmpty) {
-      toastShow(message: "Please select date");
-      return;
-    }
+
     if (selectedCategoryIDList.isEmpty) {
       toastShow(message: "Please select recipe tag");
       return;
@@ -602,18 +531,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       toastShow(message: "Please enter method");
       return;
     }
-    if (methodTagLine.text.isEmpty) {
-      toastShow(message: "Please enter method tagline");
-      return;
-    }
+
     if (chiefWhisper.text.isEmpty) {
       toastShow(message: "Please enter chief whisper");
       return;
     }
-    if (chiefWhisperTagline.text.isEmpty) {
-      toastShow(message: "Please enter chief whisper tagline");
-      return;
-    }
+
     try {
       setState(() {
         isLoading = true;
@@ -624,12 +547,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             .replaceAll('[', "")
             .replaceAll(']', ""),
         chefWhisper: chiefWhisper.text.toString().trim(),
-        chefWhisperTagline: chiefWhisperTagline.text.trim(),
+        chefWhisperTagline: "",
         cookingTime: cookingTime.text.trim(),
         description: discretion.text.trim(),
         ingredientList: ingredientList.text.trim(),
         method: method.text.trim(),
-        methodTagLine: methodTagLine.text.trim(),
+        methodTagLine: "",
         preparationTime: preparationTime.text.trim(),
         recipeImage: recipeImage,
         recipeName: recipeName.text.trim(),
@@ -637,34 +560,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         tagLine: recipeTagLine.text.trim(),
       );
       if (response.success == true) {
-        await _saveToMyCalender(recipeID: response.data!.id.toString());
         Get.back(result: "1");
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
-    } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  Future _saveToMyCalender({String? recipeID}) async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-      LikeUnlikeRes response = await RecipeRepository().saveToMyCalenderApiCall(
-          date: selectedData.text.trim(), recipeID: recipeID);
-      if (response.success == true) {
-        // toastShow(message: "Saved to my calender successfully");
-      } else {
-        // toastShow(message: response.message);
-      }
-      return response;
     } catch (e) {
       debugPrint(e.toString());
     } finally {
