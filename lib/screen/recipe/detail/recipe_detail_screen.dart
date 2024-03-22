@@ -491,17 +491,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.methodTagline ?? AppConstant.appName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: ColorConstant.greyDarkColor,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -527,18 +516,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         fontWeight: FontWeight.w500,
                         color: ColorConstant.mainColor,
                         fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.chefsWhisperTagline ??
-                          AppConstant.appName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: ColorConstant.greyDarkColor,
-                        fontSize: 10,
                       ),
                     ),
                   ),
