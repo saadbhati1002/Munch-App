@@ -2,6 +2,7 @@ import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
 import 'package:app/screen/chatbot/chatbot.dart';
+import 'package:app/screen/faqs/faq_screen.dart';
 import 'package:app/screen/help/help_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
@@ -179,7 +180,9 @@ class _CommonDrawerState extends State<CommonDrawer> {
                 ),
                 commonRaw(
                   icon: const FaIcon(FontAwesomeIcons.circleQuestion),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const FAQScreen());
+                  },
                   title: "FAQs",
                 ),
                 const SizedBox(
