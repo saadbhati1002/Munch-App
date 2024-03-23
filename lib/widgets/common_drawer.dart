@@ -6,6 +6,7 @@ import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
+import 'package:app/screen/social_media/social_media_share_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -183,7 +184,9 @@ class _CommonDrawerState extends State<CommonDrawer> {
                 ),
                 commonRaw(
                   icon: const FaIcon(FontAwesomeIcons.heart),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const SocialMediaShareScreen());
+                  },
                   title: "Follow Us",
                 ),
                 const SizedBox(

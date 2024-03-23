@@ -8,6 +8,9 @@ class AppConstant {
   static const String appName = 'Munch Monday';
   static const String baseUrl = 'https://alghurfah.net/munch/public/api/';
   static const String imagePath = 'https://alghurfah.net/munch/public/';
+  static const String instagramUrl = 'https://www.instagram.com/';
+  static const String facebookUrl = 'https://www.facebook.com/';
+  static const String whatsAppUrl = 'https://wa.me/+971 50 348 2117?text=';
   static String bearerToken = "null";
   static UserData? userData;
   static userDetailSaved(String userDetail) async {
