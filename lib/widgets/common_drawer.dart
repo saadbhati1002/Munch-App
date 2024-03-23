@@ -212,10 +212,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
       onTap: onTap,
       child: Row(
         children: [
-          icon!,
-          const SizedBox(
-            width: 15,
-          ),
+          SizedBox(width: 41, child: icon!),
           Text(
             title!,
             style: const TextStyle(

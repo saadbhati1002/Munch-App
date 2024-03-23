@@ -561,7 +561,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       );
       if (response.success == true) {
         Get.back(result: "1");
-        toastShow(message: response.message);
+        toastShow(
+          message: "Recipe created successfully. Now wait for admin approval",
+        );
       } else {
         toastShow(message: response.message);
       }

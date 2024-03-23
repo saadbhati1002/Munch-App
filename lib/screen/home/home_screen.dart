@@ -6,6 +6,7 @@ import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/article/detail/article_detail_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
+import 'package:app/screen/search/search_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
@@ -202,36 +203,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  width: MediaQuery.of(context).size.width,
-                  height: 45,
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.white,
-                    borderRadius: BorderRadius.circular(22),
-                    border:
-                        Border.all(width: 1, color: ColorConstant.greyColor),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: ColorConstant.greyColor,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Search for Recipes",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: ColorConstant.greyColor,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => const SearchScreen());
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    width: MediaQuery.of(context).size.width,
+                    height: 45,
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.white,
+                      borderRadius: BorderRadius.circular(22),
+                      border:
+                          Border.all(width: 1, color: ColorConstant.greyColor),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.search,
+                            color: ColorConstant.greyColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Search for Recipes",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: ColorConstant.greyColor,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

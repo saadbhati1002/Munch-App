@@ -14,6 +14,7 @@ import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -184,11 +185,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const CustomImage(
-                                  imagePath: Images.comment,
-                                  isAssetsImage: true,
-                                  width: 18,
-                                  height: 18,
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SvgPicture.asset(
+                                      "assets/images/comment.svg"),
                                 ),
                                 const SizedBox(
                                   width: 7,
@@ -212,20 +213,20 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           onTap: () {
                             AppConstant.shareAppLink();
                           },
-                          child: const SizedBox(
+                          child: SizedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                CustomImage(
-                                  imagePath: Images.share,
-                                  isAssetsImage: true,
+                                SizedBox(
                                   width: 21,
                                   height: 19,
+                                  child: SvgPicture.asset(
+                                      "assets/images/share.svg"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
-                                Text(
+                                const Text(
                                   "Share",
                                   style: TextStyle(
                                       fontSize: 12,
@@ -328,7 +329,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       children: [
                         recipeTimeWidget(
                             title:
-                                "Preparation Time: ${widget.recipeData!.preparationTime} Mins"),
+                                "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
                         recipeTimeWidget(
                             title:
                                 "Cooking Time: ${widget.recipeData!.cookingTime} Mins"),
@@ -418,7 +419,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               horizontal: 15, vertical: 10),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: ColorConstant.greyColor.withOpacity(0.4),
+                            color: ColorConstant.greyColor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
