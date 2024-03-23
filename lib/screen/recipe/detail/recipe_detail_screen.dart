@@ -7,7 +7,6 @@ import 'package:app/screen/recipe/comments/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/images.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';

@@ -95,7 +95,7 @@ class RecipeNetwork {
   }
 
   static Future<dynamic> getMyRecipeList() async {
-    final result = await httpManager.get(url: myLikedRecipeUrl);
+    final result = await httpManager.get(url: myRecipeUrl);
 
     RecipeRes loginRes = RecipeRes.fromJson(result);
     return loginRes;
