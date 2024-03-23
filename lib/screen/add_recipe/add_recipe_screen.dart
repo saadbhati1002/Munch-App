@@ -29,7 +29,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   TextEditingController cookingTime = TextEditingController();
   TextEditingController discretion = TextEditingController();
   TextEditingController severingPortion = TextEditingController();
-  TextEditingController ingredientList = TextEditingController();
+  List<TextEditingController> ingredientList = [TextEditingController()];
+
   TextEditingController method = TextEditingController();
   TextEditingController chiefWhisper = TextEditingController();
   bool isLoading = false;
@@ -274,19 +275,47 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                commonTextWidget(title: 'Ingredient List (Separate by ",")'),
+                commonTextWidget(title: 'Ingredient List'),
                 const SizedBox(
                   height: 5,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: CustomSearchTextField(
-                    isMaxLine: true,
-                    borderRadius: 10,
-                    controller: ingredientList,
-                    context: context,
-                    hintText: 'Ingredient List',
-                  ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: ingredientList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('${index + 1}. '),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .8,
+                            child: CustomSearchTextField(
+                              isMaxLine: false,
+                              borderRadius: 10,
+                              controller: ingredientList[index],
+                              context: context,
+                              hintText: 'Ingredient List',
+                            ),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                if (ingredientList[index].text.isEmpty) {
+                                  toastShow(
+                                      message:
+                                          "Please enter ingredient item then add list");
+                                  return;
+                                }
+                                ingredientList.add(TextEditingController());
+                                setState(() {});
+                              },
+                              child: const Icon(Icons.add_circle))
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -523,7 +552,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       toastShow(message: "Please enter serving portion");
       return;
     }
-    if (ingredientList.text.isEmpty) {
+    if (ingredientList[0].text.isEmpty) {
       toastShow(message: "Please enter ingredient list");
       return;
     }
@@ -536,7 +565,18 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       toastShow(message: "Please enter chief whisper");
       return;
     }
-
+    String ingredientListString = "";
+    for (int i = 0; i < ingredientList.length; i++) {
+      if (ingredientList[i].text.isNotEmpty) {
+        if (ingredientListString == "") {
+          ingredientListString = ingredientList[i].text.trim();
+        } else {
+          ingredientListString =
+              "$ingredientListString,${ingredientList[i].text.trim()}";
+        }
+      }
+    }
+    print(ingredientListString);
     try {
       setState(() {
         isLoading = true;
@@ -550,7 +590,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         chefWhisperTagline: "",
         cookingTime: cookingTime.text.trim(),
         description: discretion.text.trim(),
-        ingredientList: ingredientList.text.trim(),
+        ingredientList: ingredientListString,
         method: method.text.trim(),
         methodTagLine: "",
         preparationTime: preparationTime.text.trim(),
