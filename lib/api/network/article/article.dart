@@ -15,47 +15,47 @@ class ArticleNetwork {
   static Future<dynamic> getArticleList() async {
     final result = await httpManager.get(url: articleUrl);
 
-    RecipeRes loginRes = RecipeRes.fromJson(result);
-    return loginRes;
+    RecipeRes response = RecipeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> articleLike(param) async {
     final result = await httpManager.post(url: articleLikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> articleUnlike(param) async {
     final result = await httpManager.post(url: articleUnlikeUrl, data: param);
 
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> addComment(param) async {
     final result =
         await httpManager.post(url: articleCommentAddUrl, data: param);
 
-    AddCommentRes loginRes = AddCommentRes.fromJson(result);
-    return loginRes;
+    AddCommentRes response = AddCommentRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getCommentList(param) async {
     final result = await httpManager.get(url: "$commentListUrl$param");
 
-    CommentRes loginRes = CommentRes.fromJson(result);
-    return loginRes;
+    CommentRes response = CommentRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> commentLike(param) async {
     final result = await httpManager.post(url: commentLikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> commentUnlike(param) async {
     final result = await httpManager.post(url: commentUnlikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 }

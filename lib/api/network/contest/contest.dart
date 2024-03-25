@@ -15,7 +15,7 @@ class ContestNetwork {
   static Future<dynamic> participateInContest(params) async {
     final result =
         await httpManager.post(url: participateInContestUrl, data: params);
-    CommonRes loginRes = CommonRes.fromJson(result);
-    return loginRes;
+    CommonRes response = CommonRes.fromJson(result);
+    return response;
   }
 }

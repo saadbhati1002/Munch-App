@@ -5,7 +5,7 @@ class CategoryNetwork {
   static const String categoryUrl = "categories";
   static Future<dynamic> getCategory() async {
     final result = await httpManager.get(url: categoryUrl);
-    CategoryRes loginRes = CategoryRes.fromJson(result);
-    return loginRes;
+    CategoryRes response = CategoryRes.fromJson(result);
+    return response;
   }
 }

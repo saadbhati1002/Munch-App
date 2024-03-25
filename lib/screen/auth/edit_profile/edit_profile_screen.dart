@@ -37,6 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     _checkUserData();
+
     super.initState();
   }
 

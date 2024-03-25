@@ -24,80 +24,80 @@ class RecipeNetwork {
   static Future<dynamic> getRecipeList() async {
     final result = await httpManager.get(url: recipeUrl);
 
-    RecipeRes loginRes = RecipeRes.fromJson(result);
-    return loginRes;
+    RecipeRes response = RecipeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> recipeLike(param) async {
     final result = await httpManager.post(url: recipeLikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> recipeUnlike(param) async {
     final result = await httpManager.post(url: recipeUnlikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> addComment(param) async {
     final result = await httpManager.post(url: commentAddUrl, data: param);
 
-    AddCommentRes loginRes = AddCommentRes.fromJson(result);
-    return loginRes;
+    AddCommentRes response = AddCommentRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getCommentList(param) async {
     final result = await httpManager.get(url: "$commentListUrl$param");
 
-    CommentRes loginRes = CommentRes.fromJson(result);
-    return loginRes;
+    CommentRes response = CommentRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> commentLike(param) async {
     final result = await httpManager.post(url: commentLikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> commentUnlike(param) async {
     final result = await httpManager.post(url: commentUnlikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> saveToMyCalender(param) async {
     final result =
         await httpManager.post(url: recipeAddToCalenderUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getSavedCalenderRecipe() async {
     final result = await httpManager.get(url: calenderRecipeUrl);
 
-    CalenderRes loginRes = CalenderRes.fromJson(result);
-    return loginRes;
+    CalenderRes response = CalenderRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getMyLikeRecipe(param) async {
     final result = await httpManager.get(url: myLikedRecipeUrl, params: param);
 
-    RecipeRes loginRes = RecipeRes.fromJson(result);
-    return loginRes;
+    RecipeRes response = RecipeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> createRecipe(param) async {
     final result = await httpManager.post(url: createRecipeUrl, data: param);
 
-    RecipeCreateRes loginRes = RecipeCreateRes.fromJson(result);
-    return loginRes;
+    RecipeCreateRes response = RecipeCreateRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getMyRecipeList() async {
     final result = await httpManager.get(url: myRecipeUrl);
 
-    RecipeRes loginRes = RecipeRes.fromJson(result);
-    return loginRes;
+    RecipeRes response = RecipeRes.fromJson(result);
+    return response;
   }
 }
