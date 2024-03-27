@@ -58,6 +58,13 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _debounce?.cancel();
+
+    super.dispose();
+  }
+
   _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 1000), () {

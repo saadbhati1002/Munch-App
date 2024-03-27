@@ -135,7 +135,7 @@ class CustomSearchTextField extends StatelessWidget {
           ),
           prefixIcon: prefix,
           prefixIconConstraints: prefixConstraints,
-          suffixIcon: suffix,
+          // suffixIcon: suffix,
           suffixIconConstraints: suffixConstraints,
           fillColor: ColorConstant.white,
           filled: true,

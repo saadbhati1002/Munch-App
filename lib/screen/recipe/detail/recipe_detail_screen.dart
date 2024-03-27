@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
+import 'package:app/models/list/add/add_list_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/comments/comments_screen.dart';
@@ -425,6 +427,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
+                                  _ingredientSaveToMyList(widget
+                                      .recipeData!.ingredientList
+                                      .toString()
+                                      .replaceAll("[", '')
+                                      .replaceAll("]", ''));
                                   await Clipboard.setData(
                                     ClipboardData(
                                       text: widget.recipeData!.ingredientList
@@ -433,8 +440,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                           .replaceAll("]", ''),
                                     ),
                                   );
-                                  toastShow(
-                                      message: "Copy to device clipboard");
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -658,6 +663,30 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! - 1;
         widget.recipeData!.isLikedByMe = false;
         toastShow(message: response.message);
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future _ingredientSaveToMyList(ingredient) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      AddListRes response = await ListRepository().addListApiCall(
+        ingredient: ingredient,
+        recipeName: widget.recipeData!.nameDish,
+        servingPortion: widget.recipeData!.servingPotions,
+      );
+      if (response.success == true) {
+        toastShow(message: "Saved to your list");
       } else {
         toastShow(message: response.message);
       }

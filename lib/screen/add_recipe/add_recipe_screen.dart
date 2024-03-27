@@ -576,7 +576,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         }
       }
     }
-    print(ingredientListString);
+
     try {
       setState(() {
         isLoading = true;

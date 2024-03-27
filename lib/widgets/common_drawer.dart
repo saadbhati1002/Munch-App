@@ -5,6 +5,7 @@ import 'package:app/screen/chatbot/chatbot.dart';
 import 'package:app/screen/faqs/faq_screen.dart';
 import 'package:app/screen/help/help_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
+import 'package:app/screen/list/list_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
@@ -105,9 +106,19 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.listCheck),
+                  icon: const FaIcon(FontAwesomeIcons.bowlFood),
                   onTap: () {
                     Get.to(() => const MyRecipeScreen());
+                  },
+                  title: "My Recipe",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.listCheck),
+                  onTap: () {
+                    Get.to(() => const ListScreen());
                   },
                   title: "My List",
                 ),
