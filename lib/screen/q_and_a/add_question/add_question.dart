@@ -69,6 +69,7 @@ class _AddQuestionsScreenState extends State<AddQuestionsScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: CustomSearchTextField(
+                    keyboardType: TextInputType.multiline,
                     controller: descriptionController,
                     context: context,
                     borderRadius: 10,

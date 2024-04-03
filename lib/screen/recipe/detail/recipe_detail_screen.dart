@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/list/add/add_list_model.dart';
+import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/comments/comments_screen.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
@@ -29,9 +31,12 @@ class RecipeDetailScreen extends StatefulWidget {
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   bool isLoading = false;
+  bool isSavedToMyCalender = false;
+  List<CalenderData> calenderRecipeList = [];
+
   @override
   void initState() {
-    setState(() {});
+    _getCalenderRecipe();
     super.initState();
   }
 
@@ -39,6 +44,44 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     Navigator.pop(context, widget.recipeData!.isLikedByMe == true ? 0 : 1);
 
     return Future.value(true);
+  }
+
+  Future _getCalenderRecipe() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      CalenderRes response =
+          await RecipeRepository().getCalenderRecipeApiCall();
+      if (response.data.isNotEmpty) {
+        for (int i = 0; i < response.data.length; i++) {
+          if (response.data[i].userId.toString() ==
+              AppConstant.userData!.id.toString()) {
+            calenderRecipeList.add(
+              response.data[i],
+            );
+          }
+        }
+        _checkForRecipeSaved();
+      }
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  _checkForRecipeSaved() {
+    var response = calenderRecipeList
+        .where((element) => element.recipeId == widget.recipeData!.id!);
+    if (response.isNotEmpty) {
+      isSavedToMyCalender = T;
+    }
   }
 
   @override
@@ -296,6 +339,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: GestureDetector(
                       onTap: () {
+                        if (isSavedToMyCalender) {
+                          toastShow(message: "Already saved to your calender");
+                          return;
+                        }
                         _selectDate(context);
                       },
                       child: const Row(

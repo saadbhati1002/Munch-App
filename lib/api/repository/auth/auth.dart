@@ -10,16 +10,29 @@ class AuthRepository {
       String? password,
       String? bio,
       File? userImage}) async {
-    String fileName = userImage!.path.split('/').last;
+    var body;
+    if (userImage != null) {
+      String fileName = userImage.path.split('/').last;
 
-    final body = FormData.fromMap({
-      "image": await MultipartFile.fromFile(userImage.path, filename: fileName),
-      "email": email,
-      "password": password,
-      "c_password": password,
-      "bio": bio,
-      "name": userName
-    });
+      body = FormData.fromMap({
+        "image":
+            await MultipartFile.fromFile(userImage.path, filename: fileName),
+        "email": email,
+        "password": password,
+        "c_password": password,
+        "bio": bio,
+        "name": userName
+      });
+    } else {
+      body = FormData.fromMap({
+        "email": email,
+        "password": password,
+        "c_password": password,
+        "bio": bio,
+        "name": userName
+      });
+    }
+
     return await AuthNetwork.registerUser(body);
   }
 
