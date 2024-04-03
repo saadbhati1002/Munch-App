@@ -3,6 +3,7 @@ import 'package:app/models/membership/list/membership_list_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_title.dart';
+import 'package:app/widgets/common_button.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
@@ -195,91 +196,120 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isShowPlan = false;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10, left: 5),
+                      height: 23,
+                      width: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: ColorConstant.black,
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: ColorConstant.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'Back',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'inter',
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  'SUBSCRIPTION PLANS',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: ColorConstant.mainColor,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  'Select a plan, you will be billed as per you selection.',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorConstant.greyColor,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListView.builder(
+                itemCount: membershipList.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return membershipWidget(
+                    membershipData: membershipList[index],
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CommonButton(
+                  color: ColorConstant.mainColor,
+                  textColor: ColorConstant.white,
+                  title: "Subscribe",
                   onTap: () {
+                    if (selectedMembership == null) {
+                      toastShow(
+                          message: "Please select membership plan to proceed");
+                      return;
+                    }
+                    toastShow(
+                        message:
+                            "Your stripe key is suspended.Please use another key");
                     setState(() {
                       isShowPlan = false;
                     });
                   },
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10, left: 5),
-                    height: 23,
-                    width: 30,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: ColorConstant.black,
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: ColorConstant.white,
-                      size: 18,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Text(
-                    'Back',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'inter',
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: const Text(
-                'SUBSCRIPTION PLANS',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: ColorConstant.mainColor,
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: const Text(
-                'Select a plan, you will be billed as per you selection.',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  color: ColorConstant.greyColor,
-                ),
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ListView.builder(
-              itemCount: membershipList.length,
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return membershipWidget(
-                  membershipData: membershipList[index],
-                );
-              },
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -323,7 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 0,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -340,7 +370,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 0,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,

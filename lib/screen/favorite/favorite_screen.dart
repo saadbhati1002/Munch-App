@@ -164,11 +164,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       size: 25,
                       color: ColorConstant.greyColor,
                     ),
-                    suffix: const Icon(
-                      Icons.filter_alt_rounded,
-                      size: 25,
-                      color: ColorConstant.greyColor,
-                    ),
                   ),
                 ),
                 const SizedBox(

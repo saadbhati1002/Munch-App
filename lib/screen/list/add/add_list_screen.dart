@@ -1,6 +1,5 @@
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/models/list/add/add_list_model.dart';
-import 'package:app/models/recipe/comment/comment_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
