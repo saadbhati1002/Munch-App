@@ -6,11 +6,15 @@ class ListRepository {
   }
 
   Future<dynamic> addListApiCall(
-      {String? recipeName, String? servingPortion, String? ingredient}) async {
+      {String? recipeName,
+      String? servingPortion,
+      String? ingredient,
+      String? buy}) async {
     final param = {
       "recipe_name": recipeName,
       "serving_portion": servingPortion,
-      "ingredent": ingredient
+      "ingredent": ingredient,
+      "buy": buy
     };
     return await ListNetwork.addList(param);
   }
@@ -22,5 +26,22 @@ class ListRepository {
       "id": id,
     };
     return await ListNetwork.removeList(param);
+  }
+
+  Future<dynamic> editListApiCall({
+    String? recipeName,
+    String? servingPortion,
+    String? ingredient,
+    String? buy,
+    String? listID,
+  }) async {
+    final param = {
+      "recipe_name": recipeName,
+      "serving_portion": servingPortion,
+      "ingredent": ingredient,
+      "buy": buy,
+      "id": listID
+    };
+    return await ListNetwork.editList(param);
   }
 }

@@ -21,6 +21,7 @@ class _AddListScreenState extends State<AddListScreen> {
   TextEditingController portionController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   List<TextEditingController> ingredientList = [TextEditingController()];
+  List buy = ["0"];
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -101,18 +102,24 @@ class _AddListScreenState extends State<AddListScreen> {
                               hintText: 'Ingredient List',
                             ),
                           ),
-                          GestureDetector(
-                              onTap: () {
-                                if (ingredientList[index].text.isEmpty) {
-                                  toastShow(
-                                      message:
-                                          "Please enter ingredient item then add list");
-                                  return;
-                                }
-                                ingredientList.add(TextEditingController());
-                                setState(() {});
-                              },
-                              child: const Icon(Icons.add_circle))
+                          index == ingredientList.length - 1
+                              ? GestureDetector(
+                                  onTap: () {
+                                    if (ingredientList[index].text.isEmpty) {
+                                      toastShow(
+                                          message:
+                                              "Please enter ingredient item then add list");
+                                      return;
+                                    }
+                                    ingredientList.add(TextEditingController());
+                                    buy.insert(0, "0");
+                                    setState(() {});
+                                  },
+                                  child: const Icon(Icons.add_circle),
+                                )
+                              : const SizedBox(
+                                  width: 20,
+                                )
                         ],
                       ),
                     );
@@ -173,10 +180,10 @@ class _AddListScreenState extends State<AddListScreen> {
         isLoading = true;
       });
       AddListRes response = await ListRepository().addListApiCall(
-        ingredient: ingredientListString,
-        recipeName: recipeNameController.text.trim(),
-        servingPortion: portionController.text.trim(),
-      );
+          ingredient: ingredientListString,
+          recipeName: recipeNameController.text.trim(),
+          servingPortion: portionController.text.trim(),
+          buy: buy.toString().replaceAll("[", "").replaceAll("]", ""));
       if (response.success == true) {
         toastShow(message: "List created successfully");
         Get.back(result: "1");

@@ -6,9 +6,11 @@ import 'package:app/models/list/list_model.dart';
 class ListNetwork {
   static const String listUrl = "ingredent/get";
   static const String listAddUrl = "ingredent/post";
+  static const String listEditUrl = "ingredent/edit";
   static const String listRemoveUrl = "ingredent/delete";
   static Future<dynamic> getList() async {
     final result = await httpManager.get(url: listUrl);
+    print(result);
     ListRes response = ListRes.fromJson(result);
     return response;
   }
@@ -23,6 +25,12 @@ class ListNetwork {
   static Future<dynamic> removeList(param) async {
     final result = await httpManager.post(url: listRemoveUrl, data: param);
     CommonRes response = CommonRes.fromJson(result);
+    return response;
+  }
+
+  static Future<dynamic> editList(param) async {
+    final result = await httpManager.post(url: listEditUrl, data: param);
+    AddListRes response = AddListRes.fromJson(result);
     return response;
   }
 }

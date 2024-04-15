@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/models/common_model.dart';
+import 'package:app/models/list/add/add_list_model.dart';
 import 'package:app/models/list/list_model.dart';
 import 'package:app/screen/list/add/add_list_screen.dart';
 import 'package:app/utility/color.dart';
@@ -266,7 +267,7 @@ class _ListScreenState extends State<ListScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: data.ingredient!.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (context, ind) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 7),
                     child: SizedBox(
@@ -274,12 +275,31 @@ class _ListScreenState extends State<ListScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 15,
-                            width: 15,
-                            decoration: BoxDecoration(
-                              color: ColorConstant.greyColor.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(5),
+                          GestureDetector(
+                            onTap: () {
+                              if (data.buyList![ind].toString().trim() == "0") {
+                                data.buyList![ind] = "1";
+                              } else {
+                                data.buyList![ind] = "0";
+                              }
+
+                              _updateList(index);
+                            },
+                            child: Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                color: ColorConstant.greyColor.withOpacity(0.4),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              alignment: Alignment.center,
+                              child: data.buyList![ind].toString().trim() == "1"
+                                  ? const Icon(
+                                      Icons.check,
+                                      size: 17,
+                                      color: ColorConstant.mainColor,
+                                    )
+                                  : const SizedBox(),
                             ),
                           ),
                           const SizedBox(
@@ -288,7 +308,7 @@ class _ListScreenState extends State<ListScreen> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .82,
                             child: Text(
-                              data.ingredient![index],
+                              data.ingredient![ind].trim(),
                               style: const TextStyle(
                                   fontSize: 14,
                                   color: ColorConstant.black,
@@ -306,6 +326,41 @@ class _ListScreenState extends State<ListScreen> {
         ),
       ],
     );
+  }
+
+  Future _updateList(
+    index,
+  ) async {
+    try {
+      setState(() {
+        isApiLoading = true;
+      });
+      AddListRes response = await ListRepository().editListApiCall(
+          ingredient: dataList[index]
+              .ingredient!
+              .toString()
+              .trim()
+              .replaceAll("[", "")
+              .replaceAll("]", ""),
+          recipeName: dataList[index].recipeName!,
+          servingPortion: dataList[index].servingPortion!,
+          listID: dataList[index].id!,
+          buy: dataList[index]
+              .buyList!
+              .toString()
+              .replaceAll("[", "")
+              .replaceAll("]", ""));
+      if (response.success == true) {
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isApiLoading = false;
+      });
+    }
   }
 
   Future _removeFromList({int? index}) async {

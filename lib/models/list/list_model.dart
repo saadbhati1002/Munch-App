@@ -32,6 +32,7 @@ class ListData {
   String? recipeName;
   String? servingPortion;
   List? ingredient = [];
+  List? buyList = [];
   String? userId;
   String? user;
 
@@ -42,6 +43,7 @@ class ListData {
     recipeName = json['recipe_name'];
     servingPortion = json['serving_portion'];
     ingredient = json['ingredent'] != null ? json['ingredent'].split(',') : [];
+    buyList = json['buy'] != null ? json['buy'].split(',') : [];
     userId = json['user_id'].toString();
     user = json['user'];
   }

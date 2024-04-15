@@ -474,11 +474,24 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  _ingredientSaveToMyList(widget
-                                      .recipeData!.ingredientList
-                                      .toString()
-                                      .replaceAll("[", '')
-                                      .replaceAll("]", ''));
+                                  List buy = [];
+                                  for (int i = 0;
+                                      i <
+                                          widget.recipeData!.ingredientList
+                                              .length;
+                                      i++) {
+                                    buy.insert(0, '0');
+                                  }
+                                  _ingredientSaveToMyList(
+                                    widget.recipeData!.ingredientList
+                                        .toString()
+                                        .replaceAll("[", '')
+                                        .replaceAll("]", ''),
+                                    buy
+                                        .toString()
+                                        .replaceAll("[", '')
+                                        .replaceAll("]", ''),
+                                  );
                                   await Clipboard.setData(
                                     ClipboardData(
                                       text: widget.recipeData!.ingredientList
@@ -722,16 +735,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
-  Future _ingredientSaveToMyList(ingredient) async {
+  Future _ingredientSaveToMyList(ingredient, buy) async {
     try {
       setState(() {
         isLoading = true;
       });
       AddListRes response = await ListRepository().addListApiCall(
-        ingredient: ingredient,
-        recipeName: widget.recipeData!.nameDish,
-        servingPortion: widget.recipeData!.servingPotions,
-      );
+          ingredient: ingredient,
+          recipeName: widget.recipeData!.nameDish,
+          servingPortion: widget.recipeData!.servingPotions,
+          buy: buy);
       if (response.success == true) {
         toastShow(message: "Saved to your list");
       } else {
