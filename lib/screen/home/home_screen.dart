@@ -588,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
         recipeList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -615,7 +615,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
         recipeList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
@@ -638,7 +638,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         articleList[index!].likeCount = articleList[index].likeCount! + 1;
         articleList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Artical.") {
@@ -665,7 +665,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         articleList[index!].likeCount = articleList[index].likeCount! - 1;
         articleList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }

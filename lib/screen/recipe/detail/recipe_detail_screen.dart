@@ -682,7 +682,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
         widget.recipeData!.isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -709,7 +709,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! - 1;
         widget.recipeData!.isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }

@@ -289,7 +289,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       if (response.success == true) {
         commentList[index].count = commentList[index].count + 1;
         commentList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -316,7 +316,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       if (response.success == true) {
         commentList[index].count = commentList[index].count - 1;
         commentList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
