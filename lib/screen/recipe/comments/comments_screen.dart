@@ -43,7 +43,12 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       CommentRes response = await RecipeRepository()
           .getCommentListApiCall(recipeID: widget.recipeID);
       if (response.comments.isNotEmpty) {
-        commentList = response.comments;
+        for (int i = 0; i < response.comments.length; i++) {
+          if (widget.recipeID == response.comments[i].recipeId.toString()) {
+            commentList.add(response.comments[i]);
+          }
+        }
+
         await _checkForUserCommentLike();
       }
     } catch (e) {

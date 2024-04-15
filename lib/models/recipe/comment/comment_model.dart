@@ -28,6 +28,7 @@ class CommentData {
   dynamic id;
   dynamic userId;
   dynamic recipeId;
+  dynamic articleID;
   String? title;
   String? description;
   String? recipeName;
@@ -45,12 +46,14 @@ class CommentData {
       description,
       recipeName,
       userName,
-      userImage});
+      userImage,
+      this.articleID});
 
   CommentData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     recipeId = json['recipe_id'];
+    articleID = json["artical_id"];
     title = json['title'];
     description = json['description'];
     recipeName = json['recipe_name'];
@@ -74,6 +77,7 @@ class CommentData {
     data['recipe_name'] = recipeName;
     data['user_name'] = userName;
     data['user_image'] = userImage;
+    data["artical_id"] = articleID;
     if (likedUsers.isNotEmpty) {
       data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }
