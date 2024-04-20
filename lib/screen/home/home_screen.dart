@@ -5,6 +5,7 @@ import 'package:app/models/banner/banner_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/article/detail/article_detail_screen.dart';
+import 'package:app/screen/article/search/search_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
 import 'package:app/screen/search/search_screen.dart';
 import 'package:app/utility/color.dart';
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _getArticleVideoThumbnail() async {
-    for (int i = 0; i < recipeList.length; i++) {
+    for (int i = 0; i < articleList.length; i++) {
       if (articleList[i].media.toString().contains(".mp4")) {
         if (mounted) {
           setState(() {
@@ -169,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         }
         articleList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: "${AppConstant.imagePath}${recipeList[i].media}",
+            video: "${AppConstant.imagePath}${articleList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,
             imageFormat: ImageFormat.PNG,
             quality: 75,
@@ -205,7 +206,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => const SearchScreen());
+                    if (isRecipe) {
+                      Get.to(() => const SearchScreen());
+                    } else {
+                      Get.to(() => const ArticleSearchScreen());
+                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),

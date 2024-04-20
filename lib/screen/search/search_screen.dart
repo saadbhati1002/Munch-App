@@ -299,7 +299,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 ? recipeList[reversedIndex].categories!.contains(category.name)
                     ? recipeList[reversedIndex]
                             .nameDish!
-                            .contains(searchedName!)
+                            .toLowerCase()
+                            .contains(searchedName!.toLowerCase())
                         ? GestureDetector(
                             onTap: () async {
                               var response = await Get.to(
