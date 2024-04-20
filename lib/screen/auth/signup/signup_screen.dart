@@ -378,10 +378,6 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   _userRegister() async {
-    if (userImage == null) {
-      toastShow(message: "Please upload user image");
-      return;
-    }
     if (userNameController.text.isEmpty) {
       toastShow(message: "Please enter your full name");
       return;
@@ -392,9 +388,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (passwordController.text.isEmpty) {
       toastShow(message: "Please enter your password");
     }
-    if (bioController.text.isEmpty) {
-      toastShow(message: "Please enter your bio");
-    }
+
     try {
       setState(() {
         isLoading = true;

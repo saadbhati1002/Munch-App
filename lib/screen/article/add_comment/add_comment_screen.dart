@@ -71,6 +71,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: CustomSearchTextField(
                     context: context,
+                    keyboardType: TextInputType.multiline,
                     borderRadius: 10,
                     controller: commentController,
                     isMaxLine: true,

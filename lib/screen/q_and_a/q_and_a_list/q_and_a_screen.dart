@@ -58,6 +58,13 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _debounce?.cancel();
+
+    super.dispose();
+  }
+
   _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 1000), () {
@@ -184,11 +191,6 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                       size: 25,
                       color: ColorConstant.greyColor,
                     ),
-                    suffix: const Icon(
-                      Icons.filter_alt_rounded,
-                      size: 25,
-                      color: ColorConstant.greyColor,
-                    ),
                   ),
                 ),
                 const SizedBox(
@@ -297,7 +299,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                         itemBuilder: (context, index) {
                           return const CommonSkeleton();
                         },
-                      )
+                      ),
               ],
             ),
           ),
@@ -318,7 +320,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
         questionList[index].likeCount =
             (int.parse(questionList[index].likeCount!) + 1).toString();
         questionList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Question.") {
@@ -347,7 +349,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
         questionList[index].likeCount =
             (int.parse(questionList[index].likeCount!) - 1).toString();
         questionList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }

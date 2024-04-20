@@ -73,8 +73,11 @@ class CustomSearchTextField extends StatelessWidget {
       margin: margin,
       height: isMaxLine == true ? 150 : 45,
       child: TextField(
-        keyboardType: keyboardType ?? TextInputType.emailAddress,
+        textInputAction:
+            isMaxLine == true ? TextInputAction.newline : TextInputAction.next,
+        keyboardType: keyboardType ?? TextInputType.multiline,
         onTap: onTap,
+
         onChanged: onChanged,
         cursorColor: ColorConstant.mainColor,
         controller: controller,
@@ -86,8 +89,8 @@ class CustomSearchTextField extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         obscureText: isObscureText!,
-        textInputAction: textInputAction,
-        maxLines: isMaxLine == true ? 7 : 1,
+
+        maxLines: isMaxLine == true ? 10 : 1,
         decoration: InputDecoration(
           hintText: hintText ?? "",
           hintStyle: TextStyle(

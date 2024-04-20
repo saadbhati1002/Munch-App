@@ -5,7 +5,7 @@ class NotificationNetwork {
   static const String notificationUrl = "notifications";
   static Future<dynamic> getNotification() async {
     final result = await httpManager.get(url: notificationUrl);
-    NotificationRes loginRes = NotificationRes.fromJson(result);
-    return loginRes;
+    NotificationRes response = NotificationRes.fromJson(result);
+    return response;
   }
 }

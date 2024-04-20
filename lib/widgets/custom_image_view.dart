@@ -10,9 +10,14 @@ class CustomImage extends StatelessWidget {
   final double? height;
   final String? imagePath;
   final bool? isAssetsImage;
-
+  final double? borderRadius;
   const CustomImage(
-      {super.key, this.height, this.imagePath, this.width, this.isAssetsImage});
+      {super.key,
+      this.height,
+      this.imagePath,
+      this.width,
+      this.isAssetsImage,
+      this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class CustomImage extends StatelessWidget {
           )
         : (imagePath != null && imagePath!.isNotEmpty)
             ? ClipRRect(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(borderRadius ?? 5),
                 child: CachedNetworkImage(
                   imageUrl: "${AppConstant.imagePath}$imagePath",
                   imageBuilder: (context, imageProvider) {

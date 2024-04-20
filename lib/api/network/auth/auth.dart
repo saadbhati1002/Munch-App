@@ -10,22 +10,22 @@ class AuthNetwork {
   static Future<dynamic> registerUser(prams) async {
     final result = await httpManager.post(url: registerUserUrl, data: prams);
 
-    UserRes loginRes = UserRes.fromJson(result);
-    return loginRes;
+    UserRes response = UserRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> loginUser(prams) async {
     final result = await httpManager.post(url: loginUserUrl, data: prams);
 
-    UserRes loginRes = UserRes.fromJson(result);
-    return loginRes;
+    UserRes response = UserRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> updateUserUser(prams) async {
     final result = await httpManager.post(url: userUpdateUrl, data: prams);
 
-    UserRes loginRes = UserRes.fromJson(result);
-    return loginRes;
+    UserRes response = UserRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> userChangePassword(prams) async {

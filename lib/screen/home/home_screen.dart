@@ -6,6 +6,7 @@ import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/article/detail/article_detail_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
+import 'package:app/screen/search/search_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
@@ -202,36 +203,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  width: MediaQuery.of(context).size.width,
-                  height: 45,
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.white,
-                    borderRadius: BorderRadius.circular(22),
-                    border:
-                        Border.all(width: 1, color: ColorConstant.greyColor),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: ColorConstant.greyColor,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Search for Recipes",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: ColorConstant.greyColor,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => const SearchScreen());
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    width: MediaQuery.of(context).size.width,
+                    height: 45,
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.white,
+                      borderRadius: BorderRadius.circular(22),
+                      border:
+                          Border.all(width: 1, color: ColorConstant.greyColor),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.search,
+                            color: ColorConstant.greyColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Search for Recipes",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: ColorConstant.greyColor,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -254,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: MediaQuery.of(context).size.width * .75,
                         height: 35,
                         decoration: BoxDecoration(
-                          color: ColorConstant.greyColor,
+                          color: ColorConstant.greyColor.withOpacity(0.4),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
@@ -347,47 +353,68 @@ class _HomeScreenState extends State<HomeScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () async {
-                                  var response = await Get.to(
-                                    () => RecipeDetailScreen(
-                                      recipeData: recipeList[index],
-                                    ),
-                                  );
-                                  if (response != null) {
-                                    if (response == 0 &&
-                                        recipeList[index].isLikedByMe ==
-                                            false) {
-                                      recipeList[index].isLikedByMe = true;
-                                      recipeList[index].likeCount =
-                                          recipeList[index].likeCount! + 1;
-                                    } else if (response == 1 &&
-                                        recipeList[index].isLikedByMe == true) {
-                                      recipeList[index].isLikedByMe = false;
-                                      recipeList[index].likeCount =
-                                          recipeList[index].likeCount! - 1;
-                                    }
-                                    setState(() {});
-                                  }
-                                },
-                                child: recipeListWidget(
-                                    isFromRecipe: true,
-                                    context: context,
-                                    recipeData: recipeList[index],
-                                    onTap: () {
-                                      if (recipeList[index].isLikedByMe ==
-                                          true) {
-                                        _recipeUnlike(
-                                            recipeID: recipeList[index].id,
-                                            index: index);
-                                      } else {
-                                        _recipeLike(
-                                          recipeID: recipeList[index].id,
-                                          index: index,
+                              int itemCount = recipeList.length;
+                              int reversedIndex = itemCount - 1 - index;
+                              return recipeList[reversedIndex].isApproved == "1"
+                                  ? GestureDetector(
+                                      onTap: () async {
+                                        var response = await Get.to(
+                                          () => RecipeDetailScreen(
+                                            recipeData:
+                                                recipeList[reversedIndex],
+                                          ),
                                         );
-                                      }
-                                    }),
-                              );
+                                        if (response != null) {
+                                          if (response == 0 &&
+                                              recipeList[reversedIndex]
+                                                      .isLikedByMe ==
+                                                  false) {
+                                            recipeList[reversedIndex]
+                                                .isLikedByMe = true;
+                                            recipeList[reversedIndex]
+                                                    .likeCount =
+                                                recipeList[reversedIndex]
+                                                        .likeCount! +
+                                                    1;
+                                          } else if (response == 1 &&
+                                              recipeList[reversedIndex]
+                                                      .isLikedByMe ==
+                                                  true) {
+                                            recipeList[reversedIndex]
+                                                .isLikedByMe = false;
+                                            recipeList[reversedIndex]
+                                                    .likeCount =
+                                                recipeList[reversedIndex]
+                                                        .likeCount! -
+                                                    1;
+                                          }
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: recipeListWidget(
+                                          isFromRecipe: true,
+                                          context: context,
+                                          recipeData: recipeList[reversedIndex],
+                                          onTap: () {
+                                            if (recipeList[reversedIndex]
+                                                    .isLikedByMe ==
+                                                true) {
+                                              _recipeUnlike(
+                                                  recipeID:
+                                                      recipeList[reversedIndex]
+                                                          .id,
+                                                  index: reversedIndex);
+                                            } else {
+                                              _recipeLike(
+                                                recipeID:
+                                                    recipeList[reversedIndex]
+                                                        .id,
+                                                index: reversedIndex,
+                                              );
+                                            }
+                                          }),
+                                    )
+                                  : const SizedBox();
                             },
                           )
                         : ListView.builder(
@@ -561,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
         recipeList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -588,7 +615,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
         recipeList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
@@ -611,7 +638,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         articleList[index!].likeCount = articleList[index].likeCount! + 1;
         articleList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Artical.") {
@@ -638,7 +665,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.success == true) {
         articleList[index!].likeCount = articleList[index].likeCount! - 1;
         articleList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }

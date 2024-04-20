@@ -34,7 +34,7 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
       setState(() {
         isRecipeLoading = true;
       });
-      RecipeRes response = await RecipeRepository().getRecipesApiCall();
+      RecipeRes response = await RecipeRepository().getMyRecipesApiCall();
       if (response.data.isNotEmpty) {
         recipeList = response.data;
         _checkForUserRecipeLike();

@@ -37,6 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     _checkUserData();
+
     super.initState();
   }
 
@@ -373,19 +374,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return;
       }
     }
-
     if (userNameController.text.isEmpty) {
       toastShow(message: "Please enter your name");
       return;
     }
-    if (userPhoneNumberController.text.isEmpty) {
-      toastShow(message: "Please enter your phone number");
-      return;
-    }
-    if (userDateOfBirthController.text.isEmpty) {
-      toastShow(message: "Please enter your date of birth");
-      return;
-    }
+
     if (userBioController.text.isEmpty) {
       toastShow(message: "Please enter your bio");
       return;

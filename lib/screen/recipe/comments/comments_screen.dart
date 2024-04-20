@@ -43,7 +43,12 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       CommentRes response = await RecipeRepository()
           .getCommentListApiCall(recipeID: widget.recipeID);
       if (response.comments.isNotEmpty) {
-        commentList = response.comments;
+        for (int i = 0; i < response.comments.length; i++) {
+          if (widget.recipeID == response.comments[i].recipeId.toString()) {
+            commentList.add(response.comments[i]);
+          }
+        }
+
         await _checkForUserCommentLike();
       }
     } catch (e) {
@@ -284,7 +289,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       if (response.success == true) {
         commentList[index].count = commentList[index].count + 1;
         commentList[index].isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -311,7 +316,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       if (response.success == true) {
         commentList[index].count = commentList[index].count - 1;
         commentList[index].isLikedByMe = false;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }

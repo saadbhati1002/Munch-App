@@ -472,6 +472,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                       ),
                     )
                   : CustomImage(
+                      borderRadius: 0,
                       imagePath: calenderData.media,
                       width: MediaQuery.of(context).size.width * .35,
                       height: 120,
@@ -484,7 +485,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 5,
+                      height: 7,
                     ),
                     RichText(
                       maxLines: 4,
@@ -503,7 +504,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                           TextSpan(
                             text: calenderData.smallDesc,
                             style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               color: ColorConstant.black,
                               fontSize: 14,
                             ),
@@ -519,9 +520,10 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                           .format(DateTime.parse(calenderData.date!))
                           .toString(),
                       style: const TextStyle(
-                          fontSize: 14,
-                          color: ColorConstant.greyDarkColor,
-                          fontWeight: FontWeight.w700),
+                        fontSize: 14,
+                        color: ColorConstant.greyDarkColor,
+                        fontWeight: FontWeight.w700,
+                      ),
                     )
                   ],
                 ),

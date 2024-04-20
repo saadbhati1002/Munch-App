@@ -2,10 +2,14 @@ import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
 import 'package:app/screen/chatbot/chatbot.dart';
+import 'package:app/screen/faqs/faq_screen.dart';
+import 'package:app/screen/help/help_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
+import 'package:app/screen/list/list_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
+import 'package:app/screen/social_media/social_media_share_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
@@ -31,171 +35,192 @@ class _CommonDrawerState extends State<CommonDrawer> {
         color: ColorConstant.white,
         child: Padding(
           padding: const EdgeInsets.only(left: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .08,
-              ),
-              const Text(
-                "EXPLORE MORE",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: ColorConstant.organColor),
-              ),
-              const Text(
-                "Manage, Explore, Create",
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: ColorConstant.greyColor),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.userSecret),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeMakerScreen(),
-                    ),
-                  );
-                },
-                title: "Meet The Homemakers",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.bellConcierge),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddRecipeScreen(),
-                    ),
-                  );
-                },
-                title: "Recipe Creation",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.bookOpen),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MyPlanesScreen(),
-                    ),
-                  );
-                },
-                title: "My Plans",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.listCheck),
-                onTap: () {
-                  Get.to(() => const MyRecipeScreen());
-                },
-                title: "My List",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(
-                thickness: 1,
-                color: ColorConstant.greyColor,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.dollar),
-                onTap: () {
-                  Get.to(() => const MyMembershipScreen());
-                },
-                title: "Payments",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.userPen),
-                onTap: () {
-                  Get.to(() => const EditProfileScreen());
-                },
-                title: "Profile Update",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.lockOpen),
-                onTap: () {
-                  Get.to(() => const ChangePasswordScreen());
-                },
-                title: "Change Password",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.robot),
-                onTap: () {
-                  Get.to(() => const ChatScreen());
-                },
-                title: "Ask AI",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(
-                thickness: 1,
-                color: ColorConstant.greyColor,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.circleInfo),
-                onTap: () {},
-                title: "Help",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.circleQuestion),
-                onTap: () {},
-                title: "FAQs",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.heart),
-                onTap: () {},
-                title: "Follow Us",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              commonRaw(
-                icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
-                onTap: () {
-                  logOutPopUp();
-                },
-                title: "Log Out",
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .08,
+                ),
+                const Text(
+                  "EXPLORE MORE",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: ColorConstant.organColor),
+                ),
+                const Text(
+                  "Manage, Explore, Create",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: ColorConstant.greyColor),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.userSecret),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeMakerScreen(),
+                      ),
+                    );
+                  },
+                  title: "Meet The Homemakers",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.bellConcierge),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddRecipeScreen(),
+                      ),
+                    );
+                  },
+                  title: "Recipe Creation",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.bookOpen),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyPlanesScreen(),
+                      ),
+                    );
+                  },
+                  title: "Meal Plans",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.bowlFood),
+                  onTap: () {
+                    Get.to(() => const MyRecipeScreen());
+                  },
+                  title: "My Recipes",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.listCheck),
+                  onTap: () {
+                    Get.to(() => const ListScreen());
+                  },
+                  title: "Shopping List",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: ColorConstant.greyColor,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.dollar),
+                  onTap: () {
+                    Get.to(() => const MyMembershipScreen());
+                  },
+                  title: "Payments",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.userPen),
+                  onTap: () {
+                    Get.to(() => const EditProfileScreen());
+                  },
+                  title: "Profile Update",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.lockOpen),
+                  onTap: () {
+                    Get.to(() => const ChangePasswordScreen());
+                  },
+                  title: "Change Password",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.robot),
+                  onTap: () {
+                    Get.to(() => const ChatScreen());
+                  },
+                  title: "Ask AI",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: ColorConstant.greyColor,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.circleInfo),
+                  onTap: () {
+                    Get.to(() => const HelpScreen());
+                  },
+                  title: "Help",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.circleQuestion),
+                  onTap: () {
+                    Get.to(() => const FAQScreen());
+                  },
+                  title: "FAQs",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.heart),
+                  onTap: () {
+                    Get.to(() => const SocialMediaShareScreen());
+                  },
+                  title: "Follow Us",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
+                  onTap: () {
+                    logOutPopUp();
+                  },
+                  title: "Log Out",
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -207,10 +232,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
       onTap: onTap,
       child: Row(
         children: [
-          icon!,
-          const SizedBox(
-            width: 15,
-          ),
+          SizedBox(width: 41, child: icon!),
           Text(
             title!,
             style: const TextStyle(

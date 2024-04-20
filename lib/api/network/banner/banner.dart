@@ -5,7 +5,7 @@ class BannerNetwork {
   static const String bannerUrl = "banner";
   static Future<dynamic> getBanners() async {
     final result = await httpManager.get(url: bannerUrl);
-    BannerRes loginRes = BannerRes.fromJson(result);
-    return loginRes;
+    BannerRes response = BannerRes.fromJson(result);
+    return response;
   }
 }

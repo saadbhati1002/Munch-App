@@ -4,10 +4,10 @@ import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/images.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 Widget recipeListWidget(
@@ -121,20 +121,19 @@ Widget recipeListWidget(
                 onTap: () {
                   AppConstant.shareAppLink();
                 },
-                child: const SizedBox(
+                child: SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomImage(
-                        imagePath: Images.share,
-                        isAssetsImage: true,
+                      SizedBox(
                         width: 21,
                         height: 19,
+                        child: SvgPicture.asset("assets/images/share.svg"),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 7,
                       ),
-                      Text(
+                      const Text(
                         "Share",
                         style: TextStyle(
                             fontSize: 12,
@@ -149,7 +148,7 @@ Widget recipeListWidget(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 height: 30,
                 decoration: BoxDecoration(
-                  color: ColorConstant.greyColor,
+                  color: ColorConstant.greyColor.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: GestureDetector(

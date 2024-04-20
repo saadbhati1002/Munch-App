@@ -1,20 +1,24 @@
 import 'dart:io';
 
+import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
+import 'package:app/models/list/add/add_list_model.dart';
+import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/comments/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/images.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
@@ -27,9 +31,12 @@ class RecipeDetailScreen extends StatefulWidget {
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   bool isLoading = false;
+  bool isSavedToMyCalender = false;
+  List<CalenderData> calenderRecipeList = [];
+
   @override
   void initState() {
-    setState(() {});
+    _getCalenderRecipe();
     super.initState();
   }
 
@@ -37,6 +44,44 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     Navigator.pop(context, widget.recipeData!.isLikedByMe == true ? 0 : 1);
 
     return Future.value(true);
+  }
+
+  Future _getCalenderRecipe() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      CalenderRes response =
+          await RecipeRepository().getCalenderRecipeApiCall();
+      if (response.data.isNotEmpty) {
+        for (int i = 0; i < response.data.length; i++) {
+          if (response.data[i].userId.toString() ==
+              AppConstant.userData!.id.toString()) {
+            calenderRecipeList.add(
+              response.data[i],
+            );
+          }
+        }
+        _checkForRecipeSaved();
+      }
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  _checkForRecipeSaved() {
+    var response = calenderRecipeList
+        .where((element) => element.recipeId == widget.recipeData!.id!);
+    if (response.isNotEmpty) {
+      isSavedToMyCalender = T;
+    }
   }
 
   @override
@@ -184,11 +229,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const CustomImage(
-                                  imagePath: Images.comment,
-                                  isAssetsImage: true,
-                                  width: 18,
-                                  height: 18,
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SvgPicture.asset(
+                                      "assets/images/comment.svg"),
                                 ),
                                 const SizedBox(
                                   width: 7,
@@ -212,20 +257,20 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           onTap: () {
                             AppConstant.shareAppLink();
                           },
-                          child: const SizedBox(
+                          child: SizedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                CustomImage(
-                                  imagePath: Images.share,
-                                  isAssetsImage: true,
+                                SizedBox(
                                   width: 21,
                                   height: 19,
+                                  child: SvgPicture.asset(
+                                      "assets/images/share.svg"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
-                                Text(
+                                const Text(
                                   "Share",
                                   style: TextStyle(
                                       fontSize: 12,
@@ -294,6 +339,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: GestureDetector(
                       onTap: () {
+                        if (isSavedToMyCalender) {
+                          toastShow(message: "Already saved to your calender");
+                          return;
+                        }
                         _selectDate(context);
                       },
                       child: const Row(
@@ -328,7 +377,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       children: [
                         recipeTimeWidget(
                             title:
-                                "Preparation Time: ${widget.recipeData!.preparationTime} Mins"),
+                                "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
                         recipeTimeWidget(
                             title:
                                 "Cooking Time: ${widget.recipeData!.cookingTime} Mins"),
@@ -418,21 +467,39 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               horizontal: 15, vertical: 10),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: ColorConstant.greyColor.withOpacity(0.4),
+                            color: ColorConstant.greyColor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
                             children: [
                               GestureDetector(
                                 onTap: () async {
+                                  List buy = [];
+                                  for (int i = 0;
+                                      i <
+                                          widget.recipeData!.ingredientList
+                                              .length;
+                                      i++) {
+                                    buy.insert(0, '0');
+                                  }
+                                  _ingredientSaveToMyList(
+                                    widget.recipeData!.ingredientList
+                                        .toString()
+                                        .replaceAll("[", '')
+                                        .replaceAll("]", ''),
+                                    buy
+                                        .toString()
+                                        .replaceAll("[", '')
+                                        .replaceAll("]", ''),
+                                  );
                                   await Clipboard.setData(
                                     ClipboardData(
                                       text: widget.recipeData!.ingredientList
-                                          .toString(),
+                                          .toString()
+                                          .replaceAll("[", '')
+                                          .replaceAll("]", ''),
                                     ),
                                   );
-                                  toastShow(
-                                      message: "Copy to device clipboard");
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -491,17 +558,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.methodTagline ?? AppConstant.appName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: ColorConstant.greyDarkColor,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -521,24 +577,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'CHEFS WHISPER',
+                      "CHEF'S WHISPER",
                       style: TextStyle(
                         height: 1,
                         fontWeight: FontWeight.w500,
                         color: ColorConstant.mainColor,
                         fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.chefsWhisperTagline ??
-                          AppConstant.appName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: ColorConstant.greyDarkColor,
-                        fontSize: 10,
                       ),
                     ),
                   ),
@@ -651,7 +695,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
         widget.recipeData!.isLikedByMe = true;
-        toastShow(message: response.message);
+        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Recipy.") {
@@ -678,7 +722,31 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! - 1;
         widget.recipeData!.isLikedByMe = false;
+        // toastShow(message: response.message);
+      } else {
         toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future _ingredientSaveToMyList(ingredient, buy) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      AddListRes response = await ListRepository().addListApiCall(
+          ingredient: ingredient,
+          recipeName: widget.recipeData!.nameDish,
+          servingPortion: widget.recipeData!.servingPotions,
+          buy: buy);
+      if (response.success == true) {
+        toastShow(message: "Saved to your list");
       } else {
         toastShow(message: response.message);
       }

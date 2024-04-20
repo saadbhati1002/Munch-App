@@ -18,8 +18,8 @@ class QAndANetwork {
   static Future<dynamic> addQuestion(param) async {
     final result = await httpManager.post(url: addQuestionUrl, data: param);
 
-    AddQuestionRes loginRes = AddQuestionRes.fromJson(result);
-    return loginRes;
+    AddQuestionRes response = AddQuestionRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getQuestionList() async {
@@ -31,21 +31,21 @@ class QAndANetwork {
 
   static Future<dynamic> questionLike(param) async {
     final result = await httpManager.post(url: questionLikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> questionUnlike(param) async {
     final result = await httpManager.post(url: questionUnlikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> addReply(param) async {
     final result = await httpManager.post(url: addReplyUrl, data: param);
 
-    ReplyAddRes loginRes = ReplyAddRes.fromJson(result);
-    return loginRes;
+    ReplyAddRes response = ReplyAddRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> getReply(param) async {
@@ -59,13 +59,13 @@ class QAndANetwork {
   static Future<dynamic> replyLike(param) async {
     final result = await httpManager.post(url: replyLikeUrl, data: param);
 
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 
   static Future<dynamic> replyUnlike(param) async {
     final result = await httpManager.post(url: replyUnlikeUrl, data: param);
-    LikeUnlikeRes loginRes = LikeUnlikeRes.fromJson(result);
-    return loginRes;
+    LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
+    return response;
   }
 }

@@ -42,7 +42,12 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
       CommentRes response = await ArticleRepository()
           .getCommentListApiCall(articleID: widget.articleID);
       if (response.comments.isNotEmpty) {
-        commentList = response.comments;
+        for (int i = 0; i < response.comments.length; i++) {
+          if (widget.articleID == response.comments[i].articleID.toString()) {
+            commentList.add(response.comments[i]);
+          }
+        }
+        // commentList = response.comments;
         await _checkForUserCommentLike();
       }
     } catch (e) {
