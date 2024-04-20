@@ -577,7 +577,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'CHEFS WHISPER',
+                      "CHEF'S WHISPER",
                       style: TextStyle(
                         height: 1,
                         fontWeight: FontWeight.w500,

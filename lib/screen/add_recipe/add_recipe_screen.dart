@@ -356,13 +356,28 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: CommonButton(
-                    color: ColorConstant.mainColor,
-                    textColor: ColorConstant.white,
-                    title: "Publish",
-                    onTap: () {
-                      _createRecipe();
-                    },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonButton(
+                        width: MediaQuery.of(context).size.width * .43,
+                        color: ColorConstant.mainColor,
+                        textColor: ColorConstant.white,
+                        title: "Save",
+                        onTap: () {
+                          // _createRecipe();
+                        },
+                      ),
+                      CommonButton(
+                        width: MediaQuery.of(context).size.width * .43,
+                        color: ColorConstant.mainColor,
+                        textColor: ColorConstant.white,
+                        title: "Publish",
+                        onTap: () {
+                          _createRecipe();
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -532,10 +547,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       toastShow(message: "Please enter dish name");
       return;
     }
-    if (recipeTagLine.text.isEmpty) {
-      toastShow(message: "Please enter tag line");
-      return;
-    }
+
     if (preparationTime.text.isEmpty) {
       toastShow(message: "Please enter preparation time");
       return;
@@ -600,10 +612,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         tagLine: recipeTagLine.text.trim(),
       );
       if (response.success == true) {
-        Get.back(result: "1");
         toastShow(
-          message: "Recipe created successfully. Now wait for admin approval",
+          message: "Recipe send for admin approval",
         );
+        Get.back(result: "1");
       } else {
         toastShow(message: response.message);
       }

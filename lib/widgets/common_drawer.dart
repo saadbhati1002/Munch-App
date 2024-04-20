@@ -100,7 +100,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                       ),
                     );
                   },
-                  title: "My Plans",
+                  title: "Meal Plans",
                 ),
                 const SizedBox(
                   height: 20,
@@ -110,7 +110,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   onTap: () {
                     Get.to(() => const MyRecipeScreen());
                   },
-                  title: "My Recipe",
+                  title: "My Recipes",
                 ),
                 const SizedBox(
                   height: 20,
@@ -120,7 +120,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   onTap: () {
                     Get.to(() => const ListScreen());
                   },
-                  title: "My List",
+                  title: "Shopping List",
                 ),
                 const SizedBox(
                   height: 20,
