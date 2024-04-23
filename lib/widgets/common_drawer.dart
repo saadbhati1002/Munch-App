@@ -3,7 +3,7 @@ import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
 import 'package:app/screen/chatbot/chatbot.dart';
 import 'package:app/screen/faqs/faq_screen.dart';
-import 'package:app/screen/help/help_screen.dart';
+import 'package:app/screen/feedback/feedback_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/list/list_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
@@ -180,11 +180,13 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.circleInfo),
+                  icon: const FaIcon(FontAwesomeIcons.star),
                   onTap: () {
-                    Get.to(() => const HelpScreen());
+                    Get.to(
+                      () => const FeedBackScreen(),
+                    );
                   },
-                  title: "Help",
+                  title: "Feedback",
                 ),
                 const SizedBox(
                   height: 20,

@@ -7,6 +7,7 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
@@ -138,22 +139,68 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                           setState(() {});
                         }
                       },
-                      child: recipeListWidget(
-                          isFromRecipe: true,
-                          isMyRecipe: true,
-                          context: context,
-                          recipeData: recipeList[index],
-                          onTap: () {
-                            if (recipeList[index].isLikedByMe == true) {
-                              _recipeUnlike(
-                                  recipeID: recipeList[index].id, index: index);
-                            } else {
-                              _recipeLike(
-                                recipeID: recipeList[index].id,
-                                index: index,
-                              );
-                            }
-                          }),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  recipeList[index].isApproved == "0"
+                                      ? "Waiting For Review"
+                                      : recipeList[index].isApproved == "1"
+                                          ? "Approved By Admin"
+                                          : recipeList[index].isApproved == "2"
+                                              ? "Rejected By Admin"
+                                              : "Private Recipe",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: recipeList[index].isApproved == "0"
+                                        ? ColorConstant.organColor
+                                        : recipeList[index].isApproved == "1"
+                                            ? ColorConstant.greenColor
+                                            : recipeList[index].isApproved ==
+                                                    "2"
+                                                ? ColorConstant.redColor
+                                                : ColorConstant.black,
+                                  ),
+                                ),
+                                recipeList[index].isApproved == "1"
+                                    ? const SizedBox()
+                                    : GestureDetector(
+                                        onTap: () {},
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.xmark,
+                                          color: ColorConstant.mainColor,
+                                        ),
+                                      )
+                              ],
+                            ),
+                          ),
+                          recipeListWidget(
+                              isFromRecipe: true,
+                              isMyRecipe: true,
+                              context: context,
+                              recipeData: recipeList[index],
+                              onTap: () {
+                                if (recipeList[index].isLikedByMe == true) {
+                                  _recipeUnlike(
+                                      recipeID: recipeList[index].id,
+                                      index: index);
+                                } else {
+                                  _recipeLike(
+                                    recipeID: recipeList[index].id,
+                                    index: index,
+                                  );
+                                }
+                              }),
+                        ],
+                      ),
                     );
                   },
                 )

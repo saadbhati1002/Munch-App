@@ -22,12 +22,12 @@ Widget recipeListWidget(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 1.5,
-          decoration: const BoxDecoration(color: ColorConstant.greyDarkColor),
-        ),
+        // Container(
+        //   height: 1.5,
+        //   decoration: const BoxDecoration(color: ColorConstant.greyDarkColor),
+        // ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         isMyRecipe == true
             ? const SizedBox()
@@ -238,7 +238,7 @@ Widget recipeListWidget(
         SizedBox(
           height: isFromRecipe == true ? 10 : 0,
         ),
-        isFromRecipe == true
+        recipeData.categories!.isNotEmpty
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GridView.builder(

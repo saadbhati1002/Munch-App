@@ -365,7 +365,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                         textColor: ColorConstant.white,
                         title: "Save",
                         onTap: () {
-                          // _createRecipe();
+                          _createRecipe(3);
                         },
                       ),
                       CommonButton(
@@ -374,7 +374,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                         textColor: ColorConstant.white,
                         title: "Publish",
                         onTap: () {
-                          _createRecipe();
+                          _createRecipe(0);
                         },
                       ),
                     ],
@@ -533,7 +533,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     );
   }
 
-  Future _createRecipe() async {
+  Future _createRecipe(status) async {
     if (recipeImage == null) {
       toastShow(message: "Please select recipe image");
       return;
@@ -594,23 +594,23 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         isLoading = true;
       });
       RecipeCreateRes response = await RecipeRepository().createRecipeApiCall(
-        categoryID: selectedCategoryIDList
-            .toString()
-            .replaceAll('[', "")
-            .replaceAll(']', ""),
-        chefWhisper: chiefWhisper.text.toString().trim(),
-        chefWhisperTagline: "",
-        cookingTime: cookingTime.text.trim(),
-        description: discretion.text.trim(),
-        ingredientList: ingredientListString,
-        method: method.text.trim(),
-        methodTagLine: "",
-        preparationTime: preparationTime.text.trim(),
-        recipeImage: recipeImage,
-        recipeName: recipeName.text.trim(),
-        servingPortion: severingPortion.text.trim(),
-        tagLine: recipeTagLine.text.trim(),
-      );
+          categoryID: selectedCategoryIDList
+              .toString()
+              .replaceAll('[', "")
+              .replaceAll(']', ""),
+          chefWhisper: chiefWhisper.text.toString().trim(),
+          chefWhisperTagline: "",
+          cookingTime: cookingTime.text.trim(),
+          description: discretion.text.trim(),
+          ingredientList: ingredientListString,
+          method: method.text.trim(),
+          methodTagLine: "",
+          preparationTime: preparationTime.text.trim(),
+          recipeImage: recipeImage,
+          recipeName: recipeName.text.trim(),
+          servingPortion: severingPortion.text.trim(),
+          tagLine: recipeTagLine.text.trim(),
+          status: status);
       if (response.success == true) {
         toastShow(
           message: "Recipe send for admin approval",

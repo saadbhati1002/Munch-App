@@ -263,10 +263,30 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10.0,
+                        childAspectRatio: 4,
+                        crossAxisSpacing: 12,
+                      ),
+                      itemCount: widget.articleDate!.categories!.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return categoryBox(
+                            title: widget.articleDate!.categories![index],
+                            context: context);
+                      },
+                    ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -308,6 +328,25 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
             fontSize: 13,
             color: ColorConstant.mainColor,
             fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  Widget categoryBox({String? title, BuildContext? context}) {
+    return Container(
+      height: 24,
+      width: MediaQuery.of(context!).size.width * .29,
+      decoration: BoxDecoration(
+        color: ColorConstant.mainColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        title!,
+        style: const TextStyle(
+            fontSize: 14,
+            color: ColorConstant.white,
+            fontWeight: FontWeight.w400),
       ),
     );
   }
