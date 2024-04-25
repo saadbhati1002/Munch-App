@@ -593,6 +593,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       setState(() {
         isLoading = true;
       });
+      FocusManager.instance.primaryFocus?.unfocus();
+
       RecipeCreateRes response = await RecipeRepository().createRecipeApiCall(
           categoryID: selectedCategoryIDList
               .toString()

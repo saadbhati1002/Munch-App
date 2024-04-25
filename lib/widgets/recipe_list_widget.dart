@@ -235,8 +235,8 @@ Widget recipeListWidget(
             ),
           ),
         ),
-        SizedBox(
-          height: isFromRecipe == true ? 10 : 0,
+        const SizedBox(
+          height: 10,
         ),
         recipeData.categories!.isNotEmpty
             ? Padding(

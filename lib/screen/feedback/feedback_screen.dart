@@ -1,11 +1,15 @@
+import 'package:app/api/repository/common/common.dart';
+import 'package:app/models/common_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:app/widgets/common_button.dart';
-import 'package:app/widgets/common_text_field.dart';
+
+import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 
 class FeedBackScreen extends StatefulWidget {
   const FeedBackScreen({super.key});
@@ -64,14 +68,15 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                       color: ColorConstant.mainColor,
                       size: 30,
                     ),
-                    onRatingUpdate: (rating) {
-                      rating = rating;
+                    onRatingUpdate: (rate) {
+                      rating = rate;
                     },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * .03,
                   ),
-                  CustomTextFormField(
+                  CustomSearchTextField(
+                    borderRadius: 10,
                     controller: reviewController,
                     hintText: 'Your Review',
                     context: context,
@@ -113,6 +118,18 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
       setState(() {
         isLoading = true;
       });
+      FocusManager.instance.primaryFocus?.unfocus();
+
+      CommonRes response = await CommonRepository().submitFeedbackApiCall(
+        rating: rating.toString(),
+        review: reviewController.text.trim(),
+      );
+      if (response.success == true) {
+        toastShow(message: "Feedback submitted successfully");
+        Get.back();
+      } else {
+        toastShow(message: response.message);
+      }
     } catch (e) {
       debugPrint(e.toString());
     } finally {
