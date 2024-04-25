@@ -173,7 +173,10 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                                 recipeList[index].isApproved == "1"
                                     ? const SizedBox()
                                     : GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          appClosePopUp(
+                                              recipeID: recipeList[index].id);
+                                        },
                                         child: const FaIcon(
                                           FontAwesomeIcons.xmark,
                                           color: ColorConstant.mainColor,
@@ -246,6 +249,126 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
     );
   }
 
+  void appClosePopUp({String? recipeID}) async {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: ColorConstant.greyColor,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  )),
+              elevation: 0,
+              backgroundColor: ColorConstant.white,
+              actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+              title: Container(
+                alignment: Alignment.topLeft,
+                decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    borderRadius: BorderRadius.circular(15)),
+                // height: MediaQuery.of(context).size.height * .25,
+                width: MediaQuery.of(context).size.width * .7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Are you sure?',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 18,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    const Text(
+                      'Do you want to delete this recipe?',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 14,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorConstant.mainColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            height: 35,
+                            alignment: Alignment.center,
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'No',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: ColorConstant.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _recipeDelete(recipeID: recipeID);
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorConstant.mainColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            height: 35,
+                            // width: MediaQuery.of(context).size.width * .2,
+                            alignment: Alignment.center,
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'Yes',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: ColorConstant.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   _recipeLike({String? recipeID, int? index}) async {
     try {
       setState(() {
@@ -295,4 +418,6 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
       });
     }
   }
+
+  _recipeDelete({String? recipeID}) {}
 }
