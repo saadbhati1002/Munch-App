@@ -107,4 +107,9 @@ class RecipeRepository {
   Future<dynamic> getMyRecipesApiCall() async {
     return await RecipeNetwork.getMyRecipeList();
   }
+
+  Future<dynamic> deleteRecipeApiCall({String? recipeID}) async {
+    final params = {"id": recipeID};
+    return await RecipeNetwork.deleteRecipe(params);
+  }
 }

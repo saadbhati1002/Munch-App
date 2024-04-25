@@ -1,4 +1,5 @@
 import 'package:app/api/repository/recipe/recipe.dart';
+import 'package:app/models/common_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
@@ -6,6 +7,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -97,125 +99,135 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
           Navigator.pop(context);
         },
       ),
-      body: isRecipeLoading == false
-          ? recipeList.isEmpty
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height * .8,
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: const Center(
-                    child: Text(
-                      "No Created Recipe Found",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: ColorConstant.greyColor,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: recipeList.length,
-                  shrinkWrap: true,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () async {
-                        var response = await Get.to(
-                          () => RecipeDetailScreen(
-                            recipeData: recipeList[index],
+      body: Stack(
+        children: [
+          isRecipeLoading == false
+              ? recipeList.isEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * .8,
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: const Center(
+                        child: Text(
+                          "No Created Recipe Found",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: ColorConstant.greyColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: recipeList.length,
+                      shrinkWrap: true,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () async {
+                            var response = await Get.to(
+                              () => RecipeDetailScreen(
+                                recipeData: recipeList[index],
+                              ),
+                            );
+                            if (response != null) {
+                              if (response == 0 &&
+                                  recipeList[index].isLikedByMe == false) {
+                                recipeList[index].isLikedByMe = true;
+                                recipeList[index].likeCount =
+                                    recipeList[index].likeCount! + 1;
+                              } else if (response == 1 &&
+                                  recipeList[index].isLikedByMe == true) {
+                                recipeList[index].isLikedByMe = false;
+                                recipeList[index].likeCount =
+                                    recipeList[index].likeCount! - 1;
+                              }
+                              setState(() {});
+                            }
+                          },
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      recipeList[index].isApproved == "0"
+                                          ? "Waiting For Review"
+                                          : recipeList[index].isApproved == "1"
+                                              ? "Approved By Admin"
+                                              : recipeList[index].isApproved ==
+                                                      "2"
+                                                  ? "Rejected By Admin"
+                                                  : "Private Recipe",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: recipeList[index].isApproved ==
+                                                "0"
+                                            ? ColorConstant.organColor
+                                            : recipeList[index].isApproved ==
+                                                    "1"
+                                                ? ColorConstant.greenColor
+                                                : recipeList[index]
+                                                            .isApproved ==
+                                                        "2"
+                                                    ? ColorConstant.redColor
+                                                    : ColorConstant.black,
+                                      ),
+                                    ),
+                                    recipeList[index].isApproved == "1"
+                                        ? const SizedBox()
+                                        : GestureDetector(
+                                            onTap: () {
+                                              appClosePopUp(index: index);
+                                            },
+                                            child: const FaIcon(
+                                              FontAwesomeIcons.xmark,
+                                              color: ColorConstant.mainColor,
+                                            ),
+                                          )
+                                  ],
+                                ),
+                              ),
+                              recipeListWidget(
+                                  isFromRecipe: true,
+                                  isMyRecipe: true,
+                                  context: context,
+                                  recipeData: recipeList[index],
+                                  onTap: () {
+                                    if (recipeList[index].isLikedByMe == true) {
+                                      _recipeUnlike(
+                                          recipeID: recipeList[index].id,
+                                          index: index);
+                                    } else {
+                                      _recipeLike(
+                                        recipeID: recipeList[index].id,
+                                        index: index,
+                                      );
+                                    }
+                                  }),
+                            ],
                           ),
                         );
-                        if (response != null) {
-                          if (response == 0 &&
-                              recipeList[index].isLikedByMe == false) {
-                            recipeList[index].isLikedByMe = true;
-                            recipeList[index].likeCount =
-                                recipeList[index].likeCount! + 1;
-                          } else if (response == 1 &&
-                              recipeList[index].isLikedByMe == true) {
-                            recipeList[index].isLikedByMe = false;
-                            recipeList[index].likeCount =
-                                recipeList[index].likeCount! - 1;
-                          }
-                          setState(() {});
-                        }
                       },
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  recipeList[index].isApproved == "0"
-                                      ? "Waiting For Review"
-                                      : recipeList[index].isApproved == "1"
-                                          ? "Approved By Admin"
-                                          : recipeList[index].isApproved == "2"
-                                              ? "Rejected By Admin"
-                                              : "Private Recipe",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: recipeList[index].isApproved == "0"
-                                        ? ColorConstant.organColor
-                                        : recipeList[index].isApproved == "1"
-                                            ? ColorConstant.greenColor
-                                            : recipeList[index].isApproved ==
-                                                    "2"
-                                                ? ColorConstant.redColor
-                                                : ColorConstant.black,
-                                  ),
-                                ),
-                                recipeList[index].isApproved == "1"
-                                    ? const SizedBox()
-                                    : GestureDetector(
-                                        onTap: () {
-                                          appClosePopUp(
-                                              recipeID: recipeList[index].id);
-                                        },
-                                        child: const FaIcon(
-                                          FontAwesomeIcons.xmark,
-                                          color: ColorConstant.mainColor,
-                                        ),
-                                      )
-                              ],
-                            ),
-                          ),
-                          recipeListWidget(
-                              isFromRecipe: true,
-                              isMyRecipe: true,
-                              context: context,
-                              recipeData: recipeList[index],
-                              onTap: () {
-                                if (recipeList[index].isLikedByMe == true) {
-                                  _recipeUnlike(
-                                      recipeID: recipeList[index].id,
-                                      index: index);
-                                } else {
-                                  _recipeLike(
-                                    recipeID: recipeList[index].id,
-                                    index: index,
-                                  );
-                                }
-                              }),
-                        ],
-                      ),
-                    );
+                    )
+              : ListView.builder(
+                  itemCount: 10,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return recipeSkeleton();
                   },
-                )
-          : ListView.builder(
-              itemCount: 10,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return recipeSkeleton();
-              },
-            ),
+                ),
+          isLoading ? const ShowProgressBar() : const SizedBox()
+        ],
+      ),
     );
   }
 
@@ -249,7 +261,7 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
     );
   }
 
-  void appClosePopUp({String? recipeID}) async {
+  void appClosePopUp({int? index}) async {
     return showDialog(
       context: context,
       builder: (_) {
@@ -332,7 +344,7 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            _recipeDelete(recipeID: recipeID);
+                            _recipeDelete(index: index);
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -419,5 +431,25 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
     }
   }
 
-  _recipeDelete({String? recipeID}) {}
+  Future _recipeDelete({int? index}) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      CommonRes response = await RecipeRepository()
+          .deleteRecipeApiCall(recipeID: recipeList[index!].id.toString());
+      if (response.success == true) {
+        toastShow(message: "Recipe Deleted successfully");
+        recipeList.removeAt(index);
+      } else {
+        toastShow(message: response.message);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:app/api/http_manager.dart';
+import 'package:app/models/common_model.dart';
 import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/comment/add_comment_model.dart';
 import 'package:app/models/recipe/comment/comment_model.dart';
@@ -20,6 +21,7 @@ class RecipeNetwork {
   static const String myLikedRecipeUrl = "liked-recipes";
   static const String createRecipeUrl = "create/recipie";
   static const String myRecipeUrl = "user/recipie";
+  static const String deleteRecipeUrl = "recipy/delete";
 
   static Future<dynamic> getRecipeList() async {
     final result = await httpManager.get(url: recipeUrl);
@@ -98,6 +100,13 @@ class RecipeNetwork {
     final result = await httpManager.get(url: myRecipeUrl);
 
     RecipeRes response = RecipeRes.fromJson(result);
+    return response;
+  }
+
+  static Future<dynamic> deleteRecipe(param) async {
+    final result = await httpManager.post(url: deleteRecipeUrl, data: param);
+
+    CommonRes response = CommonRes.fromJson(result);
     return response;
   }
 }
