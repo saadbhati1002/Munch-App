@@ -300,6 +300,9 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                           return const CommonSkeleton();
                         },
                       ),
+                const SizedBox(
+                  height: 60,
+                ),
               ],
             ),
           ),

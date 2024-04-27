@@ -12,6 +12,7 @@ import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -499,8 +500,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       final XFile? result =
           await _picker.pickImage(source: ImageSource.camera, imageQuality: 60);
       if (result != null) {
-        recipeImage = File(result.path);
-        setState(() {});
+        _cropImage(result.path);
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -512,11 +512,41 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       final XFile? result = await _picker.pickImage(
           source: ImageSource.gallery, imageQuality: 60);
       if (result != null) {
-        recipeImage = File(result.path);
-        setState(() {});
+        _cropImage(result.path);
       }
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future _cropImage(String? imagePath) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: imagePath!,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: ColorConstant.mainColor,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Image Crop',
+        ),
+        WebUiSettings(
+          context: context,
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      recipeImage = File(croppedFile.path);
+      setState(() {});
     }
   }
 

@@ -101,7 +101,7 @@ Widget questionWidget(
                 ],
               ),
               Text(
-                "${questionData.replyCount} Replays",
+                "${questionData.replyCount} Reply",
                 style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,
