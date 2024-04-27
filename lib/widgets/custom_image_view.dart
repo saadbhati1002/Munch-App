@@ -57,6 +57,7 @@ class CustomImage extends StatelessWidget {
                         width: width,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: ColorConstant.white,
                           border: Border.all(
                               width: 1, color: ColorConstant.greyColor),
@@ -78,7 +79,7 @@ class CustomImage extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: ColorConstant.white,
-                          shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               width: 1, color: ColorConstant.greyColor),
                           image: const DecorationImage(
@@ -96,7 +97,7 @@ class CustomImage extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorConstant.white,
-                  shape: BoxShape.circle,
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 1, color: ColorConstant.greyColor),
                   image: const DecorationImage(
                     image: AssetImage(Images.logo),
