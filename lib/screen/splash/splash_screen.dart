@@ -42,7 +42,10 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: ColorConstant.backGroundColor,
       body: Center(
-        child: Image.asset(Images.logo),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * .75,
+          child: Image.asset(Images.logo),
+        ),
       ),
     );
   }

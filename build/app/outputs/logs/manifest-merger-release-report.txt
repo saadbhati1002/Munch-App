@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:4:5-35:19
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:4:5-39:19
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-19:19
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-19:19
 MERGED from [:share_plus] D:\projects\Munch-App\build\share_plus\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-35:19
@@ -29,10 +29,10 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\sa
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
 		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:6:9-42
 manifest
-ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
+ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
 MERGED from [:shared_preferences_android] D:\projects\Munch-App\build\shared_preferences_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:video_thumbnail] D:\projects\Munch-App\build\video_thumbnail\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-21:12
@@ -43,7 +43,10 @@ MERGED from [:fluttertoast] D:\projects\Munch-App\build\fluttertoast\intermediat
 MERGED from [:url_launcher_android] D:\projects\Munch-App\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-16:12
 MERGED from [:path_provider_android] D:\projects\Munch-App\build\path_provider_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:video_player_android] D:\projects\Munch-App\build\video_player_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [:image_cropper] D:\projects\Munch-App\build\image_cropper\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
+MERGED from [com.github.yalantis:ucrop:2.2.8] C:\Users\saadb\.gradle\caches\transforms-3\105b27195fb35c5f16947a9a4853e41d\transformed\jetified-ucrop-2.2.8\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\65825297c9897373b4c3eb34d36dd486\transformed\appcompat-1.3.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.4] C:\Users\saadb\.gradle\caches\transforms-3\f12cbf3259d48b08f2c14c09fad100b4\transformed\fragment-1.3.4\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.browser:browser:1.5.0] C:\Users\saadb\.gradle\caches\transforms-3\d9d38ec9344928c1b01c151ec647a95a\transformed\browser-1.5.0\AndroidManifest.xml:17:1-22:12
@@ -52,9 +55,14 @@ MERGED from [com.google.android.exoplayer:exoplayer-dash:2.18.7] C:\Users\saadb\
 MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\3ae34e66b8cdc9f1552f4c1d5628bb83\transformed\jetified-exoplayer-smoothstreaming-2.18.7\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\98211325724c98e4e72cf2943cba61bf\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\saadb\.gradle\caches\transforms-3\5c1ac74fed7bf4008ec58c0f9a1d6810\transformed\transition-1.4.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.appcompat:appcompat-resources:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\f3984feaf6f85811d4bd39bd39e5a489\transformed\jetified-appcompat-resources-1.3.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\61529ac72903f3925a505af261f4a422\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\f1a7da26f92244436eef724659972b60\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\4b843f8215445c3ffbb1e8a129a25e5f\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\saadb\.gradle\caches\transforms-3\06f1f6593869a63768ed146cfbaa0e2a\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
@@ -75,21 +83,22 @@ MERGED from [com.google.android.exoplayer:exoplayer-decoder:2.18.7] C:\Users\saa
 MERGED from [com.google.android.exoplayer:exoplayer-database:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\ed074a7c29ab41de80557894834e61c8\transformed\jetified-exoplayer-database-2.18.7\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.exoplayer:exoplayer-common:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\e4d1eb8ea5e39e2c07ef86ef84ba8b79\transformed\jetified-exoplayer-common-2.18.7\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\saadb\.gradle\caches\transforms-3\940b9309689e502e1c69a5135892cdcc\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0f9c50a330ecd86c1b6a92b5212f7aec\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\761929e091d544d9e6394773eda8bdee\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
 	package
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-36:12
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:1-40:12
 		INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -121,8 +130,14 @@ MERGED from [:path_provider_android] D:\projects\Munch-App\build\path_provider_a
 MERGED from [:path_provider_android] D:\projects\Munch-App\build\path_provider_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:video_player_android] D:\projects\Munch-App\build\video_player_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:video_player_android] D:\projects\Munch-App\build\video_player_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [:image_cropper] D:\projects\Munch-App\build\image_cropper\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:image_cropper] D:\projects\Munch-App\build\image_cropper\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.yalantis:ucrop:2.2.8] C:\Users\saadb\.gradle\caches\transforms-3\105b27195fb35c5f16947a9a4853e41d\transformed\jetified-ucrop-2.2.8\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.8] C:\Users\saadb\.gradle\caches\transforms-3\105b27195fb35c5f16947a9a4853e41d\transformed\jetified-ucrop-2.2.8\AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.appcompat:appcompat:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\65825297c9897373b4c3eb34d36dd486\transformed\appcompat-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\65825297c9897373b4c3eb34d36dd486\transformed\appcompat-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.4] C:\Users\saadb\.gradle\caches\transforms-3\f12cbf3259d48b08f2c14c09fad100b4\transformed\fragment-1.3.4\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.4] C:\Users\saadb\.gradle\caches\transforms-3\f12cbf3259d48b08f2c14c09fad100b4\transformed\fragment-1.3.4\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\saadb\.gradle\caches\transforms-3\b91d5b010bb7c1fbb9d04195e8906de4\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core-ktx:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\47085114ff49c80095b55db1e8d4ce63\transformed\jetified-core-ktx-1.10.1\AndroidManifest.xml:5:5-44
@@ -139,12 +154,22 @@ MERGED from [com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\saadb\
 MERGED from [com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\98211325724c98e4e72cf2943cba61bf\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\saadb\.gradle\caches\transforms-3\5c1ac74fed7bf4008ec58c0f9a1d6810\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\saadb\.gradle\caches\transforms-3\5c1ac74fed7bf4008ec58c0f9a1d6810\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\f3984feaf6f85811d4bd39bd39e5a489\transformed\jetified-appcompat-resources-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\f3984feaf6f85811d4bd39bd39e5a489\transformed\jetified-appcompat-resources-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\61529ac72903f3925a505af261f4a422\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\61529ac72903f3925a505af261f4a422\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\saadb\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\f1a7da26f92244436eef724659972b60\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\f1a7da26f92244436eef724659972b60\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\4b843f8215445c3ffbb1e8a129a25e5f\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\saadb\.gradle\caches\transforms-3\4b843f8215445c3ffbb1e8a129a25e5f\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0d50aa8e7d8ffd3dff2c66572b1a2e4b\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.10.1] C:\Users\saadb\.gradle\caches\transforms-3\889ce5bd12f1117e5357d5fcdb5e1305\transformed\core-1.10.1\AndroidManifest.xml:20:5-44
@@ -185,6 +210,8 @@ MERGED from [com.google.android.exoplayer:exoplayer-common:2.18.7] C:\Users\saad
 MERGED from [com.google.android.exoplayer:exoplayer-common:2.18.7] C:\Users\saadb\.gradle\caches\transforms-3\e4d1eb8ea5e39e2c07ef86ef84ba8b79\transformed\jetified-exoplayer-common-2.18.7\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\saadb\.gradle\caches\transforms-3\940b9309689e502e1c69a5135892cdcc\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\saadb\.gradle\caches\transforms-3\940b9309689e502e1c69a5135892cdcc\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0f9c50a330ecd86c1b6a92b5212f7aec\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\saadb\.gradle\caches\transforms-3\0f9c50a330ecd86c1b6a92b5212f7aec\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\761929e091d544d9e6394773eda8bdee\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\saadb\.gradle\caches\transforms-3\761929e091d544d9e6394773eda8bdee\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 INJECTED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml
@@ -229,12 +256,20 @@ category#android.intent.category.LAUNCHER
 ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:27:17-76
 	android:name
 		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:27:27-74
-meta-data#flutterEmbedding
-ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:32:9-34:33
-	android:value
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:34:13-30
+activity#com.yalantis.ucrop.UCropActivity
+ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:30:9-33:63
+	android:screenOrientation
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:32:14-50
+	android:theme
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:33:5-61
 	android:name
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:33:13-44
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:31:14-61
+meta-data#flutterEmbedding
+ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:36:9-38:33
+	android:value
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:38:13-30
+	android:name
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:37:13-44
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
 ADDED from [:image_picker_android] D:\projects\Munch-App\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-18:20
 	android:grantUriPermissions

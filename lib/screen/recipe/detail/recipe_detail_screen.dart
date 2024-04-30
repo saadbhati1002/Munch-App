@@ -30,6 +30,7 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  double methodFontSize = 12;
   bool isLoading = false;
   bool isSavedToMyCalender = false;
   List<CalenderData> calenderRecipeList = [];
@@ -546,16 +547,77 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'METHOD',
-                      style: TextStyle(
-                        height: 1,
-                        fontWeight: FontWeight.w500,
-                        color: ColorConstant.mainColor,
-                        fontSize: 20,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'METHOD',
+                          style: TextStyle(
+                            height: 1,
+                            fontWeight: FontWeight.w500,
+                            color: ColorConstant.mainColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                if (methodFontSize < 32) {
+                                  methodFontSize++;
+                                  setState(() {});
+                                }
+                              },
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: ColorConstant.mainColor,
+                                  ),
+                                ),
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.add,
+                                  color: ColorConstant.mainColor,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (methodFontSize > 10) {
+                                  methodFontSize--;
+                                  setState(() {});
+                                }
+                              },
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: ColorConstant.mainColor,
+                                  ),
+                                ),
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.remove,
+                                  color: ColorConstant.mainColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                   const SizedBox(
@@ -565,8 +627,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       widget.recipeData!.method ?? AppConstant.appName,
-                      style: const TextStyle(
-                          fontSize: 12,
+                      style: TextStyle(
+                          fontSize: methodFontSize,
                           color: ColorConstant.black,
                           fontWeight: FontWeight.w400),
                     ),

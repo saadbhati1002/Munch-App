@@ -36,15 +36,16 @@ class HTTPManager {
     BuildContext? context,
   }) async {
     var optionsMain = Options(
-        followRedirects: false,
-        validateStatus: (status) {
-          return status! < 500;
-        },
-        headers: {
-          "Authorization": AppConstant.bearerToken != "null"
-              ? "Bearer ${AppConstant.bearerToken}"
-              : "",
-        });
+      followRedirects: false,
+      validateStatus: (status) {
+        return status! < 500;
+      },
+      headers: {
+        "Authorization": AppConstant.bearerToken != "null"
+            ? "Bearer ${AppConstant.bearerToken}"
+            : "",
+      },
+    );
 
     Dio dio = Dio(baseOptions);
     var internet = await ViewUtils.isConnected();
