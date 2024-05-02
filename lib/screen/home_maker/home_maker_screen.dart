@@ -225,7 +225,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                                 )
                               : Image.file(
                                   File(userData.videoThumbnail ?? ""),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.contain,
                                 ),
                         ),
                         Center(

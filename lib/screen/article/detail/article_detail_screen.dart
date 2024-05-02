@@ -113,7 +113,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                           File(widget.articleDate!
                                                   .videoThumbnail ??
                                               ""),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.contain,
                                         ),
                                 ),
                                 Center(

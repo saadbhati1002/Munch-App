@@ -161,7 +161,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                           File(widget
                                                   .recipeData!.videoThumbnail ??
                                               ""),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.contain,
                                         ),
                                 ),
                                 Center(

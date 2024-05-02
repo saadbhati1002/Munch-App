@@ -82,7 +82,7 @@ Widget recipeListWidget(
                               )
                             : Image.file(
                                 File(recipeData.videoThumbnail ?? ""),
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                               ),
                       ),
                       Center(

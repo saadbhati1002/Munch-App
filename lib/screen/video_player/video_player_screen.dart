@@ -1,3 +1,4 @@
+import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -16,13 +17,14 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoPath!));
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoPath!),
+        videoPlayerOptions: VideoPlayerOptions());
 
     _controller.addListener(() {
       setState(() {});
     });
     _controller.setLooping(true);
+
     _controller.initialize().then((_) => setState(() {}));
     _controller.play();
   }
@@ -36,24 +38,111 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.black,
       appBar: customAppBarBack(
         context: context,
         onTap: () {
           Navigator.pop(context);
         },
       ),
-      body: Container(
-        padding: const EdgeInsets.all(0),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              VideoPlayer(_controller),
-              _ControlsOverlay(controller: _controller),
-              VideoProgressIndicator(_controller, allowScrubbing: true),
-            ],
-          ),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height * 1,
+        width: MediaQuery.of(context).size.width * 1,
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 1,
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: <Widget>[
+                      VideoPlayer(
+                        _controller,
+                      ),
+                      _ControlsOverlay(controller: _controller),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    VideoProgressIndicator(
+                      _controller,
+                      allowScrubbing: true,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            await _controller.seekTo(
+                              Duration(
+                                  seconds:
+                                      _controller.value.position.inSeconds +
+                                          10),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 25,
+                            color: ColorConstant.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .25,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (_controller.value.isPlaying) {
+                              _controller.pause();
+                            } else {
+                              _controller.play();
+                            }
+                          },
+                          child: Icon(
+                            !_controller.value.isPlaying
+                                ? Icons.play_arrow
+                                : Icons.stop,
+                            size: 35,
+                            color: ColorConstant.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .25,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            await _controller.seekTo(
+                              Duration(
+                                  seconds:
+                                      _controller.value.position.inSeconds +
+                                          10),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 25,
+                            color: ColorConstant.white,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
