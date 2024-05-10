@@ -7,12 +7,12 @@ import 'package:app/screen/article/comments/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/images.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -182,11 +182,11 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const CustomImage(
-                                  imagePath: Images.comment,
-                                  isAssetsImage: true,
-                                  width: 18,
-                                  height: 18,
+                                SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SvgPicture.asset(
+                                      "assets/images/comment.svg"),
                                 ),
                                 const SizedBox(
                                   width: 7,
@@ -210,20 +210,20 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           onTap: () {
                             AppConstant.shareAppLink();
                           },
-                          child: const SizedBox(
+                          child: SizedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                CustomImage(
-                                  imagePath: Images.share,
-                                  isAssetsImage: true,
+                                SizedBox(
                                   width: 21,
                                   height: 19,
+                                  child: SvgPicture.asset(
+                                      "assets/images/share.svg"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
-                                Text(
+                                const Text(
                                   "Share",
                                   style: TextStyle(
                                       fontSize: 12,

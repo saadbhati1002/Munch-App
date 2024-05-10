@@ -61,7 +61,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 35,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.userSecret),
+                  icon: FaIcon(
+                    FontAwesomeIcons.userSecret,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -76,7 +79,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bellConcierge),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bellConcierge,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -91,7 +97,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bookOpen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bookOpen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -106,7 +115,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bowlFood),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bowlFood,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const MyRecipeScreen());
                   },
@@ -116,7 +128,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.listCheck),
+                  icon: FaIcon(
+                    FontAwesomeIcons.listCheck,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const ListScreen());
                   },
@@ -133,7 +148,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.dollar),
+                  icon: FaIcon(
+                    FontAwesomeIcons.dollar,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const MyMembershipScreen());
                   },
@@ -143,7 +161,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.userPen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.userPen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const EditProfileScreen());
                   },
@@ -153,7 +174,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.lockOpen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.lockOpen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const ChangePasswordScreen());
                   },
@@ -163,7 +187,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.robot),
+                  icon: FaIcon(
+                    FontAwesomeIcons.robot,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const ChatScreen());
                   },
@@ -180,7 +207,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.star),
+                  icon: FaIcon(
+                    FontAwesomeIcons.star,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(
                       () => const FeedBackScreen(),
@@ -192,7 +222,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.circleQuestion),
+                  icon: FaIcon(
+                    FontAwesomeIcons.circleQuestion,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const FAQScreen());
                   },
@@ -202,7 +235,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.heart),
+                  icon: FaIcon(
+                    FontAwesomeIcons.heart,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Get.to(() => const SocialMediaShareScreen());
                   },
@@ -212,7 +248,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
+                  icon: FaIcon(
+                    FontAwesomeIcons.rightFromBracket,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     logOutPopUp();
                   },
@@ -307,7 +346,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: ColorConstant.mainColor,
+                                color: ColorConstant.mainColor.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
                             // width: MediaQuery.of(context).size.width * .2,
@@ -333,7 +372,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: ColorConstant.mainColor,
+                                color: ColorConstant.mainColor.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
                             // width: MediaQuery.of(context).size.width * .2,

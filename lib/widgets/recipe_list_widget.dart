@@ -278,9 +278,10 @@ Widget categoryBox({String? title, BuildContext? context}) {
     child: Text(
       title!,
       style: const TextStyle(
-          fontSize: 14,
-          color: ColorConstant.white,
-          fontWeight: FontWeight.w400),
+        fontSize: 14,
+        color: ColorConstant.white,
+        fontWeight: FontWeight.w400,
+      ),
     ),
   );
 }

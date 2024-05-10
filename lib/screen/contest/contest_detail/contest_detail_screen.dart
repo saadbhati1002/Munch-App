@@ -193,6 +193,9 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                             },
                           )
                         : const SizedBox(),
+                    const SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               ),

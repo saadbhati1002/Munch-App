@@ -9,12 +9,12 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -301,7 +301,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return recipeSkeleton();
+                          return recipeSkeleton(context: context);
                         },
                       ),
               ],
@@ -309,36 +309,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
           isLoading ? const ShowProgressBar() : const SizedBox()
         ],
-      ),
-    );
-  }
-
-  Widget recipeSkeleton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(10),
-        shadowColor: ColorConstant.mainColor,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SkeletonTheme(
-              themeMode: ThemeMode.light,
-              child: SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

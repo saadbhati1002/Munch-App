@@ -10,11 +10,11 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -161,11 +161,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   size: 25,
                   color: ColorConstant.greyColor,
                 ),
-                suffix: const Icon(
-                  Icons.filter_alt_rounded,
-                  size: 25,
-                  color: ColorConstant.greyColor,
-                ),
               ),
             ),
             const SizedBox(
@@ -252,7 +247,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return recipeSkeleton();
+                      return recipeSkeleton(context: context);
                     },
                   ),
             const SizedBox(
@@ -349,36 +344,6 @@ class _SearchScreenState extends State<SearchScreen> {
           },
         )
       ],
-    );
-  }
-
-  Widget recipeSkeleton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(10),
-        shadowColor: ColorConstant.mainColor,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SkeletonTheme(
-              themeMode: ThemeMode.light,
-              child: SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 

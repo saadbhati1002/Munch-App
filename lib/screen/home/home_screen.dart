@@ -14,6 +14,7 @@ import 'package:app/utility/images.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -235,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 10,
                           ),
                           Text(
-                            "Search for Recipes",
+                            "Search for Recipes/Article",
                             style: TextStyle(
                                 fontSize: 12,
                                 color: ColorConstant.greyColor,
@@ -473,11 +474,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                     : ListView.builder(
                         itemCount: 10,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return recipeSkeleton();
+                          return recipeSkeleton(context: context);
                         },
                       ),
               ],
@@ -499,7 +499,19 @@ class _HomeScreenState extends State<HomeScreen> {
         viewportFraction: 0.95,
         itemCount: bannerList.length,
         onTap: (index) {
-          if (bannerList[index].url != null || bannerList[index].url != "") {
+          if (bannerList[index].recipeID != null ||
+              bannerList[index].recipeID != "") {
+            for (int i = 0; i < recipeList.length; i++) {
+              if (bannerList[index].recipeID == recipeList[i].id) {
+                Get.to(
+                  () => RecipeDetailScreen(
+                    recipeData: recipeList[i],
+                  ),
+                );
+              }
+            }
+          } else if (bannerList[index].url != null ||
+              bannerList[index].url != "") {
             launchUrl(Uri.parse(bannerList[index].url!));
           }
         },
@@ -547,36 +559,6 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BoxShape.rectangle,
             height: MediaQuery.of(context).size.height * .24,
             width: MediaQuery.of(context).size.width * 1,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget recipeSkeleton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(10),
-        shadowColor: ColorConstant.mainColor,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SkeletonTheme(
-              themeMode: ThemeMode.light,
-              child: SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ),
           ),
         ),
       ),

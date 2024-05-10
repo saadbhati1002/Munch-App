@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorConstant {
-  static const Color mainColor = Color(0xFFAC4B4D);
+  static const Color mainColor = Color(0xFF88001B);
   static const Color backGroundColor = Color(0xFFF7F7F7);
   static const Color organColor = Color(0xFFC24F0C);
   static const Color black = Color(0xFF000000);
