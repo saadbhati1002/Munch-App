@@ -1,4 +1,4 @@
-#Thu May 09 19:37:47 IST 2024
+#Fri May 10 19:45:39 IST 2024
 base.0=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
 base.1=D\:\\projects\\Munch-App\\build\\app\\intermediates\\dex\\release\\mergeDexRelease\\classes2.dex
 path.0=classes.dex

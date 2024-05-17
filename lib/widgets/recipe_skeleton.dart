@@ -141,7 +141,7 @@ Widget recipeSkeleton({BuildContext? context}) {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * .035,
+          height: MediaQuery.of(context).size.height * .04,
         ),
       ],
     ),
