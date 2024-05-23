@@ -38,6 +38,7 @@ class RecipeNetwork {
 
   static Future<dynamic> recipeUnlike(param) async {
     final result = await httpManager.post(url: recipeUnlikeUrl, data: param);
+
     LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
     return response;
   }
@@ -71,6 +72,7 @@ class RecipeNetwork {
   static Future<dynamic> saveToMyCalender(param) async {
     final result =
         await httpManager.post(url: recipeAddToCalenderUrl, data: param);
+
     LikeUnlikeRes response = LikeUnlikeRes.fromJson(result);
     return response;
   }

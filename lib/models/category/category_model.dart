@@ -32,6 +32,7 @@ class CategoryData {
   String? name;
   String? createdAt;
   String? updatedAt;
+  bool isSelected = false;
 
   CategoryData({id, name, createdAt, updatedAt});
 

@@ -316,17 +316,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   _recipeLike({String? recipeID, int? index}) async {
     try {
       setState(() {
-        isLoading = true;
+        recipeList[index!].isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeLikeApiCall(recipeID: recipeID);
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
         recipeList[index].isLikedByMe = true;
-        toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already like this recipe.") {
           recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
           recipeList[index].isLikedByMe = true;
         }
@@ -335,7 +333,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        recipeList[index!].isLoading = true;
       });
     }
   }
@@ -343,7 +341,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   _recipeUnlike({String? recipeID, int? index}) async {
     try {
       setState(() {
-        isLoading = true;
+        recipeList[index!].isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
@@ -351,7 +349,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
         recipeList[index].isLikedByMe = false;
         recipeList.removeAt(index);
-        toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
@@ -359,7 +356,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        recipeList[index!].isLoading = true;
       });
     }
   }

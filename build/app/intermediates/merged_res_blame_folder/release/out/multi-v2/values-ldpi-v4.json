@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.app-mergeReleaseResources-91:/values-ldpi-v4/values-ldpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\6ef1624e6b783e1ec56531d84fd91189\\transformed\\jetified-payments-core-20.37.4\\res\\values-ldpi-v4\\values-ldpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "63",
+                        "endOffsets": "114"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -9,6 +9,7 @@ import 'package:app/screen/q_and_a/question_reply/question_reply_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
+import 'package:app/widgets/common_skeleton.dart';
 
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/question_widget.dart';
@@ -162,7 +163,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                     'Q&A',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: ColorConstant.organColor,
+                      color: ColorConstant.mainColor,
                       fontSize: 20,
                     ),
                   ),
@@ -298,7 +299,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                         itemCount: 10,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return questionSkeleton();
+                          return const CommonSkeleton();
                         },
                       ),
                 const SizedBox(
@@ -423,7 +424,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
   _questionLike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        questionList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository()
           .questionLikeApiCall(questionID: questionList[index!].id.toString());
@@ -434,7 +435,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
         // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Question.") {
+        if (response.message!.trim() == "You are already like this question.") {
           questionList[index].likeCount =
               (int.parse(questionList[index].likeCount!) + 1).toString();
           questionList[index].isLikedByMe = true;
@@ -444,7 +445,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        questionList[index!].isLoading = false;
       });
     }
   }
@@ -452,7 +453,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
   _questionUnlike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        questionList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository().questionUnlikeApiCall(
           questionID: questionList[index!].id.toString());
@@ -468,7 +469,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        questionList[index!].isLoading = false;
       });
     }
   }

@@ -37,6 +37,7 @@ class QuestionData {
   String? userImage;
   List<LikedUsers>? likedUsers;
   bool isLikedByMe = false;
+  bool isLoading = false;
 
   QuestionData(
       {id,

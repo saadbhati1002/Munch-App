@@ -10,6 +10,7 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -148,27 +149,34 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            if (widget.articleDate!.isLikedByMe == true) {
-                              _articleUnlike();
-                            } else {
-                              _articleLike();
-                            }
-                          },
-                          child: Text(
-                            "${widget.articleDate!.likeCount}  Likes",
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: ColorConstant.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
+                        widget.articleDate!.isLoading == false
+                            ? InkWell(
+                                onTap: () {
+                                  if (widget.articleDate!.isLikedByMe == true) {
+                                    _articleUnlike(
+                                        articleID: widget.articleDate!.id);
+                                  } else {
+                                    _articleLike();
+                                  }
+                                },
+                                child: Text(
+                                  (widget.articleDate!.likeCount == 0 ||
+                                          widget.articleDate!.likeCount == 1)
+                                      ? "${widget.articleDate!.likeCount}  Like"
+                                      : "${widget.articleDate!.likeCount}  Likes",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: ColorConstant.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              )
+                            : microLoader(height: 16, width: 16),
                         GestureDetector(
                           onTap: () async {
                             var response = await Get.to(
                               () => ArticleCommentScreen(
                                 articleID: widget.articleDate!.id,
+                                count: widget.articleDate!.commentCount,
                               ),
                             );
                             if (response != null && response != "0") {
@@ -192,7 +200,10 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   width: 7,
                                 ),
                                 Text(
-                                  "${widget.articleDate!.commentCount} Comment",
+                                  (widget.articleDate!.commentCount == 0 ||
+                                          widget.articleDate!.commentCount == 1)
+                                      ? "${widget.articleDate!.commentCount} Comment"
+                                      : "${widget.articleDate!.commentCount} Comment",
                                   style: const TextStyle(
                                       fontSize: 12,
                                       color: ColorConstant.black,
@@ -354,17 +365,15 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   _articleLike() async {
     try {
       setState(() {
-        isLoading = true;
+        widget.articleDate!.isLoading = true;
       });
       LikeUnlikeRes response = await ArticleRepository()
           .articleLikeApiCall(articleID: widget.articleDate!.id);
       if (response.success == true) {
         widget.articleDate!.likeCount = widget.articleDate!.likeCount! + 1;
         widget.articleDate!.isLikedByMe = true;
-        toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Artical.") {
+        if (response.message!.trim() == "You are already like this article.") {
           widget.articleDate!.likeCount = widget.articleDate!.likeCount! + 1;
           widget.articleDate!.isLikedByMe = true;
         }
@@ -373,32 +382,29 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.articleDate!.isLoading = false;
       });
     }
   }
 
   _articleUnlike({
-    String? recipeID,
+    String? articleID,
   }) async {
     try {
       setState(() {
-        isLoading = true;
+        widget.articleDate!.isLoading = true;
       });
       LikeUnlikeRes response =
-          await ArticleRepository().articleUnlikeApiCall(articleID: recipeID);
+          await ArticleRepository().articleUnlikeApiCall(articleID: articleID);
       if (response.success == true) {
         widget.articleDate!.likeCount = widget.articleDate!.likeCount! - 1;
         widget.articleDate!.isLikedByMe = false;
-        toastShow(message: response.message);
-      } else {
-        toastShow(message: response.message);
-      }
+      } else {}
     } catch (e) {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.articleDate!.isLoading = false;
       });
     }
   }

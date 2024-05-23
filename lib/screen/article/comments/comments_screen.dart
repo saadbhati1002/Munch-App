@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 
 class ArticleCommentScreen extends StatefulWidget {
   final String? articleID;
-  const ArticleCommentScreen({super.key, this.articleID});
+  final int? count;
+  const ArticleCommentScreen({super.key, this.articleID, this.count});
 
   @override
   State<ArticleCommentScreen> createState() => _ArticleCommentScreenState();
@@ -154,11 +155,13 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Comment',
-                      style: TextStyle(
+                    child: Text(
+                      (widget.count == 0 || widget.count == 1)
+                          ? 'Comment'
+                          : 'Comments',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: ColorConstant.organColor,
+                        color: ColorConstant.mainColor,
                         fontSize: 20,
                       ),
                     ),
@@ -281,7 +284,7 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
   _commentLike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        commentList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await ArticleRepository()
           .commentLikeApiCall(commentID: commentList[index!].id.toString());
@@ -291,7 +294,8 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
         toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() ==
+            "You are already like this article comment.") {
           commentList[index].count = commentList[index].count + 1;
           commentList[index].isLikedByMe = true;
         }
@@ -300,7 +304,7 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        commentList[index!].isLoading = false;
       });
     }
   }
@@ -308,7 +312,7 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
   _commentUnlike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        commentList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await ArticleRepository()
           .commentUnlikeApiCall(commentID: commentList[index!].id.toString());
@@ -323,7 +327,7 @@ class _ArticleCommentScreenState extends State<ArticleCommentScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        commentList[index!].isLoading = false;
       });
     }
   }

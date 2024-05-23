@@ -2,6 +2,7 @@ import 'package:app/models/q_and_a/reply/reply_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 
 Widget replyWidget(
@@ -61,21 +62,26 @@ Widget replyWidget(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: onLikeUnlikeTap,
-                child: Icon(
-                  Icons.favorite,
-                  color: replyData.isLikedByMe
-                      ? ColorConstant.mainColor
-                      : ColorConstant.greyColor,
-                  size: 17,
-                ),
-              ),
+              !replyData.isLoading
+                  ? GestureDetector(
+                      onTap: onLikeUnlikeTap,
+                      child: Icon(
+                        Icons.favorite,
+                        color: replyData.isLikedByMe
+                            ? ColorConstant.mainColor
+                            : ColorConstant.greyColor,
+                        size: 17,
+                      ),
+                    )
+                  : microLoader(height: 16, width: 16),
               const SizedBox(
                 width: 5,
               ),
               Text(
-                "${replyData.likeCount} Likes",
+                (int.parse(replyData.likeCount!) == 0 ||
+                        int.parse(replyData.likeCount!) == 1)
+                    ? "${replyData.likeCount} Like"
+                    : "${replyData.likeCount} Likes",
                 style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,

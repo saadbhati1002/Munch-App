@@ -36,10 +36,11 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
   }
 
   _getData() async {
+    selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
     setState(() {
       isRecipeLoading = true;
     });
-
     await _getRecipeList();
     await _getCalenderRecipe();
   }
@@ -173,7 +174,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                           'Meal Plan',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: ColorConstant.organColor,
+                            color: ColorConstant.mainColor,
                             fontSize: 20,
                           ),
                         ),
@@ -229,7 +230,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                 _selectDate(context);
               },
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 60,
                 width: MediaQuery.of(context).size.width,

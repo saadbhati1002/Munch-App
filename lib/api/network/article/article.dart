@@ -10,8 +10,8 @@ class ArticleNetwork {
   static const String articleUnlikeUrl = "artical/unlike";
   static const String articleCommentAddUrl = "artical/comment";
   static const String commentListUrl = "artical/comments?id=";
-  static const String commentLikeUrl = "comment/like";
-  static const String commentUnlikeUrl = "comment/unlike";
+  static const String commentLikeUrl = "artical/comment/like";
+  static const String commentUnlikeUrl = "artical/comment/unlike";
   static Future<dynamic> getArticleList() async {
     final result = await httpManager.get(url: articleUrl);
 

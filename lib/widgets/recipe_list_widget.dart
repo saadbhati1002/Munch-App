@@ -6,6 +6,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -22,12 +23,8 @@ Widget recipeListWidget(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Container(
-        //   height: 1.5,
-        //   decoration: const BoxDecoration(color: ColorConstant.greyDarkColor),
-        // ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         isMyRecipe == true
             ? const SizedBox()
@@ -144,29 +141,33 @@ Widget recipeListWidget(
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                height: 30,
-                decoration: BoxDecoration(
-                  color: ColorConstant.greyColor.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: GestureDetector(
-                  onTap: onTap,
+              InkWell(
+                onTap: onTap,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.greyColor.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.favorite,
-                        color: recipeData.isLikedByMe == true
-                            ? ColorConstant.mainColor
-                            : ColorConstant.greyDarkColor,
-                        size: 18,
-                      ),
+                      !recipeData.isLoading
+                          ? Icon(
+                              Icons.favorite,
+                              color: recipeData.isLikedByMe == true
+                                  ? ColorConstant.mainColor
+                                  : ColorConstant.greyDarkColor,
+                              size: 18,
+                            )
+                          : microLoader(height: 16, width: 16),
                       const SizedBox(
                         width: 7,
                       ),
                       Text(
-                        "${recipeData.likeCount} Likes",
+                        (recipeData.likeCount == 0 || recipeData.likeCount == 1)
+                            ? "${recipeData.likeCount} Like"
+                            : "${recipeData.likeCount} Likes",
                         style: const TextStyle(
                             fontSize: 12,
                             color: ColorConstant.black,

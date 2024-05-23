@@ -37,6 +37,7 @@ class ReplyData {
   String? userImage;
   List<LikedUsers> likedUsers = [];
   bool isLikedByMe = false;
+  bool isLoading = false;
 
   ReplyData(
       {id,

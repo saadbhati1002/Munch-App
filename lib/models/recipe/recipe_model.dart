@@ -52,30 +52,33 @@ class RecipeData {
   List<LikedUsers> likedUsers = [];
   bool? isVideoThumbnailLoading = false;
   String? userID;
+  bool isLoading = false;
 
-  RecipeData(
-      {nameDish,
-      categories,
-      media,
-      tagLine,
-      preparationTime,
-      cookingTime,
-      smallDesc,
-      servingPotions,
-      ingredientList,
-      method,
-      methodTagline,
-      chefsWhisper,
-      chefsWhisperTagline,
-      isApproved,
-      user,
-      userImage,
-      likedUsers,
-      this.isLikedByMe,
-      this.likeCount,
-      this.isVideoThumbnailLoading,
-      this.id,
-      this.userID});
+  RecipeData({
+    nameDish,
+    categories,
+    media,
+    tagLine,
+    preparationTime,
+    cookingTime,
+    smallDesc,
+    servingPotions,
+    ingredientList,
+    method,
+    methodTagline,
+    chefsWhisper,
+    chefsWhisperTagline,
+    isApproved,
+    user,
+    userImage,
+    likedUsers,
+    this.isLikedByMe,
+    this.likeCount,
+    this.isVideoThumbnailLoading,
+    this.id,
+    this.userID,
+    isLoading,
+  });
 
   RecipeData.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();

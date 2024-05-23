@@ -17,65 +17,63 @@ class CustomImageCircular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (imagePath != null && imagePath!.isNotEmpty)
-        ? ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: CachedNetworkImage(
-              imageUrl: "${AppConstant.imagePath}$imagePath",
-              imageBuilder: (context, imageProvider) {
-                return Container(
+        ? CachedNetworkImage(
+            imageUrl: "${AppConstant.imagePath}$imagePath",
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                height: height,
+                width: width,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
+            placeholder: (context, url) {
+              return Shimmer.fromColors(
+                baseColor: Theme.of(context).hoverColor,
+                highlightColor: Theme.of(context).highlightColor,
+                enabled: true,
+                child: Container(
                   height: height,
                   width: width,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
+                    color: ColorConstant.white,
                     shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
+                    border:
+                        Border.all(width: 1, color: ColorConstant.greyColor),
+                    image: const DecorationImage(
+                      image: AssetImage(Images.logo),
                     ),
                   ),
-                );
-              },
-              placeholder: (context, url) {
-                return Shimmer.fromColors(
-                    baseColor: Theme.of(context).hoverColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    enabled: true,
-                    child: Container(
-                      height: height,
-                      width: width,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: ColorConstant.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 1, color: ColorConstant.greyColor),
-                        image: const DecorationImage(
-                          image: AssetImage(Images.logo),
-                        ),
-                      ),
-                    ));
-              },
-              errorWidget: (context, url, error) {
-                return Shimmer.fromColors(
-                  baseColor: Theme.of(context).hoverColor,
-                  highlightColor: Theme.of(context).highlightColor,
-                  enabled: true,
-                  child: Container(
-                    height: height,
-                    width: width,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.white,
-                      shape: BoxShape.circle,
-                      border:
-                          Border.all(width: 1, color: ColorConstant.greyColor),
-                      image: const DecorationImage(
-                        image: AssetImage(Images.logo),
-                      ),
+                ),
+              );
+            },
+            errorWidget: (context, url, error) {
+              return Shimmer.fromColors(
+                baseColor: Theme.of(context).hoverColor,
+                highlightColor: Theme.of(context).highlightColor,
+                enabled: true,
+                child: Container(
+                  height: height,
+                  width: width,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    shape: BoxShape.circle,
+                    border:
+                        Border.all(width: 1, color: ColorConstant.greyColor),
+                    image: const DecorationImage(
+                      image: AssetImage(Images.logo),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           )
         : Container(
             height: height,

@@ -145,8 +145,15 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                           },
                           child: Column(
                             children: [
+                              if (index != 0) ...[
+                                Container(
+                                  height: 1.5,
+                                  decoration: const BoxDecoration(
+                                      color: ColorConstant.greyDarkColor),
+                                ),
+                              ],
                               const SizedBox(
-                                height: 10,
+                                height: 15,
                               ),
                               Padding(
                                 padding:
@@ -195,22 +202,23 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                                 ),
                               ),
                               recipeListWidget(
-                                  isFromRecipe: true,
-                                  isMyRecipe: true,
-                                  context: context,
-                                  recipeData: recipeList[index],
-                                  onTap: () {
-                                    if (recipeList[index].isLikedByMe == true) {
-                                      _recipeUnlike(
-                                          recipeID: recipeList[index].id,
-                                          index: index);
-                                    } else {
-                                      _recipeLike(
+                                isFromRecipe: true,
+                                isMyRecipe: true,
+                                context: context,
+                                recipeData: recipeList[index],
+                                onTap: () {
+                                  if (recipeList[index].isLikedByMe == true) {
+                                    _recipeUnlike(
                                         recipeID: recipeList[index].id,
-                                        index: index,
-                                      );
-                                    }
-                                  }),
+                                        index: index);
+                                  } else {
+                                    _recipeLike(
+                                      recipeID: recipeList[index].id,
+                                      index: index,
+                                    );
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         );

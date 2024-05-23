@@ -11,11 +11,16 @@ class ShowProgressBar extends StatelessWidget {
         color: Colors.transparent,
         child: const Center(
           child: SizedBox(
-              height: 40,
-              width: 40,
-              child: CircularProgressIndicator(
+            height: 120,
+            width: 120,
+            child: Image(
+                image: AssetImage(
+                  "assets/loader.gif",
+                ),
                 color: ColorConstant.mainColor,
-              )),
+                height: 120,
+                width: 120),
+          ),
         ),
       ),
     );

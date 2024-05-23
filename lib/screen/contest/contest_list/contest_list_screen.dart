@@ -178,11 +178,10 @@ class _ContestListScreenState extends State<ContestListScreen> {
         borderRadius: BorderRadius.circular(10),
         shadowColor: ColorConstant.mainColor,
         child: Container(
-          height: MediaQuery.of(context).size.height * .2,
+          height: MediaQuery.of(context).size.height * .15,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.5, color: ColorConstant.mainColor),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -192,7 +191,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                 children: [
                   SkeletonLine(
                     style: SkeletonLineStyle(
-                      height: 15,
+                      height: 10,
                       randomLength: false,
                       borderRadius: BorderRadius.circular(10),
                       width: MediaQuery.of(context).size.width * .35,
@@ -203,7 +202,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                   ),
                   SkeletonLine(
                     style: SkeletonLineStyle(
-                      height: 15,
+                      height: 10,
                       randomLength: false,
                       borderRadius: BorderRadius.circular(10),
                       width: MediaQuery.of(context).size.width * .85,
@@ -215,6 +214,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                   SkeletonLine(
                     style: SkeletonLineStyle(
                       randomLength: true,
+                      height: 10,
                       borderRadius: BorderRadius.circular(10),
                       width: MediaQuery.of(context).size.width * .85,
                     ),
@@ -227,7 +227,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                     children: [
                       SkeletonLine(
                         style: SkeletonLineStyle(
-                          height: 15,
+                          height: 10,
                           randomLength: false,
                           borderRadius: BorderRadius.circular(10),
                           width: MediaQuery.of(context).size.width * .35,
@@ -235,7 +235,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
                       ),
                       SkeletonLine(
                         style: SkeletonLineStyle(
-                          height: 15,
+                          height: 10,
                           randomLength: false,
                           borderRadius: BorderRadius.circular(10),
                           width: MediaQuery.of(context).size.width * .35,

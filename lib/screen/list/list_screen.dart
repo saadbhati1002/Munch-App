@@ -93,7 +93,7 @@ class _ListScreenState extends State<ListScreen> {
                           'Your List',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: ColorConstant.organColor,
+                            color: ColorConstant.mainColor,
                             fontSize: 20,
                           ),
                         ),
@@ -339,7 +339,6 @@ class _ListScreenState extends State<ListScreen> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.5, color: ColorConstant.mainColor),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),

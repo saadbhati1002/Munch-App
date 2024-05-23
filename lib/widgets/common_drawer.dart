@@ -269,19 +269,22 @@ class _CommonDrawerState extends State<CommonDrawer> {
   }
 
   Widget commonRaw({FaIcon? icon, String? title, VoidCallback? onTap}) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Row(
-        children: [
-          SizedBox(width: 41, child: icon!),
-          Text(
-            title!,
-            style: const TextStyle(
-                fontSize: 14,
-                color: ColorConstant.black,
-                fontWeight: FontWeight.w500),
-          )
-        ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            SizedBox(width: 41, child: icon!),
+            Text(
+              title!,
+              style: const TextStyle(
+                  fontSize: 14,
+                  color: ColorConstant.black,
+                  fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
       ),
     );
   }

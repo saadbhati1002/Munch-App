@@ -36,6 +36,7 @@ class CommentData {
   String? userImage;
   int count = 0;
   bool isLikedByMe = false;
+  bool isLoading = false;
   List<LikedUsers> likedUsers = [];
 
   CommentData(

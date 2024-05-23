@@ -13,7 +13,7 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
-import 'package:app/widgets/show_progress_bar.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -196,27 +196,34 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            if (widget.recipeData!.isLikedByMe == true) {
-                              _recipeUnlike();
-                            } else {
-                              _recipeLike();
-                            }
-                          },
-                          child: Text(
-                            "${widget.recipeData!.likeCount}  Likes",
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: ColorConstant.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
+                        widget.recipeData!.isLoading == false
+                            ? InkWell(
+                                onTap: () {
+                                  if (widget.recipeData!.isLikedByMe == true) {
+                                    _recipeUnlike(
+                                        recipeID: widget.recipeData!.id);
+                                  } else {
+                                    _recipeLike();
+                                  }
+                                },
+                                child: Text(
+                                  (widget.recipeData!.likeCount == 0 ||
+                                          widget.recipeData!.likeCount == 1)
+                                      ? "${widget.recipeData!.likeCount}  Like"
+                                      : "${widget.recipeData!.likeCount}  Likes",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: ColorConstant.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              )
+                            : microLoader(height: 16, width: 16),
                         GestureDetector(
                           onTap: () async {
                             var response = await Get.to(
                               () => RecipeCommentsScreen(
                                 recipeID: widget.recipeData!.id,
+                                count: widget.recipeData!.commentCount,
                               ),
                             );
                             if (response != null && response != "0") {
@@ -240,7 +247,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                   width: 7,
                                 ),
                                 Text(
-                                  "${widget.recipeData!.commentCount} Comment",
+                                  (widget.recipeData!.commentCount == 0 ||
+                                          widget.recipeData!.commentCount == 1)
+                                      ? "${widget.recipeData!.commentCount} Comment"
+                                      : "${widget.recipeData!.commentCount} Comments",
                                   style: const TextStyle(
                                       fontSize: 12,
                                       color: ColorConstant.black,
@@ -667,7 +677,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ],
               ),
             ),
-            isLoading ? const ShowProgressBar() : const SizedBox()
+            // isLoading ? const ShowProgressBar() : const SizedBox()
           ],
         ),
       ),
@@ -750,17 +760,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   _recipeLike() async {
     try {
       setState(() {
-        isLoading = true;
+        widget.recipeData!.isLoading = true;
       });
       LikeUnlikeRes response = await RecipeRepository()
           .recipeLikeApiCall(recipeID: widget.recipeData!.id);
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
         widget.recipeData!.isLikedByMe = true;
-        // toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already like this recipe.") {
           widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
           widget.recipeData!.isLikedByMe = true;
         }
@@ -769,7 +777,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.recipeData!.isLoading = false;
       });
     }
   }
@@ -777,7 +785,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   _recipeUnlike({String? recipeID}) async {
     try {
       setState(() {
-        isLoading = true;
+        widget.recipeData!.isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
@@ -792,7 +800,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.recipeData!.isLoading = false;
       });
     }
   }

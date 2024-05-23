@@ -16,7 +16,8 @@ import 'package:flutter/material.dart';
 
 class RecipeCommentsScreen extends StatefulWidget {
   final String? recipeID;
-  const RecipeCommentsScreen({super.key, this.recipeID});
+  final int? count;
+  const RecipeCommentsScreen({super.key, this.recipeID, this.count});
 
   @override
   State<RecipeCommentsScreen> createState() => _RecipeCommentsScreenState();
@@ -155,11 +156,13 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Comment',
-                      style: TextStyle(
+                    child: Text(
+                      (widget.count == 0 || widget.count == 1)
+                          ? 'Comment'
+                          : 'Comments',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: ColorConstant.organColor,
+                        color: ColorConstant.mainColor,
                         fontSize: 20,
                       ),
                     ),
@@ -282,17 +285,15 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
   _commentLike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        commentList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await RecipeRepository()
           .commentLikeApiCall(commentID: commentList[index!].id.toString());
       if (response.success == true) {
         commentList[index].count = commentList[index].count + 1;
         commentList[index].isLikedByMe = true;
-        // toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already like this recipe.") {
           commentList[index].count = commentList[index].count + 1;
           commentList[index].isLikedByMe = true;
         }
@@ -301,7 +302,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        commentList[index!].isLoading = false;
       });
     }
   }
@@ -309,7 +310,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
   _commentUnlike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        commentList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await RecipeRepository()
           .commentUnlikeApiCall(commentID: commentList[index!].id.toString());
@@ -324,7 +325,7 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        commentList[index!].isLoading = false;
       });
     }
   }
