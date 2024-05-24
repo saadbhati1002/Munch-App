@@ -11,4 +11,7 @@ class ColorConstant {
   static const Color greenColor = Colors.green;
   static const Color redColor = Colors.red;
   static const Color yellowColor = Colors.yellow;
+  static const Color publishedColor = Color(0xFF16B68A);
+  static const Color rejectColor = Color(0xFFF14453);
+  static const Color waitingColor = Color(0xFFFF8F0D);
 }
