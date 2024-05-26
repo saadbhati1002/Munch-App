@@ -14,6 +14,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "blur",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/blur-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -746,7 +752,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-05-20T11:31:25.459466Z",
+  "generated": "2024-05-26T06:21:03.656414Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

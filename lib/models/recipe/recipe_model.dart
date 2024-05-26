@@ -54,6 +54,7 @@ class RecipeData {
   String? userID;
   bool isLoading = false;
   String? createdAt;
+  int? featured;
 
   RecipeData(
       {nameDish,
@@ -79,7 +80,8 @@ class RecipeData {
       this.id,
       this.userID,
       isLoading,
-      this.createdAt});
+      this.createdAt,
+      this.featured});
 
   RecipeData.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
@@ -106,6 +108,7 @@ class RecipeData {
     commentCount = int.parse(json['comment_count'] ?? '0');
     userID = json['user_id'].toString();
     createdAt = json['created_at'].toString();
+    featured = int.parse(json["featured"].toString());
     if (json['liked_users'] != null) {
       likedUsers = <LikedUsers>[];
       json['liked_users'].forEach((v) {
@@ -135,6 +138,7 @@ class RecipeData {
     data['user_image'] = userImage;
     data['comment_count'] = commentCount;
     data['created_at'] = createdAt;
+    data["featured"] = featured;
     if (likedUsers.isNotEmpty) {
       data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }

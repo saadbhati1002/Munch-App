@@ -8,6 +8,7 @@ import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/list/list_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
+import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
 import 'package:app/screen/social_media/social_media_share_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
@@ -102,12 +103,16 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyPlanesScreen(),
-                      ),
-                    );
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyPlanesScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "Meal Plans",
                 ),
@@ -120,7 +125,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const MyRecipeScreen());
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Get.to(() => const MyRecipeScreen());
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "My Recipes",
                 ),
@@ -133,7 +142,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const ListScreen());
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Get.to(() => const ListScreen());
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "Shopping List",
                 ),
@@ -286,6 +299,91 @@ class _CommonDrawerState extends State<CommonDrawer> {
           ],
         ),
       ),
+    );
+  }
+
+  void popUpForNormalUsers() async {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                side: BorderSide(color: ColorConstant.greyColor),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+              ),
+              elevation: 0,
+              backgroundColor: ColorConstant.white,
+              actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+              title: Container(
+                alignment: Alignment.topLeft,
+                decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    borderRadius: BorderRadius.circular(15)),
+                // height: MediaQuery.of(context).size.height * .25,
+                width: MediaQuery.of(context).size.width * .9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'PREMIUM FEATURE',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.mainColor,
+                        fontSize: 20,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    const Text(
+                      'To access this feature to upgrade to premium profile.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 12,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => const ProfileScreen());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorConstant.mainColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        height: 35,
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Upgrade Now',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: ColorConstant.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
