@@ -367,7 +367,7 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                                 ? ColorConstant.publishedColor
                                 : data.isApproved == "2"
                                     ? ColorConstant.rejectColor
-                                    : ColorConstant.mainColor.withOpacity(0.9),
+                                    : ColorConstant.privateColor,
                       ),
                       child: Text(
                         data.isApproved == "0"

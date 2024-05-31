@@ -6,6 +6,10 @@ import 'package:share_plus/share_plus.dart';
 
 class AppConstant {
   static const String appName = 'Munch Monday';
+  static const String stripePublic =
+      'pk_live_51PKbcOSByjgYxhiE8mZfBsZCJHTeMVNA1iWrLKHaguuRT5PjWzkKwnfKnIjsTcN0RIIL0s13AiY784m5U8YuK2ze00BoYLYJPh';
+  static const String stripeSecretKey =
+      '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';
   static const String baseUrl = 'https://alghurfah.net/munch/public/api/';
   static const String imagePath = 'https://alghurfah.net/munch/public/';
   static const String instagramUrl = 'https://www.instagram.com/';
@@ -24,7 +28,7 @@ class AppConstant {
   }
 
   static String appShareMessage =
-      "I'm inviting you to use $appName, a simple and easy app to find new recipes and article. Here i am sending  you app link  https://alghurfah.net/munch/public/ - use it to download the app.";
+      "I'm inviting you to use $appName, a simple and easy app to find new recipes and communities. Here i am sending  you app link  https://alghurfah.net/munch/public/ - use it to download the app.";
   static Future shareAppLink() async {
     return Share.share(appShareMessage);
   }

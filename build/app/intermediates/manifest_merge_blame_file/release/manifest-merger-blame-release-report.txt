@@ -82,8 +82,8 @@
 48-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:15:13-47
 49            android:launchMode="singleTop"
 49-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:12:13-43
-50            android:theme="@style/LaunchTheme"
-50-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-47
+50            android:theme="@style/Theme.AppCompat.Light"
+50-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-57
 51            android:windowSoftInputMode="adjustResize" >
 51-->D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:16:13-55
 52

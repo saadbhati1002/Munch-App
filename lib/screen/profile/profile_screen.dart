@@ -7,7 +7,9 @@ import 'package:app/widgets/common_button.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,6 +23,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isLoading = false;
   bool isShowPlan = false;
   int? selectedMembership;
+  String? amount;
+  Map<String, dynamic>? paymentIntent;
   @override
   void initState() {
     _getMembershipList();
@@ -296,9 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           message: "Please select membership plan to proceed");
                       return;
                     }
-                    toastShow(
-                        message:
-                            "Your stripe key is suspended.Please use another key");
+                    makeStripePayment(amount);
                     setState(() {
                       isShowPlan = false;
                     });
@@ -319,6 +321,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          amount = membershipData.amount;
           selectedMembership = membershipData.id;
         });
       },
@@ -391,5 +394,128 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  createPaymentIntent(String amount, String currency) async {
+    try {
+      //Request body
+      Map<String, dynamic> body = {
+        'amount': calculateAmount(amount),
+        'currency': currency,
+      };
+
+      //Make post request to Stripe
+      var response = await Dio().post(
+        'https://api.stripe.com/v1/payment_intents',
+        data: body,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${AppConstant.stripeSecretKey}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+        ),
+      );
+      paymentIntent = response.data;
+      return response.data;
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
+
+  calculateAmount(String amount) {
+    final calculatedAmount = (int.parse(amount)) * 100;
+    return calculatedAmount.toString();
+  }
+
+  Future<void> makeStripePayment(String? priceTotal) async {
+    Stripe.publishableKey = AppConstant.stripePublic;
+    Stripe.merchantIdentifier = 'Mohd Saad bhati';
+    await Stripe.instance.applySettings();
+    int price = double.parse(priceTotal!).toInt();
+    try {
+      paymentIntent = await createPaymentIntent(price.toString(), 'INR');
+
+      // STEP 2: Initialize Payment Sheet
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+            paymentIntentClientSecret:
+                paymentIntent!['client_secret'], //Gotten from payment intent
+            style: ThemeMode.light,
+            merchantDisplayName: 'NowoChat',
+          ))
+          .then((value) {});
+
+      //STEP 3: Display Payment sheet
+      displayPaymentSheet();
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: paymentIntent!['client_secret'],
+          customFlow: true,
+          allowsDelayedPaymentMethods: true,
+          googlePay: const PaymentSheetGooglePay(
+            merchantCountryCode: 'IN',
+            testEnv: true,
+          ),
+          style: ThemeMode.light,
+          merchantDisplayName: 'NowoChat',
+        ),
+      );
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+            context: context,
+            builder: (_) => const AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
+                  ),
+                ));
+        // paymentSuccess(
+        //   transactionID: DateTime.now().millisecondsSinceEpoch.toString(),
+        // );
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      debugPrint(e.toString());
+      const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                Text("Payment Failed"),
+              ],
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

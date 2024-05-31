@@ -75,7 +75,7 @@
 52            android:exported="true"
 53            android:hardwareAccelerated="true"
 54            android:launchMode="singleTop"
-55            android:theme="@style/LaunchTheme"
+55            android:theme="@style/Theme.AppCompat.Light"
 56            android:windowSoftInputMode="adjustResize" >
 57
 58            <!--

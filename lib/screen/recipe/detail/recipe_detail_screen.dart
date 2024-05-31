@@ -386,13 +386,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                   if (widget.recipeData!.featured == 0) ...[
                     premiumData(),
-                  ],
-                  if (widget.recipeData!.featured == 1 &&
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                    ),
+                  ] else if (widget.recipeData!.featured == 1 &&
                       AppConstant.userData!.isPremiumUser == true) ...[
                     premiumData(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                    ),
                   ] else ...[
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 1,
+                      height: MediaQuery.of(context).size.height * .5,
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
                         children: [
@@ -401,7 +406,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             child: premiumData(),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 1,
+                            height: MediaQuery.of(context).size.height * 5,
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -458,23 +463,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .2,
-                                ),
                               ],
                             ),
                           ).frosted(
-                            blur: 3,
-                            padding: const EdgeInsets.all(8),
+                            blur: 5,
+                            frostColor: ColorConstant.white,
+                            frostOpacity: 0.7,
                           ),
                         ],
                       ),
                     )
                   ],
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                  ),
                 ],
               ),
             ),

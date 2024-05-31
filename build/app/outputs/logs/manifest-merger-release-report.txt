@@ -537,7 +537,7 @@ ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:9:9-29
 	android:configChanges
 		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:14:13-163
 	android:theme
-		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-47
+		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:13:13-57
 	android:name
 		ADDED from D:\projects\Munch-App\android\app\src\main\AndroidManifest.xml:10:13-41
 meta-data#io.flutter.embedding.android.NormalTheme

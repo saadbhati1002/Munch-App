@@ -6,6 +6,11 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>App</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Scan your card to add it automatically</string>
+    <key>NSCameraUsageDescription
+    &lt;string&gt;To scan cards&lt;/string&gt;</key>
+    <string>To scan cards</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

@@ -842,7 +842,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           tagLine: recipeTagLine.text.trim(),
           status: status);
       if (response.success == true) {
-        if (status == 3) {
+        if (status == 0) {
           recipeUploadedPopUp();
         }
       } else {

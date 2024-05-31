@@ -125,11 +125,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    if (AppConstant.userData!.isPremiumUser == true) {
-                      Get.to(() => const MyRecipeScreen());
-                    } else {
-                      popUpForNormalUsers();
-                    }
+                    // if (AppConstant.userData!.isPremiumUser == true) {
+                    Get.to(() => const MyRecipeScreen());
+                    // } else {
+                    //   popUpForNormalUsers();
+                    // }
                   },
                   title: "My Recipes",
                 ),

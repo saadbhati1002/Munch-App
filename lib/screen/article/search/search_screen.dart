@@ -130,7 +130,7 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
               child: CustomSearchTextField(
                 onChanged: _onSearchChanged,
                 context: context,
-                hintText: 'Search for Article',
+                hintText: 'Search for Communities',
                 prefix: const Icon(
                   Icons.search,
                   size: 25,

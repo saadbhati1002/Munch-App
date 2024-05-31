@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 10,
                             ),
                             Text(
-                              "Search for Recipes/Article",
+                              "Search for Recipes/Communities",
                               style: TextStyle(
                                   fontSize: 12,
                                   color: ColorConstant.greyColor,
@@ -345,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "Articles",
+                                    "Communities",
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: !isRecipe

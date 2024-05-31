@@ -12275,7 +12275,10 @@
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style><style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
-    </style></file><file path="D:\projects\Munch-App\android\app\src\main\res\values-night\styles.xml" qualifiers="night-v8"><style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+    </style><style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    
+  
+</style></file><file path="D:\projects\Munch-App\android\app\src\main\res\values-night\styles.xml" qualifiers="night-v8"><style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
         
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style><style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">

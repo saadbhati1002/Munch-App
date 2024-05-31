@@ -108,7 +108,8 @@ class RecipeData {
     commentCount = int.parse(json['comment_count'] ?? '0');
     userID = json['user_id'].toString();
     createdAt = json['created_at'].toString();
-    featured = int.parse(json["featured"].toString());
+    featured =
+        json["featured"] != null ? int.parse(json["featured"].toString()) : 0;
     if (json['liked_users'] != null) {
       likedUsers = <LikedUsers>[];
       json['liked_users'].forEach((v) {

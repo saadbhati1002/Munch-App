@@ -14,4 +14,5 @@ class ColorConstant {
   static const Color publishedColor = Color(0xFF16B68A);
   static const Color rejectColor = Color(0xFFF14453);
   static const Color waitingColor = Color(0xFFFF8F0D);
+  static const Color privateColor = Color(0xFF42A5F5);
 }
