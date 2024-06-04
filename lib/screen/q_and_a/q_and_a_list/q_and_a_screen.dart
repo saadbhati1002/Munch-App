@@ -10,13 +10,13 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/common_skeleton.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/question_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 
 class QuestionAndAnswerScreen extends StatefulWidget {
@@ -88,8 +88,14 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          var response = await Get.to(
-            () => const AddQuestionsScreen(),
+          var response = await Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.leftToRight,
+              duration:
+                  Duration(milliseconds: AppConstant.pageAnimationDuration),
+              child: const AddQuestionsScreen(),
+            ),
           );
 
           if (response != null) {
@@ -208,9 +214,17 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                               return searchedName == null || searchedName == ""
                                   ? GestureDetector(
                                       onTap: () async {
-                                        var response = await Get.to(
-                                          () => QuestionReplyScreen(
-                                            questionData: questionList[index],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: QuestionReplyScreen(
+                                              questionData: questionList[index],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
@@ -244,10 +258,18 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                                           questionList[index].questionTitle!)
                                       ? GestureDetector(
                                           onTap: () async {
-                                            var response = await Get.to(
-                                              () => QuestionReplyScreen(
-                                                questionData:
-                                                    questionList[index],
+                                            var response = await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: Duration(
+                                                    milliseconds: AppConstant
+                                                        .pageAnimationDuration),
+                                                child: QuestionReplyScreen(
+                                                  questionData:
+                                                      questionList[index],
+                                                ),
                                               ),
                                             );
                                             if (response != null) {

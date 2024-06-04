@@ -13,9 +13,9 @@ import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
@@ -666,7 +666,15 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => const DashBoardScreen());
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.leftToRight,
+                              duration: Duration(
+                                  milliseconds:
+                                      AppConstant.pageAnimationDuration),
+                              child: const DashBoardScreen()),
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(

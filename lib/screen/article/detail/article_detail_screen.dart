@@ -14,7 +14,7 @@ import 'package:app/widgets/micro_loader.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final RecipeData? articleDate;
@@ -90,10 +90,19 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   widget.articleDate!.media.toString().contains('.mp4')
                       ? GestureDetector(
                           onTap: () {
-                            Get.to(() => VideoPlayerScreen(
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: VideoPlayerScreen(
                                   videoPath:
                                       "${AppConstant.imagePath}${widget.articleDate!.media}",
-                                ));
+                                ),
+                              ),
+                            );
                           },
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 1,
@@ -173,10 +182,17 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             : microLoader(height: 16, width: 16),
                         GestureDetector(
                           onTap: () async {
-                            var response = await Get.to(
-                              () => ArticleCommentScreen(
-                                articleID: widget.articleDate!.id,
-                                count: widget.articleDate!.commentCount,
+                            var response = await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: ArticleCommentScreen(
+                                  articleID: widget.articleDate!.id,
+                                  count: widget.articleDate!.commentCount,
+                                ),
                               ),
                             );
                             if (response != null && response != "0") {

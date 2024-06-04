@@ -20,9 +20,9 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeData? recipeData;
@@ -140,10 +140,19 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   widget.recipeData!.media.toString().contains('.mp4')
                       ? GestureDetector(
                           onTap: () {
-                            Get.to(() => VideoPlayerScreen(
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: VideoPlayerScreen(
                                   videoPath:
                                       "${AppConstant.imagePath}${widget.recipeData!.media}",
-                                ));
+                                ),
+                              ),
+                            );
                           },
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 1,
@@ -223,10 +232,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             : microLoader(height: 16, width: 16),
                         GestureDetector(
                           onTap: () async {
-                            var response = await Get.to(
-                              () => RecipeCommentsScreen(
-                                recipeID: widget.recipeData!.id,
-                                count: widget.recipeData!.commentCount,
+                            var response = await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: RecipeCommentsScreen(
+                                  recipeID: widget.recipeData!.id,
+                                  count: widget.recipeData!.commentCount,
+                                ),
                               ),
                             );
                             if (response != null && response != "0") {
@@ -443,7 +459,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() => const ProfileScreen());
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: const ProfileScreen(),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(

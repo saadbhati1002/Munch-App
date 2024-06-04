@@ -12,10 +12,10 @@ import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/common_skeleton.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MyPlanesScreen extends StatefulWidget {
   const MyPlanesScreen({super.key});
@@ -194,8 +194,15 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      var response =
-                          await Get.to(() => const AddRecipeScreen());
+                      var response = await Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const AddRecipeScreen(),
+                        ),
+                      );
                       if (response != null) {
                         _getData();
                       }
@@ -299,9 +306,17 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                                         recipeListIndex = i;
                                       }
                                     }
-                                    var response = await Get.to(
-                                      () => RecipeDetailScreen(
-                                        recipeData: recipeList[recipeListIndex],
+                                    var response = await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: RecipeDetailScreen(
+                                          recipeData:
+                                              recipeList[recipeListIndex],
+                                        ),
                                       ),
                                     );
                                     if (response != null) {
@@ -347,10 +362,18 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                                             recipeListIndex = i;
                                           }
                                         }
-                                        var response = await Get.to(
-                                          () => RecipeDetailScreen(
-                                            recipeData:
-                                                recipeList[recipeListIndex],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: RecipeDetailScreen(
+                                              recipeData:
+                                                  recipeList[recipeListIndex],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
@@ -431,10 +454,19 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
               calenderData!.media.toString().contains('.mp4')
                   ? GestureDetector(
                       onTap: () {
-                        Get.to(() => VideoPlayerScreen(
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: VideoPlayerScreen(
                               videoPath:
                                   "${AppConstant.imagePath}${calenderData.media}",
-                            ));
+                            ),
+                          ),
+                        );
                       },
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * .35,

@@ -13,10 +13,10 @@ import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -435,7 +435,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         AppConstant.userData!.userBio = response.data!.userBio!;
         response.data = AppConstant.userData!;
         await AppConstant.userDetailSaved(json.encode(response));
-        Get.to(() => const DashBoardScreen());
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: const DashBoardScreen(),
+          ),
+        );
       } else {
         toastShow(message: response.message);
       }

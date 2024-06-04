@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/models/user/user_model.dart';
 import 'package:app/screen/auth/login/login_screen.dart';
 import 'package:app/screen/dashboard/dashboard_screen.dart';
@@ -7,7 +6,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,9 +30,23 @@ class _SplashScreenState extends State<SplashScreen> {
       UserRes responseUser = UserRes.fromJson(jsonDecode(response));
       AppConstant.userData = responseUser.data;
       AppConstant.bearerToken = responseUser.data!.token!;
-      Get.to(() => const DashBoardScreen());
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.leftToRight,
+          duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+          child: DashBoardScreen(),
+        ),
+      );
     } else {
-      Get.to(() => const LoginScreen());
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.rightToLeft,
+          duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+          child: LoginScreen(),
+        ),
+      );
     }
   }
 

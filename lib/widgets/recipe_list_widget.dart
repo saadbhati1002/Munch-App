@@ -9,7 +9,7 @@ import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 Widget recipeListWidget(
     {BuildContext? context,
@@ -60,10 +60,18 @@ Widget recipeListWidget(
         recipeData!.media.toString().contains('.mp4')
             ? GestureDetector(
                 onTap: () {
-                  Get.to(() => VideoPlayerScreen(
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      duration: Duration(
+                          milliseconds: AppConstant.pageAnimationDuration),
+                      child: VideoPlayerScreen(
                         videoPath:
                             "${AppConstant.imagePath}${recipeData.media}",
-                      ));
+                      ),
+                    ),
+                  );
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 1,

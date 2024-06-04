@@ -10,10 +10,10 @@ import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ArticleSearchScreen extends StatefulWidget {
   const ArticleSearchScreen({super.key});
@@ -150,9 +150,16 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                       return searchedName == null || searchedName == ""
                           ? GestureDetector(
                               onTap: () async {
-                                var response = await Get.to(
-                                  () => ArticleDetailScreen(
-                                    articleDate: articleList[index],
+                                var response = await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.leftToRight,
+                                    duration: Duration(
+                                        milliseconds:
+                                            AppConstant.pageAnimationDuration),
+                                    child: ArticleDetailScreen(
+                                      articleDate: articleList[index],
+                                    ),
                                   ),
                                 );
                                 if (response != null) {
@@ -195,9 +202,16 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                   .contains(searchedName!.toLowerCase())
                               ? GestureDetector(
                                   onTap: () async {
-                                    var response = await Get.to(
-                                      () => ArticleDetailScreen(
-                                        articleDate: articleList[index],
+                                    var response = await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: ArticleDetailScreen(
+                                          articleDate: articleList[index],
+                                        ),
                                       ),
                                     );
                                     if (response != null) {

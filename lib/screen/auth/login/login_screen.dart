@@ -14,7 +14,7 @@ import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -199,7 +199,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
         await AppConstant.userDetailSaved(json.encode(response));
         toastShow(message: response.message);
-        Get.to(() => const DashBoardScreen());
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: const DashBoardScreen(),
+          ),
+        );
       } else {
         toastShow(message: "Invalid email or password");
       }

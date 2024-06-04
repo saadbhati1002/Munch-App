@@ -12,9 +12,9 @@ import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeMakerScreen extends StatefulWidget {
   const HomeMakerScreen({super.key});
@@ -176,10 +176,18 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
           userData.video.toString().contains('.mp4')
               ? GestureDetector(
                   onTap: () {
-                    Get.to(() => VideoPlayerScreen(
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: VideoPlayerScreen(
                           videoPath:
                               "${AppConstant.imagePath}${userData.video}",
-                        ));
+                        ),
+                      ),
+                    );
                   },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 1,

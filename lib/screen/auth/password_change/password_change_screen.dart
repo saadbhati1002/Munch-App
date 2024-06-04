@@ -10,7 +10,8 @@ import 'package:app/widgets/common_text_field.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:page_transition/page_transition.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -154,7 +155,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       );
       if (response.message == "Password has been changed successfully") {
         toastShow(message: response.message);
-        Get.to(() => const DashBoardScreen());
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: const DashBoardScreen(),
+          ),
+        );
       } else {
         toastShow(message: response.message);
       }

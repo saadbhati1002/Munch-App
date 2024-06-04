@@ -14,8 +14,8 @@ import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -408,7 +408,14 @@ class _SignupScreenState extends State<SignupScreen> {
         response.data!.userBio = bioController.text.trim();
         await AppConstant.userDetailSaved(json.encode(response));
         toastShow(message: response.message);
-        Get.to(() => const DashBoardScreen());
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: DashBoardScreen(),
+          ),
+        );
       } else {
         toastShow(message: "Email already exists");
       }

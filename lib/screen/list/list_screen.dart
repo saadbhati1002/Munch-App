@@ -11,8 +11,8 @@ import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -100,8 +100,15 @@ class _ListScreenState extends State<ListScreen> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          var response = await Get.to(
-                            () => const AddListScreen(),
+                          var response = await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.leftToRight,
+                              duration: Duration(
+                                  milliseconds:
+                                      AppConstant.pageAnimationDuration),
+                              child: const AddListScreen(),
+                            ),
                           );
                           if (response != null) {
                             _getData();

@@ -13,9 +13,9 @@ import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -192,9 +192,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               return searchedName == null || searchedName == ""
                                   ? GestureDetector(
                                       onTap: () async {
-                                        var response = await Get.to(
-                                          () => RecipeDetailScreen(
-                                            recipeData: recipeList[index],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: RecipeDetailScreen(
+                                              recipeData: recipeList[index],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
@@ -241,9 +249,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           .contains(recipeList[index].nameDish!)
                                       ? GestureDetector(
                                           onTap: () async {
-                                            var response = await Get.to(
-                                              () => RecipeDetailScreen(
-                                                recipeData: recipeList[index],
+                                            var response = await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: Duration(
+                                                    milliseconds: AppConstant
+                                                        .pageAnimationDuration),
+                                                child: RecipeDetailScreen(
+                                                  recipeData: recipeList[index],
+                                                ),
                                               ),
                                             );
                                             if (response != null) {

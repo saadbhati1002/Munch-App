@@ -19,11 +19,11 @@ import 'package:app/widgets/show_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -218,9 +218,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   GestureDetector(
                     onTap: () {
                       if (isRecipe) {
-                        Get.to(() => const SearchScreen());
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: const SearchScreen(),
+                          ),
+                        );
                       } else {
-                        Get.to(() => const ArticleSearchScreen());
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: const ArticleSearchScreen(),
+                          ),
+                        );
                       }
                     },
                     child: Container(
@@ -377,10 +395,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "1"
                                     ? GestureDetector(
                                         onTap: () async {
-                                          var response = await Get.to(
-                                            () => RecipeDetailScreen(
-                                              recipeData:
-                                                  recipeList[reversedIndex],
+                                          var response = await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType
+                                                  .leftToRight,
+                                              duration: Duration(
+                                                  milliseconds: AppConstant
+                                                      .pageAnimationDuration),
+                                              child: RecipeDetailScreen(
+                                                recipeData:
+                                                    recipeList[reversedIndex],
+                                              ),
                                             ),
                                           );
                                           if (response != null) {
@@ -444,9 +470,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () async {
-                                    var response = await Get.to(
-                                      () => ArticleDetailScreen(
-                                        articleDate: articleList[index],
+                                    var response = await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: ArticleDetailScreen(
+                                          articleDate: articleList[index],
+                                        ),
                                       ),
                                     );
                                     if (response != null) {
@@ -518,9 +551,15 @@ class _HomeScreenState extends State<HomeScreen> {
               bannerList[index].recipeID != "") {
             for (int i = 0; i < recipeList.length; i++) {
               if (bannerList[index].recipeID == recipeList[i].id) {
-                Get.to(
-                  () => RecipeDetailScreen(
-                    recipeData: recipeList[i],
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    duration: Duration(
+                        milliseconds: AppConstant.pageAnimationDuration),
+                    child: RecipeDetailScreen(
+                      recipeData: recipeList[i],
+                    ),
                   ),
                 );
               }

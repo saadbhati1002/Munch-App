@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 
 class AppConstant {
   static const String appName = 'Munch Monday';
+  static int pageAnimationDuration = 500;
   static const String stripePublic =
       'pk_live_51PKbcOSByjgYxhiE8mZfBsZCJHTeMVNA1iWrLKHaguuRT5PjWzkKwnfKnIjsTcN0RIIL0s13AiY784m5U8YuK2ze00BoYLYJPh';
   static const String stripeSecretKey =

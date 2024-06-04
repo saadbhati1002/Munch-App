@@ -16,7 +16,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CommonDrawer extends StatefulWidget {
   const CommonDrawer({super.key});
@@ -125,11 +125,19 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    // if (AppConstant.userData!.isPremiumUser == true) {
-                    Get.to(() => const MyRecipeScreen());
-                    // } else {
-                    //   popUpForNormalUsers();
-                    // }
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const MyRecipeScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "My Recipes",
                 ),
@@ -143,7 +151,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   ),
                   onTap: () {
                     if (AppConstant.userData!.isPremiumUser == true) {
-                      Get.to(() => const ListScreen());
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const ListScreen(),
+                        ),
+                      );
                     } else {
                       popUpForNormalUsers();
                     }
@@ -166,7 +182,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const MyMembershipScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const MyMembershipScreen(),
+                      ),
+                    );
                   },
                   title: "Payments",
                 ),
@@ -179,7 +203,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const EditProfileScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const EditProfileScreen(),
+                      ),
+                    );
                   },
                   title: "Profile Update",
                 ),
@@ -192,7 +224,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const ChangePasswordScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const ChangePasswordScreen(),
+                      ),
+                    );
                   },
                   title: "Change Password",
                 ),
@@ -205,7 +245,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const ChatScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const ChatScreen(),
+                      ),
+                    );
                   },
                   title: "Ask AI",
                 ),
@@ -225,8 +273,14 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(
-                      () => const FeedBackScreen(),
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const FeedBackScreen(),
+                      ),
                     );
                   },
                   title: "Feedback",
@@ -240,7 +294,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const FAQScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const FAQScreen(),
+                      ),
+                    );
                   },
                   title: "FAQs",
                 ),
@@ -253,7 +315,15 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Get.to(() => const SocialMediaShareScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const SocialMediaShareScreen(),
+                      ),
+                    );
                   },
                   title: "Follow Us",
                 ),
@@ -356,7 +426,16 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => const ProfileScreen());
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: const ProfileScreen(),
+                          ),
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -509,6 +588,12 @@ class _CommonDrawerState extends State<CommonDrawer> {
     toastShow(message: "Log out successfully");
 
     await AppConstant.userDetailSaved("null");
-    Get.to(() => const SplashScreen());
+    Navigator.push(
+      context,
+      PageTransition(
+          type: PageTransitionType.leftToRight,
+          duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+          child: const SplashScreen()),
+    );
   }
 }
