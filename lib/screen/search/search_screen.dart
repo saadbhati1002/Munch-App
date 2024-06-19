@@ -34,10 +34,25 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isLoading = false;
   Timer? _debounce;
   String? searchedName;
+  bool isMoreRecipeLoading = false;
+  int recipeCount = 0;
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     _getData();
+    _scrollController.addListener(_onScroll);
+
     super.initState();
+  }
+
+  _onScroll() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      _getRecipe();
+    }
   }
 
   _getData() async {
@@ -71,13 +86,19 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future _getRecipe() async {
+    recipeCount = recipeCount + 10;
+    isMoreRecipeLoading = false;
     try {
-      RecipeRes response = await RecipeRepository().getRecipesApiCall();
+      RecipeRes response =
+          await RecipeRepository().getRecipesApiCall(count: recipeCount);
       if (response.data.isNotEmpty) {
         recipeList = response.data;
         recipeListAll = response.data;
         _checkForUserRecipeLike();
         _getVideoThumbnail();
+        if (recipeList.length == recipeCount) {
+          isMoreRecipeLoading = true;
+        }
       }
       return response;
     } catch (e) {
@@ -131,8 +152,32 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 1000), () {
       searchedName = query;
-      _getSearchedRecipe();
+      _getRecipeForSearch();
     });
+  }
+
+  Future _getRecipeForSearch() async {
+    isMoreRecipeLoading = false;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      RecipeRes response = await RecipeRepository()
+          .getRecipesApiCall(count: recipeCount, search: searchedName);
+      if (response.data.isNotEmpty) {
+        recipeList = response.data;
+        recipeListAll = response.data;
+        _checkForUserRecipeLike();
+        _getVideoThumbnail();
+        _getSearchedRecipe();
+        if (recipeList.length == recipeCount) {
+          isMoreRecipeLoading = true;
+        }
+      }
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {}
   }
 
   _getSearchedRecipe() {
@@ -162,6 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     setState(() {
       isRecipeLoading = false;
+      isLoading = false;
     });
   }
 
@@ -202,6 +248,7 @@ class _SearchScreenState extends State<SearchScreen> {
         },
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,75 +275,72 @@ class _SearchScreenState extends State<SearchScreen> {
             isRecipeLoading == false
                 ? searchedName == null || searchedName == ""
                     ? ListView.builder(
-                        itemCount: recipeList.length,
+                        itemCount: recipeList.length + 1,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          int itemCount = recipeList.length;
-                          int reversedIndex = itemCount - 1 - index;
-                          return recipeList[reversedIndex].isApproved == "1"
-                              ? GestureDetector(
-                                  onTap: () async {
-                                    var response = await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.leftToRight,
-                                        duration: Duration(
-                                            milliseconds: AppConstant
-                                                .pageAnimationDuration),
-                                        child: RecipeDetailScreen(
-                                          recipeData: recipeList[reversedIndex],
-                                        ),
-                                      ),
-                                    );
+                          return (index < recipeList.length)
+                              ? recipeList[index].isApproved == "1"
+                                  ? GestureDetector(
+                                      onTap: () async {
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: RecipeDetailScreen(
+                                              recipeData: recipeList[index],
+                                            ),
+                                          ),
+                                        );
 
-                                    if (response != null) {
-                                      if (response == 0 &&
-                                          recipeList[reversedIndex]
-                                                  .isLikedByMe ==
-                                              false) {
-                                        recipeList[reversedIndex].isLikedByMe =
-                                            true;
-                                        recipeList[reversedIndex].likeCount =
-                                            recipeList[reversedIndex]
-                                                    .likeCount! +
-                                                1;
-                                      } else if (response == 1 &&
-                                          recipeList[reversedIndex]
-                                                  .isLikedByMe ==
-                                              true) {
-                                        recipeList[reversedIndex].isLikedByMe =
-                                            false;
-                                        recipeList[reversedIndex].likeCount =
-                                            recipeList[reversedIndex]
-                                                    .likeCount! -
-                                                1;
-                                      }
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: recipeListWidget(
-                                      isFromRecipe: true,
-                                      context: context,
-                                      recipeData: recipeList[reversedIndex],
-                                      onTap: () {
-                                        if (recipeList[reversedIndex]
-                                                .isLikedByMe ==
-                                            true) {
-                                          _recipeUnlike(
-                                              recipeID:
-                                                  recipeList[reversedIndex].id,
-                                              index: reversedIndex);
-                                        } else {
-                                          _recipeLike(
-                                            recipeID:
-                                                recipeList[reversedIndex].id,
-                                            index: reversedIndex,
-                                          );
+                                        if (response != null) {
+                                          if (response == 0 &&
+                                              recipeList[index].isLikedByMe ==
+                                                  false) {
+                                            recipeList[index].isLikedByMe =
+                                                true;
+                                            recipeList[index].likeCount =
+                                                recipeList[index].likeCount! +
+                                                    1;
+                                          } else if (response == 1 &&
+                                              recipeList[index].isLikedByMe ==
+                                                  true) {
+                                            recipeList[index].isLikedByMe =
+                                                false;
+                                            recipeList[index].likeCount =
+                                                recipeList[index].likeCount! -
+                                                    1;
+                                          }
+                                          setState(() {});
                                         }
-                                      }),
-                                )
-                              : const SizedBox();
+                                      },
+                                      child: recipeListWidget(
+                                          isFromRecipe: true,
+                                          context: context,
+                                          recipeData: recipeList[index],
+                                          onTap: () {
+                                            if (recipeList[index].isLikedByMe ==
+                                                true) {
+                                              _recipeUnlike(
+                                                  recipeID:
+                                                      recipeList[index].id,
+                                                  index: index);
+                                            } else {
+                                              _recipeLike(
+                                                recipeID: recipeList[index].id,
+                                                index: index,
+                                              );
+                                            }
+                                          }),
+                                    )
+                                  : const SizedBox()
+                              : (isMoreRecipeLoading)
+                                  ? recipeSkeleton(context: context)
+                                  : const SizedBox();
                         },
                       )
                     : ListView.builder(
@@ -361,9 +405,7 @@ class _SearchScreenState extends State<SearchScreen> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            int itemCount = recipeList.length;
-            int reversedIndex = itemCount - 1 - index;
-            return recipeList[reversedIndex].isApproved == "1"
+            return recipeList[index].isApproved == "1"
                 ? GestureDetector(
                     onTap: () async {
                       var response = await Navigator.push(
@@ -373,21 +415,21 @@ class _SearchScreenState extends State<SearchScreen> {
                           duration: Duration(
                               milliseconds: AppConstant.pageAnimationDuration),
                           child: RecipeDetailScreen(
-                            recipeData: recipeList[reversedIndex],
+                            recipeData: recipeList[index],
                           ),
                         ),
                       );
                       if (response != null) {
                         if (response == 0 &&
-                            recipeList[reversedIndex].isLikedByMe == false) {
-                          recipeList[reversedIndex].isLikedByMe = true;
-                          recipeList[reversedIndex].likeCount =
-                              recipeList[reversedIndex].likeCount! + 1;
+                            recipeList[index].isLikedByMe == false) {
+                          recipeList[index].isLikedByMe = true;
+                          recipeList[index].likeCount =
+                              recipeList[index].likeCount! + 1;
                         } else if (response == 1 &&
-                            recipeList[reversedIndex].isLikedByMe == true) {
-                          recipeList[reversedIndex].isLikedByMe = false;
-                          recipeList[reversedIndex].likeCount =
-                              recipeList[reversedIndex].likeCount! - 1;
+                            recipeList[index].isLikedByMe == true) {
+                          recipeList[index].isLikedByMe = false;
+                          recipeList[index].likeCount =
+                              recipeList[index].likeCount! - 1;
                         }
                         setState(() {});
                       }
@@ -395,16 +437,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: recipeListWidget(
                         isFromRecipe: true,
                         context: context,
-                        recipeData: recipeList[reversedIndex],
+                        recipeData: recipeList[index],
                         onTap: () {
-                          if (recipeList[reversedIndex].isLikedByMe == true) {
+                          if (recipeList[index].isLikedByMe == true) {
                             _recipeUnlike(
-                                recipeID: recipeList[reversedIndex].id,
-                                index: reversedIndex);
+                                recipeID: recipeList[index].id, index: index);
                           } else {
                             _recipeLike(
-                              recipeID: recipeList[reversedIndex].id,
-                              index: reversedIndex,
+                              recipeID: recipeList[index].id,
+                              index: index,
                             );
                           }
                         }),

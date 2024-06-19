@@ -21,6 +21,16 @@
             <data android:scheme="http" />
         </intent> <!-- Needs to be explicitly declared on Android R+ -->
         <package android:name="com.google.android.apps.maps" />
+
+        <intent>
+            <action android:name="android.media.browse.MediaBrowserService" />
+        </intent>
+        <intent>
+            <action android:name="androidx.media2.session.MediaSessionService" />
+        </intent>
+        <intent>
+            <action android:name="androidx.media2.session.MediaLibraryService" />
+        </intent>
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

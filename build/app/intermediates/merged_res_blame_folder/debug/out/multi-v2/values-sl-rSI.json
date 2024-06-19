@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-sl-rSI/values-sl-rSI.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-sl-rSI/values-sl-rSI.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\b382c6c231933a3f75da7fdadc2782e5\\transformed\\jetified-paymentsheet-20.37.4\\res\\values-sl-rSI\\values-sl-rSI.xml",

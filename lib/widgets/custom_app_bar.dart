@@ -44,7 +44,7 @@ customAppBar(
               width: 10,
             ),
             SizedBox(
-              width: MediaQuery.of(context!).size.width * .56,
+              width: MediaQuery.of(context!).size.width * .55,
               child: Text(
                 AppConstant.userData!.name ?? AppConstant.appName,
                 maxLines: 1,

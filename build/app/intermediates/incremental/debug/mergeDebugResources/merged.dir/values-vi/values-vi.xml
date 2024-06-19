@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Đăng nhập bằng Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Đã sao chép đường liên kết vào bảng nhớ tạm"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Giá trị nhập không hợp lệ"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Đang phát"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Cửa sổ bật lên"</string>
     <string msgid="4057925834421392736" name="dialog">"Hộp thoại"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Trình đơn thả xuống"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"Đang tắt"</string>
     <string msgid="8655164131929253426" name="on">"Đang bật"</string>
     <string name="password_toggle_content_description">Hiện mật khẩu</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Tạm dừng"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Phát"</string>
     <string msgid="5941395253238309765" name="range_end">"Điểm kết thúc phạm vi"</string>
     <string msgid="7097486360902471446" name="range_start">"Điểm bắt đầu phạm vi"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Tìm kiếm"</string>
     <string msgid="6043586758067023" name="selected">"Đã chọn"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Chuyển đến mục tiếp theo"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Chuyển về mục trước đó"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_acc_label_card_number">Số thẻ</string>
     <string name="stripe_acc_label_card_number_node">%s, Số thẻ</string>

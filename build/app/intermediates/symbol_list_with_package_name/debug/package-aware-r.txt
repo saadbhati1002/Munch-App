@@ -3242,10 +3242,6 @@ dimen stripe_shipping_widget_horizontal_margin
 dimen stripe_shipping_widget_outer_margin
 dimen stripe_shipping_widget_vertical_margin
 dimen stripe_toolbar_elevation
-dimen subtitle_corner_radius
-dimen subtitle_outline_width
-dimen subtitle_shadow_offset
-dimen subtitle_shadow_radius
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -3434,6 +3430,11 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable media_session_service_notification_ic_music_note
+drawable media_session_service_notification_ic_pause
+drawable media_session_service_notification_ic_play
+drawable media_session_service_notification_ic_skip_to_next
+drawable media_session_service_notification_ic_skip_to_previous
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -4080,6 +4081,7 @@ id material_timepicker_view
 id material_value_index
 id matrix
 id media_actions
+id media_controller_compat_view_tag
 id menu_crop
 id menu_loader
 id message
@@ -4757,6 +4759,7 @@ string common_signin_button_text
 string common_signin_button_text_long
 string copy_toast_msg
 string default_error_message
+string default_notification_channel_name
 string default_popup_window_title
 string dialog
 string dropdown_menu
@@ -4893,6 +4896,8 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string pause_button_content_description
+string play_button_content_description
 string range_end
 string range_start
 string search_menu_title
@@ -4902,6 +4907,8 @@ string searchview_navigation_content_description
 string selected
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
+string skip_to_next_item_button_content_description
+string skip_to_previous_item_button_content_description
 string status_bar_notification_info_overflow
 string stripe_3ds2_brand_amex
 string stripe_3ds2_brand_cartesbancaires

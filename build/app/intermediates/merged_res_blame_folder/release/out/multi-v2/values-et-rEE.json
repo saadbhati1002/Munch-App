@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeReleaseResources-91:/values-et-rEE/values-et-rEE.xml",
+            "outputFile": "com.example.app-mergeReleaseResources-94:/values-et-rEE/values-et-rEE.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\b382c6c231933a3f75da7fdadc2782e5\\transformed\\jetified-paymentsheet-20.37.4\\res\\values-et-rEE\\values-et-rEE.xml",

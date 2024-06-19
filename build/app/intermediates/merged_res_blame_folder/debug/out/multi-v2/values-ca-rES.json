@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-ca-rES/values-ca-rES.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-ca-rES/values-ca-rES.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\ddecdb148c0d19c2f509babac8105e42\\transformed\\jetified-stripe-ui-core-20.37.4\\res\\values-ca-rES\\values-ca-rES.xml",

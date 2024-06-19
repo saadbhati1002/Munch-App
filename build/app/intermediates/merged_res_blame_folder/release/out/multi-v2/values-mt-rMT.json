@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeReleaseResources-91:/values-mt-rMT/values-mt-rMT.xml",
+            "outputFile": "com.example.app-mergeReleaseResources-94:/values-mt-rMT/values-mt-rMT.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\234e2f0185af9208f54202d299b399a3\\transformed\\jetified-stripe-3ds2-android-6.1.8\\res\\values-mt-rMT\\values-mt-rMT.xml",

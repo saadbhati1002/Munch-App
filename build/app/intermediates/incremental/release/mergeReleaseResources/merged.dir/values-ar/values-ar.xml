@@ -73,6 +73,7 @@
     <string name="common_signin_button_text_long">‏تسجيل الدخول عبر Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"تم نسخ الرابط إلى الحافظة."</string>
     <string msgid="8038256446254964252" name="default_error_message">"إدخال غير صالح"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"التعرف التلقائي على الوسائط"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"نافذة منبثقة"</string>
     <string msgid="4057925834421392736" name="dialog">"مربّع حوار"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"قائمة منسدلة"</string>
@@ -156,10 +157,14 @@
     <string msgid="875452955155264703" name="off">"غير مفعّل"</string>
     <string msgid="8655164131929253426" name="on">"مفعّل"</string>
     <string name="password_toggle_content_description">عرض كلمة المرور</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"إيقاف مؤقت"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"تشغيل"</string>
     <string msgid="5941395253238309765" name="range_end">"نهاية النطاق"</string>
     <string msgid="7097486360902471446" name="range_start">"بداية النطاق"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"البحث"</string>
     <string msgid="6043586758067023" name="selected">"محدّد"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"التخطي إلى العنصر التالي"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"التخطي إلى العنصر السابق"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">التحقق من أنك إنسان</string>
     <string msgid="2561197295334830845" name="switch_role">"تبديل"</string>

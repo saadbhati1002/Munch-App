@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-cs-rCZ/values-cs-rCZ.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-cs-rCZ/values-cs-rCZ.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\7c67900efbe792edf4111c788c34bbaf\\transformed\\jetified-payments-ui-core-20.37.4\\res\\values-cs-rCZ\\values-cs-rCZ.xml",

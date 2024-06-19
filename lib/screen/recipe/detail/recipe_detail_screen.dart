@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
-
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/list/add/add_list_model.dart';
@@ -23,6 +21,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeData? recipeData;
@@ -35,6 +34,7 @@ class RecipeDetailScreen extends StatefulWidget {
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   double methodFontSize = 12;
   bool isLoading = false;
+
   bool isSavedToMyCalender = false;
   List<CalenderData> calenderRecipeList = [];
 
@@ -520,8 +520,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               recipeTimeWidget(
-                  title:
-                      "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
+                  title: widget.recipeData!.preparationTime
+                          .toString()
+                          .contains("min")
+                      ? "Prep Time: ${widget.recipeData!.preparationTime}"
+                      : "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
               recipeTimeWidget(
                   title:
                       "Cooking Time: ${widget.recipeData!.cookingTime} Mins"),
@@ -793,13 +796,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
+          child: HtmlWidget(
             widget.recipeData!.chefsWhisper ?? AppConstant.appName,
-            style: const TextStyle(
-                fontSize: 12,
-                color: ColorConstant.black,
-                fontWeight: FontWeight.w400),
           ),
+          // Text(
+          //   widget.recipeData!.chefsWhisper ?? AppConstant.appName,
+          //   style: const TextStyle(
+          //       fontSize: 12,
+          //       color: ColorConstant.black,
+          //       fontWeight: FontWeight.w400),
+          // ),
         ),
       ],
     );

@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Google සමගින් පුරන්න</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"සබැඳිය පසුරු පුවරුවට පිටපත් කෙරිණි"</string>
     <string msgid="8038256446254964252" name="default_error_message">"වලංගු නොවන ආදානයකි"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"දැන් වාදනය වේ"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"උත්පතන කවුළුව"</string>
     <string msgid="4057925834421392736" name="dialog">"සංවාදය"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"පතන මෙනුව"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"ක්‍රියාවිරහිතයි"</string>
     <string msgid="8655164131929253426" name="on">"ක්‍රියාත්මකයි"</string>
     <string name="password_toggle_content_description">මුරපදය පෙන්වන්න</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"විරාම ගන්වන්න"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"වාදනය කරන්න"</string>
     <string msgid="5941395253238309765" name="range_end">"පරාස අන්තය"</string>
     <string msgid="7097486360902471446" name="range_start">"පරාස ආරම්භය"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"සෙවීම"</string>
     <string msgid="6043586758067023" name="selected">"තෝරන ලදි"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"ඊළඟ අයිතමය වෙත යන්න"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"පෙර අයිතමය වෙත යන්න"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">ඔබ මනුෂ්‍යයෙක් බව තහවුරු කිරීම</string>
     <string msgid="2561197295334830845" name="switch_role">"මාරු කරන්න"</string>

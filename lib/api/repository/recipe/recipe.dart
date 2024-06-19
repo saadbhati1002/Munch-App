@@ -6,8 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class RecipeRepository {
-  Future<dynamic> getRecipesApiCall() async {
-    return await RecipeNetwork.getRecipeList();
+  Future<dynamic> getRecipesApiCall({int? count, String? search}) async {
+    final prams = {"count": count, "search": search};
+
+    return await RecipeNetwork.getRecipeList(prams);
   }
 
   Future<dynamic> recipeLikeApiCall({String? recipeID}) async {

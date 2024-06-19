@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-sn/values-sn.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-sn/values-sn.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\5363c22c35411896eb356f3f52be617a\\transformed\\jetified-hcaptcha-20.37.4\\res\\values-sn\\values-sn.xml",

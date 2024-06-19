@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Identifikohu me Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Lidhja u kopjua në kujtesën e fragmenteve"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Hyrje e pavlefshme"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Po luhet tani"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Dritare kërcyese"</string>
     <string msgid="4057925834421392736" name="dialog">"Dialogu"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Menyja me lëshim poshtë"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"Joaktiv"</string>
     <string msgid="8655164131929253426" name="on">"Aktiv"</string>
     <string name="password_toggle_content_description">Shfaq fjalëkalimin</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Vendos në pauzë"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Luaj"</string>
     <string msgid="5941395253238309765" name="range_end">"Fundi i diapazonit"</string>
     <string msgid="7097486360902471446" name="range_start">"Fillimi i diapazonit"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Kërko"</string>
     <string msgid="6043586758067023" name="selected">"Zgjedhur"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Kapërce tek artikulli tjetër"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Kapërce tek artikulli i mëparshëm"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">Duke verifikuar se jeni njerëzor</string>
     <string msgid="2561197295334830845" name="switch_role">"Ndërro"</string>

@@ -71,6 +71,7 @@
     <string name="common_signin_button_text_long">Увайсці праз Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Спасылка скапіравана ў буфер абмену"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Памылка ўводу"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Зараз іграе"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Усплывальнае акно"</string>
     <string msgid="4057925834421392736" name="dialog">"Дыялогавае акно"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Выпадное меню"</string>
@@ -154,10 +155,14 @@
     <string msgid="875452955155264703" name="off">"Выключана"</string>
     <string msgid="8655164131929253426" name="on">"Уключана"</string>
     <string name="password_toggle_content_description">Паказаць пароль</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Прыпыніць"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Прайграць"</string>
     <string msgid="5941395253238309765" name="range_end">"Канец пераліку"</string>
     <string msgid="7097486360902471446" name="range_start">"Пачатак пераліку"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Пошук"</string>
     <string msgid="6043586758067023" name="selected">"Выбрана"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Перайсці да наступнага элемента"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Перайсці да папярэдняга элемента"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">Подтверждение того, что вы человек</string>
     <string msgid="2561197295334830845" name="switch_role">"Пераключальнік"</string>

@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">ចូលដោយប្រើ Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"បាន​ចម្លង​តំណ​ទៅឃ្លីបបត"</string>
     <string msgid="8038256446254964252" name="default_error_message">"ការបញ្ចូល​មិនត្រឹមត្រូវ"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"កំពុងចាក់"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"វិនដូ​លោតឡើង"</string>
     <string msgid="4057925834421392736" name="dialog">"ប្រអប់"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"ម៉ឺនុយធ្លាក់ចុះ"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"បិទ"</string>
     <string msgid="8655164131929253426" name="on">"បើក"</string>
     <string name="password_toggle_content_description">បង្ហាញពាក្យសម្ងាត់</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"ផ្អាក"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"ចាក់"</string>
     <string msgid="5941395253238309765" name="range_end">"ចំណុចបញ្ចប់"</string>
     <string msgid="7097486360902471446" name="range_start">"ចំណុចចាប់ផ្ដើម"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"ស្វែងរក"</string>
     <string msgid="6043586758067023" name="selected">"បានជ្រើសរើស"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"រំលងទៅមេឌៀបន្ទាប់"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"រំលងទៅមេឌៀមុន"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">ការផ្ទៀងផ្ទាត់ថាអ្នកជាមនុស្ស</string>
     <string msgid="2561197295334830845" name="switch_role">"ប៊ូតុង​បិទបើក"</string>

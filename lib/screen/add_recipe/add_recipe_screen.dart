@@ -5,6 +5,7 @@ import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/category/category_model.dart';
 import 'package:app/models/recipe/create/create_model.dart';
 import 'package:app/screen/dashboard/dashboard_screen.dart';
+import 'package:app/screen/video_player/video_player_device.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
@@ -40,6 +41,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final ImagePicker _picker = ImagePicker();
   List<CategoryData> categoryList = [];
   List<CategoryData> selectedCategoryIDList = [];
+  bool isVideoUploading = false;
   File? recipeImage;
   @override
   void initState() {
@@ -90,16 +92,45 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     imagePickerPopUp();
                   },
                   child: recipeImage != null
-                      ? Container(
-                          height: MediaQuery.of(context).size.height * .35,
-                          width: MediaQuery.of(context).size.width * 1,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: FileImage(recipeImage!),
-                                fit: BoxFit.cover),
-                          ),
-                        )
+                      ? isVideoUploading
+                          ? Container(
+                              height: MediaQuery.of(context).size.height * .35,
+                              width: MediaQuery.of(context).size.width * 1,
+                              alignment: Alignment.center,
+                              color: ColorConstant.greyColor.withOpacity(0.4),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.leftToRight,
+                                      duration: Duration(
+                                          milliseconds: AppConstant
+                                              .pageAnimationDuration),
+                                      child: VideoPlayerDeviceScreen(
+                                        videoPath: recipeImage!.path,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: const Center(
+                                    child: Icon(
+                                  Icons.play_circle_fill_sharp,
+                                  color: ColorConstant.mainColor,
+                                  size: 50,
+                                )),
+                              ),
+                            )
+                          : Container(
+                              height: MediaQuery.of(context).size.height * .35,
+                              width: MediaQuery.of(context).size.width * 1,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: FileImage(recipeImage!),
+                                    fit: BoxFit.cover),
+                              ),
+                            )
                       : Container(
                           height: MediaQuery.of(context).size.height * .35,
                           width: MediaQuery.of(context).size.width * 1,
@@ -550,7 +581,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                       height: 35,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -562,19 +593,18 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                                 color: ColorConstant.mainColor,
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
-                            width: MediaQuery.of(context).size.width * .2,
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .035),
                             alignment: Alignment.center,
                             child: const Text(
                               'Gallery',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: ColorConstant.white),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 20,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -586,13 +616,39 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                                 color: ColorConstant.mainColor,
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
-                            width: MediaQuery.of(context).size.width * .2,
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .035),
                             alignment: Alignment.center,
                             child: const Text(
                               'Camera',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 14,
+                                  color: ColorConstant.white),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop(false);
+                            selectVideoFromGallery();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorConstant.mainColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            height: 35,
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .035),
+                            // width: MediaQuery.of(context).size.width * .2,
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Video',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
                                   color: ColorConstant.white),
                             ),
                           ),
@@ -717,6 +773,20 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     }
   }
 
+  selectVideoFromGallery() async {
+    try {
+      final XFile? result =
+          await _picker.pickVideo(source: ImageSource.gallery);
+      if (result != null) {
+        isVideoUploading = true;
+        recipeImage = File(result.path);
+        setState(() {});
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   imageFromGallery() async {
     try {
       final XFile? result = await _picker.pickImage(
@@ -756,6 +826,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     );
     if (croppedFile != null) {
       recipeImage = File(croppedFile.path);
+      isVideoUploading = false;
       setState(() {});
     }
   }

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-lt-rLT/values-lt-rLT.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-lt-rLT/values-lt-rLT.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\6ef1624e6b783e1ec56531d84fd91189\\transformed\\jetified-payments-core-20.37.4\\res\\values-lt-rLT\\values-lt-rLT.xml",

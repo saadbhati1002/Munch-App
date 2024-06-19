@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">ลงชื่อเข้าใช้ด้วย Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว"</string>
     <string msgid="8038256446254964252" name="default_error_message">"อินพุตไม่ถูกต้อง"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"กำลังเล่น"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"หน้าต่างป๊อปอัป"</string>
     <string msgid="4057925834421392736" name="dialog">"กล่องโต้ตอบ"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"เมนูแบบเลื่อนลง"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"ปิด"</string>
     <string msgid="8655164131929253426" name="on">"เปิด"</string>
     <string name="password_toggle_content_description">แสดงรหัสผ่าน</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"หยุดชั่วคราว"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"เล่น"</string>
     <string msgid="5941395253238309765" name="range_end">"จุดสิ้นสุดของช่วง"</string>
     <string msgid="7097486360902471446" name="range_start">"จุดเริ่มต้นของช่วง"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"ค้นหา"</string>
     <string msgid="6043586758067023" name="selected">"เลือกไว้"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"ข้ามไปยังรายการถัดไป"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"ข้ามไปยังรายการก่อนหน้า"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_acc_label_card_number">หมายเลขบัตร</string>
     <string name="stripe_acc_label_card_number_node">%s, หมายเลขบัตร</string>

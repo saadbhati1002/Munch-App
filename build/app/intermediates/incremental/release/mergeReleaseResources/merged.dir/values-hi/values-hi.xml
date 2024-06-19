@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Google के ज़रिए साइन इन करें</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"लिंक क्लिपबोर्ड पर कॉपी किया गया"</string>
     <string msgid="8038256446254964252" name="default_error_message">"अमान्य इनपुट"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"अभी चल रहा है"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"पॉप-अप विंडो"</string>
     <string msgid="4057925834421392736" name="dialog">"डायलॉग"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"ड्रॉपडाउन मेन्यू"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"बंद है"</string>
     <string msgid="8655164131929253426" name="on">"चालू है"</string>
     <string name="password_toggle_content_description">पासवर्ड दिखाएं</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"रोकें"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"चलाएं"</string>
     <string msgid="5941395253238309765" name="range_end">"रेंज की सीमा"</string>
     <string msgid="7097486360902471446" name="range_start">"रेंज की शुरुआत"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"खोजें"</string>
     <string msgid="6043586758067023" name="selected">"चुना गया"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"अगले आइटम पर जाएं"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"पिछले आइटम पर जाएं"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">सत्यापित करना आप मानव हैं</string>
     <string msgid="2561197295334830845" name="switch_role">"स्विच करें"</string>

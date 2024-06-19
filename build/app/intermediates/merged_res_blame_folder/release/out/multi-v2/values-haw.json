@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeReleaseResources-91:/values-haw/values-haw.xml",
+            "outputFile": "com.example.app-mergeReleaseResources-94:/values-haw/values-haw.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\5363c22c35411896eb356f3f52be617a\\transformed\\jetified-hcaptcha-20.37.4\\res\\values-haw\\values-haw.xml",

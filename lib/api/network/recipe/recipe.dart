@@ -23,9 +23,8 @@ class RecipeNetwork {
   static const String myRecipeUrl = "user/recipie";
   static const String deleteRecipeUrl = "recipy/delete";
 
-  static Future<dynamic> getRecipeList() async {
-    final result = await httpManager.get(url: recipeUrl);
-
+  static Future<dynamic> getRecipeList(params) async {
+    final result = await httpManager.get(url: recipeUrl, params: params);
     RecipeRes response = RecipeRes.fromJson(result);
     return response;
   }

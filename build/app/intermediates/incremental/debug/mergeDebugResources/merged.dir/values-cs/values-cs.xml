@@ -71,6 +71,7 @@
     <string name="common_signin_button_text_long">Přihlásit se k účtu Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Odkaz zkopírován do schránky"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Neplatný údaj"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Přehrává se"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Vyskakovací okno"</string>
     <string msgid="4057925834421392736" name="dialog">"Dialogové okno"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Rozbalovací nabídka"</string>
@@ -154,10 +155,14 @@
     <string msgid="875452955155264703" name="off">"Vypnuto"</string>
     <string msgid="8655164131929253426" name="on">"Zapnuto"</string>
     <string name="password_toggle_content_description">Zobrazit heslo</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Pozastavit"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Přehrát"</string>
     <string msgid="5941395253238309765" name="range_end">"Konec rozsahu"</string>
     <string msgid="7097486360902471446" name="range_start">"Začátek rozsahu"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Hledat"</string>
     <string msgid="6043586758067023" name="selected">"Vybráno"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Přejít na další položku"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Přejít na předchozí položku"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">Ověření, že jste člověk</string>
     <string msgid="2561197295334830845" name="switch_role">"Přepnout"</string>

@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Logg på med Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Linken er kopiert til utklippstavlen"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Ugyldige inndata"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Spilles nå"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Forgrunnsvindu"</string>
     <string msgid="4057925834421392736" name="dialog">"Dialogboks"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Rullegardinmeny"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"Av"</string>
     <string msgid="8655164131929253426" name="on">"På"</string>
     <string name="password_toggle_content_description">Vis passordet</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Sett på pause"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Spill av"</string>
     <string msgid="5941395253238309765" name="range_end">"Områdeslutt"</string>
     <string msgid="7097486360902471446" name="range_start">"Områdestart"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Søk"</string>
     <string msgid="6043586758067023" name="selected">"Valgt"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Hopp til det neste elementet"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Gå tilbake til det forrige elementet"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_acc_label_card_number">Kortnummer</string>
     <string name="stripe_acc_label_card_number_node">%s, kortnummer</string>

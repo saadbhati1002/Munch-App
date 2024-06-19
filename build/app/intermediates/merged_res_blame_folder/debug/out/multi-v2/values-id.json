@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeDebugResources-91:/values-id/values-id.xml",
+            "outputFile": "com.example.app-mergeDebugResources-94:/values-id/values-id.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\9a1ed1de339966985b371b602a019998\\transformed\\jetified-play-services-wallet-19.2.1\\res\\values-id\\values.xml",

@@ -46,7 +46,8 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
                 Text(
                   DateFormat('yyyy-MM-dd')
                       .format(
-                          DateTime.parse(widget.notificationData!.createdAt!))
+                        DateTime.parse(widget.notificationData!.createdAt!),
+                      )
                       .toString(),
                   maxLines: 3,
                   style: const TextStyle(

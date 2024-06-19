@@ -29,7 +29,7 @@ class AppConstant {
   }
 
   static String appShareMessage =
-      "I'm inviting you to use $appName, a simple and easy app to find new recipes and communities. Here i am sending  you app link  https://alghurfah.net/munch/public/ - use it to download the app.";
+      "I'm inviting you to use $appName, a simple and easy app to find new recipes and Community. Here i am sending  you app link  https://alghurfah.net/munch/public/ - use it to download the app.";
   static Future shareAppLink() async {
     return Share.share(appShareMessage);
   }

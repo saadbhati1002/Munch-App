@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.app-mergeReleaseResources-91:/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+            "outputFile": "com.example.app-mergeReleaseResources-94:/values-xxhdpi-v4/values-xxhdpi-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\6ef1624e6b783e1ec56531d84fd91189\\transformed\\jetified-payments-core-20.37.4\\res\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",

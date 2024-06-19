@@ -69,6 +69,7 @@
     <string name="common_signin_button_text_long">Skrá inn með Google</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Tengill afritaður á klippiborð"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Ógildur innsláttur"</string>
+    <string msgid="7213672915724563695" name="default_notification_channel_name">"Í spilun"</string>
     <string msgid="6312721426453364202" name="default_popup_window_title">"Sprettigluggi"</string>
     <string msgid="4057925834421392736" name="dialog">"Gluggi"</string>
     <string msgid="1890207353314751437" name="dropdown_menu">"Fellivalmynd"</string>
@@ -152,10 +153,14 @@
     <string msgid="875452955155264703" name="off">"Slökkt"</string>
     <string msgid="8655164131929253426" name="on">"Kveikt"</string>
     <string name="password_toggle_content_description">Sýna aðgangsorð</string>
+    <string msgid="3510124037191104584" name="pause_button_content_description">"Gera hlé"</string>
+    <string msgid="963503759453979404" name="play_button_content_description">"Spila"</string>
     <string msgid="5941395253238309765" name="range_end">"Lok sviðs"</string>
     <string msgid="7097486360902471446" name="range_start">"Upphaf sviðs"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Leit"</string>
     <string msgid="6043586758067023" name="selected">"Valið"</string>
+    <string msgid="6034072145387511457" name="skip_to_next_item_button_content_description">"Fara í næsta atriði"</string>
+    <string msgid="4352480799561670760" name="skip_to_previous_item_button_content_description">"Fara í fyrra atriði"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="stripe_hcaptcha_loading_text">Staðfestir að þú sért mannlegur</string>
     <string msgid="2561197295334830845" name="switch_role">"Skipta"</string>
