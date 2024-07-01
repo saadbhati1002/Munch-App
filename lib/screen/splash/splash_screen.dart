@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (response != null && response != "null") {
       UserRes responseUser = UserRes.fromJson(jsonDecode(response));
       AppConstant.userData = responseUser.data;
-      AppConstant.bearerToken = responseUser.data!.token!;
+      AppConstant.bearerToken = responseUser.data?.token ?? "";
       Navigator.push(
         context,
         PageTransition(
@@ -53,11 +53,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstant.backGroundColor,
+      backgroundColor: ColorConstant.mainColor,
       body: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * .75,
-          child: Image.asset(Images.logo),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            height: MediaQuery.of(context).size.height * .3,
+            width: MediaQuery.of(context).size.width * .6,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+                color: ColorConstant.white, shape: BoxShape.circle),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * .27,
+                width: MediaQuery.of(context).size.width * .56,
+                child: Image.asset(Images.logo),
+              ),
+            ),
+          ),
         ),
       ),
     );

@@ -23,7 +23,7 @@ class AuthNetwork {
 
   static Future<dynamic> updateUserUser(prams) async {
     final result = await httpManager.post(url: userUpdateUrl, data: prams);
-
+    print(result);
     UserRes response = UserRes.fromJson(result);
     return response;
   }

@@ -70,9 +70,9 @@ class CalenderData {
       date});
 
   CalenderData.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
+    userId = json['user_id'].toString();
     user = json['user'];
-    recipeId = json['recipy_id'];
+    recipeId = json['recipy_id'].toString();
     nameDish = json['name_dish'];
     media = json['media'];
     tagLine = json['tag_line'];
@@ -85,9 +85,9 @@ class CalenderData {
     methodTagline = json['method_tagline'];
     chefsWhisper = json['chefs_whisper'];
     chefsWhisperTagline = json['chefs_whisper_tagline'];
-    isApproved = json['is_approved'];
-    likeCount = json['like_count'];
-    date = json['date'];
+    isApproved = json['is_approved'].toString();
+    likeCount = json['like_count'].toString();
+    date = json['date'].toString();
   }
 
   Map<String, dynamic> toJson() {

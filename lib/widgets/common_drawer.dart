@@ -1,7 +1,6 @@
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
-import 'package:app/screen/chatbot/chatbot.dart';
 import 'package:app/screen/faqs/faq_screen.dart';
 import 'package:app/screen/feedback/feedback_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
@@ -192,7 +191,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                       ),
                     );
                   },
-                  title: "Payments",
+                  title: "Payment History",
                 ),
                 const SizedBox(
                   height: 20,
@@ -236,27 +235,27 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   },
                   title: "Change Password",
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                commonRaw(
-                  icon: FaIcon(
-                    FontAwesomeIcons.robot,
-                    color: ColorConstant.mainColor.withOpacity(0.8),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        duration: Duration(
-                            milliseconds: AppConstant.pageAnimationDuration),
-                        child: const ChatScreen(),
-                      ),
-                    );
-                  },
-                  title: "Ask AI",
-                ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // commonRaw(
+                //   icon: FaIcon(
+                //     FontAwesomeIcons.robot,
+                //     color: ColorConstant.mainColor.withOpacity(0.8),
+                //   ),
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       PageTransition(
+                //         type: PageTransitionType.leftToRight,
+                //         duration: Duration(
+                //             milliseconds: AppConstant.pageAnimationDuration),
+                //         child: const ChatScreen(),
+                //       ),
+                //     );
+                //   },
+                //   title: "Ask AI",
+                // ),
                 const SizedBox(
                   height: 20,
                 ),

@@ -21,25 +21,34 @@ Widget questionWidget(
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomImageCircular(
-                imagePath: questionData!.userImage,
-                height: 25,
-                width: 25,
-              ),
-              const SizedBox(
-                width: 7,
-              ),
-              Text(
-                questionData.user ?? AppConstant.appName,
-                style: const TextStyle(
-                    fontSize: 13,
-                    color: ColorConstant.black,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
+          child: GestureDetector(
+            onTap: () {
+              // Get.to(
+              //   () => GuestProfileScreen(
+              //     userID: questionData.user,
+              //   ),
+              // );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomImageCircular(
+                  imagePath: questionData!.userImage,
+                  height: 25,
+                  width: 25,
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
+                Text(
+                  questionData.user ?? AppConstant.appName,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      color: ColorConstant.black,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(

@@ -117,7 +117,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomImageCircular(
-                          imagePath: widget.recipeData!.userImage ?? "",
+                          imagePath:
+                              widget.recipeData!.userImage??"",
                           height: 35,
                           width: 35,
                         ),
@@ -319,22 +320,20 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 10.0,
-                        childAspectRatio: 4,
-                        crossAxisSpacing: 12,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 22,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.recipeData!.categories!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return categoryBox(
+                              title: widget.recipeData!.categories![index],
+                              context: context);
+                        },
                       ),
-                      itemCount: widget.recipeData!.categories!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return categoryBox(
-                            title: widget.recipeData!.categories![index],
-                            context: context);
-                      },
                     ),
                   ),
                   const SizedBox(
@@ -799,33 +798,30 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           child: HtmlWidget(
             widget.recipeData!.chefsWhisper ?? AppConstant.appName,
           ),
-          // Text(
-          //   widget.recipeData!.chefsWhisper ?? AppConstant.appName,
-          //   style: const TextStyle(
-          //       fontSize: 12,
-          //       color: ColorConstant.black,
-          //       fontWeight: FontWeight.w400),
-          // ),
         ),
       ],
     );
   }
 
   Widget categoryBox({String? title, BuildContext? context}) {
-    return Container(
-      height: 24,
-      width: MediaQuery.of(context!).size.width * .29,
-      decoration: BoxDecoration(
-        color: ColorConstant.mainColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        title!,
-        style: const TextStyle(
-            fontSize: 14,
+    return Padding(
+      padding: const EdgeInsets.only(right: 7),
+      child: Container(
+        height: 18,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: ColorConstant.mainColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          title!,
+          style: const TextStyle(
+            fontSize: 12,
             color: ColorConstant.white,
-            fontWeight: FontWeight.w400),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
   }

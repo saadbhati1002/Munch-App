@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:app/api/repository/user/user.dart';
@@ -26,6 +27,8 @@ class HomeMakerScreen extends StatefulWidget {
 class _HomeMakerScreenState extends State<HomeMakerScreen> {
   List<AdminUser> adminList = [];
   bool isLoading = false;
+  Timer? _debounce;
+  String? searchedName;
   @override
   void initState() {
     _getAdminUser();
@@ -74,6 +77,20 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
   }
 
   @override
+  void dispose() {
+    _debounce?.cancel();
+
+    super.dispose();
+  }
+
+  _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      searchedName = query;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.backGroundColor,
@@ -94,6 +111,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CustomSearchTextField(
                 context: context,
+                onChanged: _onSearchChanged,
                 hintText: 'Search for home makers',
                 prefix: const Icon(
                   Icons.search,
@@ -111,10 +129,18 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return homeMakerWidget(
-                        context: context,
-                        userData: adminList[index],
-                      );
+                      return searchedName == null || searchedName == ""
+                          ? homeMakerWidget(
+                              context: context,
+                              userData: adminList[index],
+                            )
+                          : searchedName!.toLowerCase().contains(
+                                  adminList[index].name!.toLowerCase())
+                              ? homeMakerWidget(
+                                  context: context,
+                                  userData: adminList[index],
+                                )
+                              : const SizedBox();
                     },
                   )
                 : ListView.builder(
@@ -151,10 +177,15 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomImageCircular(
-                  imagePath: userData!.image,
-                  height: 25,
-                  width: 25,
+                GestureDetector(
+                  onTap: () {
+                    print("${AppConstant.imagePath}${userData.image}");
+                  },
+                  child: CustomImageCircular(
+                    imagePath: "${AppConstant.imagePath}${userData!.image}",
+                    height: 25,
+                    width: 25,
+                  ),
                 ),
                 Text(
                   userData.name!,
@@ -227,7 +258,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
               : CustomImage(
                   width: MediaQuery.of(context).size.width * 1,
                   height: MediaQuery.of(context).size.height * .45,
-                  imagePath: userData.video,
+                  imagePath: "${AppConstant.imagePath}${userData.video}",
                 ),
           const SizedBox(
             height: 15,

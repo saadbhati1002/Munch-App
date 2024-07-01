@@ -372,7 +372,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        recipeList[index!].isLoading = true;
+        // recipeList[index!].isLoading = true;
       });
     }
   }

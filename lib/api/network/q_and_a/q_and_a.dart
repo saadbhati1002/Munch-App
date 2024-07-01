@@ -17,13 +17,14 @@ class QAndANetwork {
 
   static Future<dynamic> addQuestion(param) async {
     final result = await httpManager.post(url: addQuestionUrl, data: param);
-
     AddQuestionRes response = AddQuestionRes.fromJson(result);
     return response;
   }
 
   static Future<dynamic> getQuestionList() async {
     final result = await httpManager.get(url: questionsListUrl);
+    print(result);
+
     QuestionRes response = QuestionRes.fromJson(result);
 
     return response;

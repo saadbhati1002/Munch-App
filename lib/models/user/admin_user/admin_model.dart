@@ -73,7 +73,7 @@ class AdminUser {
     emailVerifiedAt = json['email_verified_at'];
     apiToken = json['api_token'];
     token = json['token'];
-    isAdmin = json['is_admin'];
+    isAdmin = json['is_admin'].toString();
     desc = json['desc'];
     video = json['video'];
     bio = json['bio'];

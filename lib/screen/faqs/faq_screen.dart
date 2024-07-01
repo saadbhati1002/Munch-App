@@ -4,6 +4,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:app/widgets/common_skeleton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class FAQScreen extends StatefulWidget {
   const FAQScreen({super.key});
@@ -124,12 +125,8 @@ class _FAQScreenState extends State<FAQScreen> {
             height: faqNumber == index ? 10 : 0,
           ),
           faqNumber == index
-              ? Text(
+              ? HtmlWidget(
                   faqList[index].text ?? "",
-                  style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
                 )
               : const SizedBox()
         ],

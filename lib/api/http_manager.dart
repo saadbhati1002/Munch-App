@@ -60,6 +60,7 @@ class HTTPManager {
         if (response.statusCode == 200 && response.statusCode == 422) {
           return response.data;
         } else {
+          print(response.data);
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
             await AppConstant.userDetailSaved("null");
@@ -69,6 +70,7 @@ class HTTPManager {
           return response.data;
         }
       } on DioException catch (error) {
+        print(error);
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
           await AppConstant.userDetailSaved("null");

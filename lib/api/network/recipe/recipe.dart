@@ -25,6 +25,7 @@ class RecipeNetwork {
 
   static Future<dynamic> getRecipeList(params) async {
     final result = await httpManager.get(url: recipeUrl, params: params);
+    print(result);
     RecipeRes response = RecipeRes.fromJson(result);
     return response;
   }

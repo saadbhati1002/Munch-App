@@ -40,6 +40,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           await MembershipRepository().getMembershipListApiCall();
       if (response.data != null) {
         membershipList = response.data!;
+
+        if (membershipList.first.amount == "0") {
+          if (AppConstant.userData!.isPremiumUser == false) {
+            selectedMembership = membershipList.first.id!;
+          }
+        }
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -368,10 +374,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontWeight: FontWeight.w600,
                       color: selectedMembership == membershipData.id
                           ? ColorConstant.white
-                          : ColorConstant.mainColor,
+                          : ColorConstant.black,
                     ),
                   ),
                 ),
+                if (AppConstant.userData!.isPremiumUser == false &&
+                    membershipData.amount == "0") ...[
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: selectedMembership == membershipData.id
+                          ? ColorConstant.white
+                          : Colors.transparent,
+                      border: Border.all(color: ColorConstant.greyColor),
+                    ),
+                    child: const Text(
+                      "Currently active",
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
                 const SizedBox(
                   height: 0,
                 ),

@@ -39,7 +39,7 @@ class FAQData {
   FAQData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     question = json['question'];
-    text = json['text'];
+    text = json['answer'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -48,7 +48,7 @@ class FAQData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['question'] = question;
-    data['text'] = text;
+    data['answer'] = text;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

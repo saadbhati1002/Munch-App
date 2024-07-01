@@ -192,11 +192,6 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                         size: 25,
                         color: ColorConstant.greyColor,
                       ),
-                      suffix: const Icon(
-                        Icons.filter_alt_rounded,
-                        size: 25,
-                        color: ColorConstant.greyColor,
-                      ),
                     ),
                   ),
                   const SizedBox(
@@ -228,9 +223,12 @@ class _RecipeCommentsScreenState extends State<RecipeCommentsScreen> {
                                           }
                                         },
                                       )
-                                    : searchedName!.contains(
-                                            commentList[reversedIndex]
-                                                .userName!)
+                                    : commentList[reversedIndex]
+                                            .userName!
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(
+                                                searchedName!.toLowerCase())
                                         ? commonCommentWidget(
                                             context: context,
                                             isComment: true,

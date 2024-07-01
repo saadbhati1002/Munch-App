@@ -1,5 +1,4 @@
 import 'package:app/utility/color.dart';
-import 'package:app/utility/constant.dart';
 import 'package:app/utility/images.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -32,7 +31,7 @@ class CustomImage extends StatelessWidget {
           )
         : (imagePath != null && imagePath!.isNotEmpty)
             ? CachedNetworkImage(
-                imageUrl: "${AppConstant.imagePath}$imagePath",
+                imageUrl: imagePath!,
                 imageBuilder: (context, imageProvider) {
                   return Container(
                     height: height,

@@ -588,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Swiper(
         scale: 0.75,
         pagination: const SwiperPagination(),
-        viewportFraction: 0.95,
+        viewportFraction: 1,
         itemCount: bannerList.length,
         onTap: (index) {
           if (bannerList[index].recipeID != null ||

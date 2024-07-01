@@ -47,9 +47,8 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       });
       QuestionRes response = await QAndARepository().getQuestionListApiCall();
       if (response.data!.isNotEmpty) {
-        setState(() {
-          questionList = response.data!;
-        });
+        questionList = response.data!;
+        _checkForUserQuestionLike();
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -57,6 +56,19 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       setState(() {
         isLoading = false;
       });
+    }
+  }
+
+  _checkForUserQuestionLike() {
+    for (int i = 0; i < questionList.length; i++) {
+      var contain = questionList[i].likedUsers.where(
+          (element) => element.id.toString() == AppConstant.userData!.id);
+      if (contain.isNotEmpty) {
+        questionList[i].isLikedByMe = true;
+      }
+    }
+    if (mounted) {
+      setState(() {});
     }
   }
 
@@ -127,6 +139,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                   AppConstant.userData!.name;
               questionList[questionList.length - 1].userImage =
                   AppConstant.userData!.image;
+              questionList[questionList.length - 1].replyCount = "0";
             } catch (e) {
               debugPrint(e.toString());
             }
@@ -231,12 +244,14 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                                           QuestionData questionResponse =
                                               QuestionData.fromJson(
                                                   jsonDecode(response));
+
                                           questionList[index].isLikedByMe =
                                               questionResponse.isLikedByMe;
                                           questionList[index].likeCount =
                                               questionResponse.likeCount;
                                           questionList[index].replyCount =
                                               questionResponse.replyCount;
+                                          _checkForUserQuestionLike();
                                           setState(() {});
                                         }
                                       },
@@ -254,8 +269,10 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                                         },
                                       ),
                                     )
-                                  : searchedName!.contains(
-                                          questionList[index].questionTitle!)
+                                  : searchedName!.toLowerCase().contains(
+                                          questionList[index]
+                                              .questionTitle!
+                                              .toLowerCase())
                                       ? GestureDetector(
                                           onTap: () async {
                                             var response = await Navigator.push(

@@ -7,6 +7,7 @@ class CommonNetwork {
   static const String feedbackUrl = "feedback";
   static Future<dynamic> getFAQ() async {
     final result = await httpManager.get(url: faqUrl);
+
     FAQRes response = FAQRes.fromJson(result);
     return response;
   }

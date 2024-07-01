@@ -101,11 +101,11 @@ class RecipeData {
     methodTagline = json['method_tagline'];
     chefsWhisper = json['chefs_whisper'];
     chefsWhisperTagline = json['chefs_whisper_tagline'];
-    isApproved = json['is_approved'];
+    isApproved = json['is_approved'].toString();
     user = json['user'];
     userImage = json['user_image'];
-    likeCount = int.parse(json['like_count'] ?? '0');
-    commentCount = int.parse(json['comment_count'] ?? '0');
+    likeCount = int.parse(json['like_count'].toString());
+    commentCount = int.parse(json['comment_count'].toString());
     userID = json['user_id'].toString();
     createdAt = json['created_at'].toString();
     featured =

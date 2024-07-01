@@ -36,9 +36,9 @@ class ParticipantsData {
   ParticipantsData({userId, userName, isWinner, userImage});
 
   ParticipantsData.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
+    userId = json['user_id'].toString();
     userName = json['user_name'];
-    isWinner = json['is_winner'];
+    isWinner = json['is_winner'].toString();
     userImage = json['image'];
   }
 
