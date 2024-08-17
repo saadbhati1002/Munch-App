@@ -1,0 +1,1 @@
+ /Users/saadbhati/Downloads/Munch-App/.dart_tool/flutter_build/47bbe29236732289cdfaaae9f8fe6f74/native_assets.yaml: 

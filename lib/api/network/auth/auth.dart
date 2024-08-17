@@ -16,7 +16,7 @@ class AuthNetwork {
 
   static Future<dynamic> loginUser(prams) async {
     final result = await httpManager.post(url: loginUserUrl, data: prams);
-
+print(result);
     UserRes response = UserRes.fromJson(result);
     return response;
   }

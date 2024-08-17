@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .08,
+                  height: MediaQuery.of(context).size.height * .06,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -52,16 +52,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: ColorConstant.organColor),
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 SizedBox(
                   height: 150,
                   width: 150,
                   child: Image.asset(Images.logo),
                 ),
-                const SizedBox(
-                  height: 30,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 Container(
                   decoration: BoxDecoration(

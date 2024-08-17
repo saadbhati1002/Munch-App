@@ -1,1 +1,0 @@
- D:\\projects\\Munch-App\\.dart_tool\\flutter_build\\bc45b36bcc665fa1f8367a66153b7b75\\native_assets.yaml: 
