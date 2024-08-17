@@ -9,6 +9,7 @@ class MembershipNetwork {
 
   static Future<dynamic> getMembershipList() async {
     final result = await httpManager.get(url: membershipListUrl);
+
     MembershipRes response = MembershipRes.fromJson(result);
     return response;
   }

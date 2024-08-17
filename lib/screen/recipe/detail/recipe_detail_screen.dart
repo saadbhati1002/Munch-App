@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/list/add/add_list_model.dart';
 import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
+import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/screen/recipe/comments/comments_screen.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
@@ -13,13 +13,15 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
-import 'package:app/widgets/show_progress_bar.dart';
+import 'package:app/widgets/micro_loader.dart';
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final RecipeData? recipeData;
@@ -30,7 +32,9 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  double methodFontSize = 12;
   bool isLoading = false;
+
   bool isSavedToMyCalender = false;
   List<CalenderData> calenderRecipeList = [];
 
@@ -113,7 +117,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomImageCircular(
-                          imagePath: widget.recipeData!.userImage ?? "",
+                          imagePath:
+                              widget.recipeData!.userImage??"",
                           height: 35,
                           width: 35,
                         ),
@@ -136,10 +141,19 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   widget.recipeData!.media.toString().contains('.mp4')
                       ? GestureDetector(
                           onTap: () {
-                            Get.to(() => VideoPlayerScreen(
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: VideoPlayerScreen(
                                   videoPath:
                                       "${AppConstant.imagePath}${widget.recipeData!.media}",
-                                ));
+                                ),
+                              ),
+                            );
                           },
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 1,
@@ -160,7 +174,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                           File(widget
                                                   .recipeData!.videoThumbnail ??
                                               ""),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.contain,
                                         ),
                                 ),
                                 Center(
@@ -195,27 +209,41 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            if (widget.recipeData!.isLikedByMe == true) {
-                              _recipeUnlike();
-                            } else {
-                              _recipeLike();
-                            }
-                          },
-                          child: Text(
-                            "${widget.recipeData!.likeCount}  Likes",
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: ColorConstant.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
+                        widget.recipeData!.isLoading == false
+                            ? InkWell(
+                                onTap: () {
+                                  if (widget.recipeData!.isLikedByMe == true) {
+                                    _recipeUnlike(
+                                        recipeID: widget.recipeData!.id);
+                                  } else {
+                                    _recipeLike();
+                                  }
+                                },
+                                child: Text(
+                                  (widget.recipeData!.likeCount == 0 ||
+                                          widget.recipeData!.likeCount == 1)
+                                      ? "${widget.recipeData!.likeCount}  Like"
+                                      : "${widget.recipeData!.likeCount}  Likes",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: ColorConstant.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              )
+                            : microLoader(height: 16, width: 16),
                         GestureDetector(
                           onTap: () async {
-                            var response = await Get.to(
-                              () => RecipeCommentsScreen(
-                                recipeID: widget.recipeData!.id,
+                            var response = await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: Duration(
+                                    milliseconds:
+                                        AppConstant.pageAnimationDuration),
+                                child: RecipeCommentsScreen(
+                                  recipeID: widget.recipeData!.id,
+                                  count: widget.recipeData!.commentCount,
+                                ),
                               ),
                             );
                             if (response != null && response != "0") {
@@ -239,7 +267,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                   width: 7,
                                 ),
                                 Text(
-                                  "${widget.recipeData!.commentCount} Comment",
+                                  (widget.recipeData!.commentCount == 0 ||
+                                          widget.recipeData!.commentCount == 1)
+                                      ? "${widget.recipeData!.commentCount} Comment"
+                                      : "${widget.recipeData!.commentCount} Comments",
                                   style: const TextStyle(
                                       fontSize: 12,
                                       color: ColorConstant.black,
@@ -289,22 +320,20 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 10.0,
-                        childAspectRatio: 4,
-                        crossAxisSpacing: 12,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 22,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.recipeData!.categories!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return categoryBox(
+                              title: widget.recipeData!.categories![index],
+                              context: context);
+                        },
                       ),
-                      itemCount: widget.recipeData!.categories!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return categoryBox(
-                            title: widget.recipeData!.categories![index],
-                            context: context);
-                      },
                     ),
                   ),
                   const SizedBox(
@@ -370,263 +399,429 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        recipeTimeWidget(
-                            title:
-                                "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
-                        recipeTimeWidget(
-                            title:
-                                "Cooking Time: ${widget.recipeData!.cookingTime} Mins"),
-                      ],
+                  if (widget.recipeData!.featured == 0) ...[
+                    premiumData(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.smallDesc ?? "",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ] else if (widget.recipeData!.featured == 1 &&
+                      AppConstant.userData!.isPremiumUser == true) ...[
+                    premiumData(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SizedBox(
-                      height: 35,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ] else ...[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .5,
+                      width: MediaQuery.of(context).size.width,
+                      child: Stack(
                         children: [
-                          const SizedBox(
+                          SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: premiumData(),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 5,
+                            width: MediaQuery.of(context).size.width,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'INGREDIENT LIST',
+                                const Text(
+                                  'PREMIUM FEATURE',
+                                  textAlign: TextAlign.left,
                                   style: TextStyle(
-                                    height: 1,
-                                    fontWeight: FontWeight.w500,
                                     color: ColorConstant.mainColor,
                                     fontSize: 20,
+                                    fontFamily: 'inter',
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                Text(
-                                  'Shop for these items',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorConstant.greyDarkColor,
-                                    fontSize: 10,
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  child: Text(
+                                    'To access this feature to upgrade to premium profile.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: ColorConstant.black,
+                                      fontSize: 12,
+                                      fontFamily: 'inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 35,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: const ProfileScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        color: ColorConstant.mainColor,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    height: 35,
+                                    width: MediaQuery.of(context).size.width,
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      'Upgrade Now',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          color: ColorConstant.white),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
+                          ).frosted(
+                            blur: 5,
+                            frostColor: ColorConstant.white,
+                            frostOpacity: 0.7,
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            alignment: Alignment.center,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: ColorConstant.greyColor.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Serves: ${widget.recipeData!.servingPotions} Portions",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  height: 1,
-                                  fontSize: 13,
-                                  color: ColorConstant.mainColor,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          )
                         ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  widget.recipeData!.ingredientList.isNotEmpty
-                      ? Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: ColorConstant.greyColor.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  List buy = [];
-                                  for (int i = 0;
-                                      i <
-                                          widget.recipeData!.ingredientList
-                                              .length;
-                                      i++) {
-                                    buy.insert(0, '0');
-                                  }
-                                  _ingredientSaveToMyList(
-                                    widget.recipeData!.ingredientList
-                                        .toString()
-                                        .replaceAll("[", '')
-                                        .replaceAll("]", ''),
-                                    buy
-                                        .toString()
-                                        .replaceAll("[", '')
-                                        .replaceAll("]", ''),
-                                  );
-                                  await Clipboard.setData(
-                                    ClipboardData(
-                                      text: widget.recipeData!.ingredientList
-                                          .toString()
-                                          .replaceAll("[", '')
-                                          .replaceAll("]", ''),
-                                    ),
-                                  );
-                                },
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'Save List',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: ColorConstant.black,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Icon(
-                                      Icons.copy,
-                                      color: ColorConstant.black,
-                                      size: 18,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              ListView.builder(
-                                itemCount:
-                                    widget.recipeData!.ingredientList.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Text(
-                                    '\u2022 ${widget.recipeData!.ingredientList[index]}',
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: ColorConstant.black,
-                                        fontWeight: FontWeight.w400),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      : const SizedBox(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'METHOD',
-                      style: TextStyle(
-                        height: 1,
-                        fontWeight: FontWeight.w500,
-                        color: ColorConstant.mainColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.method ?? AppConstant.appName,
-                      style: const TextStyle(
-                          fontSize: 12,
-                          color: ColorConstant.black,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      "CHEF'S WHISPER",
-                      style: TextStyle(
-                        height: 1,
-                        fontWeight: FontWeight.w500,
-                        color: ColorConstant.mainColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      widget.recipeData!.chefsWhisper ?? AppConstant.appName,
-                      style: const TextStyle(
-                          fontSize: 12,
-                          color: ColorConstant.black,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                  ),
+                    )
+                  ],
                 ],
               ),
             ),
-            isLoading ? const ShowProgressBar() : const SizedBox()
+            // isLoading ? const ShowProgressBar() : const SizedBox()
           ],
         ),
       ),
     );
   }
 
+  Widget premiumData() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              recipeTimeWidget(
+                  title: widget.recipeData!.preparationTime
+                          .toString()
+                          .contains("min")
+                      ? "Prep Time: ${widget.recipeData!.preparationTime}"
+                      : "Prep Time: ${widget.recipeData!.preparationTime} Mins"),
+              recipeTimeWidget(
+                  title:
+                      "Cooking Time: ${widget.recipeData!.cookingTime} Mins"),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            widget.recipeData!.smallDesc ?? "",
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: SizedBox(
+            height: 35,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'INGREDIENT LIST',
+                        style: TextStyle(
+                          height: 1,
+                          fontWeight: FontWeight.w500,
+                          color: ColorConstant.mainColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        'Shop for these items',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: ColorConstant.greyDarkColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  alignment: Alignment.center,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.greyColor.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    "Serves: ${widget.recipeData!.servingPotions} Portions",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        height: 1,
+                        fontSize: 13,
+                        color: ColorConstant.mainColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        widget.recipeData!.ingredientList.isNotEmpty
+            ? Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: ColorConstant.greyColor.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        List buy = [];
+                        for (int i = 0;
+                            i < widget.recipeData!.ingredientList.length;
+                            i++) {
+                          buy.insert(0, '0');
+                        }
+                        _ingredientSaveToMyList(
+                          widget.recipeData!.ingredientList
+                              .toString()
+                              .replaceAll("[", '')
+                              .replaceAll("]", ''),
+                          buy
+                              .toString()
+                              .replaceAll("[", '')
+                              .replaceAll("]", ''),
+                        );
+                        await Clipboard.setData(
+                          ClipboardData(
+                            text: widget.recipeData!.ingredientList
+                                .toString()
+                                .replaceAll("[", '')
+                                .replaceAll("]", ''),
+                          ),
+                        );
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Save List',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: ColorConstant.black,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            Icons.copy,
+                            color: ColorConstant.black,
+                            size: 18,
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: widget.recipeData!.ingredientList.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Text(
+                          '\u2022 ${widget.recipeData!.ingredientList[index]}',
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              fontSize: 14,
+                              color: ColorConstant.black,
+                              fontWeight: FontWeight.w400),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              )
+            : const SizedBox(),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'METHOD',
+                style: TextStyle(
+                  height: 1,
+                  fontWeight: FontWeight.w500,
+                  color: ColorConstant.mainColor,
+                  fontSize: 20,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (methodFontSize < 32) {
+                        methodFontSize++;
+                        setState(() {});
+                      }
+                    },
+                    child: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                          color: ColorConstant.mainColor,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.add,
+                        color: ColorConstant.mainColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (methodFontSize > 10) {
+                        methodFontSize--;
+                        setState(() {});
+                      }
+                    },
+                    child: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                          color: ColorConstant.mainColor,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.remove,
+                        color: ColorConstant.mainColor,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            widget.recipeData!.method ?? AppConstant.appName,
+            style: TextStyle(
+                fontSize: methodFontSize,
+                color: ColorConstant.black,
+                fontWeight: FontWeight.w400),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "CHEF'S WHISPER",
+            style: TextStyle(
+              height: 1,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.mainColor,
+              fontSize: 20,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: HtmlWidget(
+            widget.recipeData!.chefsWhisper ?? AppConstant.appName,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget categoryBox({String? title, BuildContext? context}) {
-    return Container(
-      height: 24,
-      width: MediaQuery.of(context!).size.width * .29,
-      decoration: BoxDecoration(
-        color: ColorConstant.mainColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        title!,
-        style: const TextStyle(
-            fontSize: 14,
+    return Padding(
+      padding: const EdgeInsets.only(right: 7),
+      child: Container(
+        height: 18,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: ColorConstant.mainColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          title!,
+          style: const TextStyle(
+            fontSize: 12,
             color: ColorConstant.white,
-            fontWeight: FontWeight.w400),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
   }
@@ -688,17 +883,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   _recipeLike() async {
     try {
       setState(() {
-        isLoading = true;
+        widget.recipeData!.isLoading = true;
       });
       LikeUnlikeRes response = await RecipeRepository()
           .recipeLikeApiCall(recipeID: widget.recipeData!.id);
       if (response.success == true) {
         widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
         widget.recipeData!.isLikedByMe = true;
-        // toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already like this recipe.") {
           widget.recipeData!.likeCount = widget.recipeData!.likeCount! + 1;
           widget.recipeData!.isLikedByMe = true;
         }
@@ -707,7 +900,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.recipeData!.isLoading = false;
       });
     }
   }
@@ -715,7 +908,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   _recipeUnlike({String? recipeID}) async {
     try {
       setState(() {
-        isLoading = true;
+        widget.recipeData!.isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
@@ -730,7 +923,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        widget.recipeData!.isLoading = false;
       });
     }
   }

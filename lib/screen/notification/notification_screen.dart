@@ -2,11 +2,12 @@ import 'package:app/api/repository/notification/notification.dart';
 import 'package:app/models/notification/notification_model.dart';
 import 'package:app/screen/notification/detail/notification_detail_screen.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -94,9 +95,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GestureDetector(
         onTap: () {
-          Get.to(
-            () => NotificationDetailScreen(
-              notificationData: notificationList[index],
+          Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.leftToRight,
+              duration:
+                  Duration(milliseconds: AppConstant.pageAnimationDuration),
+              child: NotificationDetailScreen(
+                notificationData: notificationList[index],
+              ),
             ),
           );
         },

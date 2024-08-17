@@ -35,8 +35,9 @@ class QuestionData {
   String? likeCount;
   String? user;
   String? userImage;
-  List<LikedUsers>? likedUsers;
+  List<LikedUsers> likedUsers = [];
   bool isLikedByMe = false;
+  bool isLoading = false;
 
   QuestionData(
       {id,
@@ -52,14 +53,15 @@ class QuestionData {
     id = json['id'];
     questionTitle = json['question_title'];
     questionAnswer = json['question_answer'];
-    replyCount = json['reply_count'];
-    likeCount = json['like_count'];
+    replyCount = json['reply_count'].toString();
+    likeCount = json['like_count'].toString();
     user = json['user'];
     userImage = json['user_image'];
+
     if (json['liked_users'] != null) {
       likedUsers = <LikedUsers>[];
       json['liked_users'].forEach((v) {
-        likedUsers!.add(LikedUsers.fromJson(v));
+        likedUsers.add(LikedUsers.fromJson(v));
       });
     }
   }
@@ -73,8 +75,8 @@ class QuestionData {
     data['like_count'] = likeCount;
     data['user'] = user;
     data['user_image'] = userImage;
-    if (likedUsers != null) {
-      data['liked_users'] = likedUsers!.map((v) => v.toJson()).toList();
+    if (likedUsers.isNotEmpty) {
+      data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }
     return data;
   }

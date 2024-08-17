@@ -3,13 +3,14 @@ import 'package:app/api/repository/contest/contest.dart';
 import 'package:app/models/contest/contest_model.dart';
 import 'package:app/screen/contest/contest_detail/contest_detail_screen.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
-import 'package:app/widgets/common_skeleton.dart';
 import 'package:app/widgets/contest_list_widget.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:skeletons/skeletons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ContestListScreen extends StatefulWidget {
   const ContestListScreen({super.key});
@@ -104,9 +105,16 @@ class _ContestListScreenState extends State<ContestListScreen> {
                           return searchedName == null || searchedName == ""
                               ? GestureDetector(
                                   onTap: () async {
-                                    var response = await Get.to(
-                                      () => ContestDetailScreen(
-                                        contestData: contestList[index],
+                                    var response = await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: ContestDetailScreen(
+                                          contestData: contestList[index],
+                                        ),
                                       ),
                                     );
                                     if (response != null) {
@@ -124,9 +132,17 @@ class _ContestListScreenState extends State<ContestListScreen> {
                                       .contains(contestList[index].title!)
                                   ? GestureDetector(
                                       onTap: () async {
-                                        var response = await Get.to(
-                                          () => ContestDetailScreen(
-                                            contestData: contestList[index],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: ContestDetailScreen(
+                                              contestData: contestList[index],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
@@ -161,10 +177,92 @@ class _ContestListScreenState extends State<ContestListScreen> {
                     itemCount: 10,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return const CommonSkeleton();
+                      return contestSkeleton();
                     },
                   )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget contestSkeleton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      child: Material(
+        elevation: 1,
+        borderRadius: BorderRadius.circular(10),
+        shadowColor: ColorConstant.mainColor,
+        child: Container(
+          height: MediaQuery.of(context).size.height * .15,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                children: [
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      height: 10,
+                      randomLength: false,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .35,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .025,
+                  ),
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      height: 10,
+                      randomLength: false,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .85,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .01,
+                  ),
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      randomLength: true,
+                      height: 10,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .85,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .02,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 10,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .35,
+                        ),
+                      ),
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 10,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .35,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

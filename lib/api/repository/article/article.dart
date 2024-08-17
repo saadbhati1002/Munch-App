@@ -1,8 +1,12 @@
 import 'package:app/api/network/article/article.dart';
 
 class ArticleRepository {
-  Future<dynamic> getArticlesApiCall() async {
-    return await ArticleNetwork.getArticleList();
+  Future<dynamic> getArticlesApiCall({int? count, String? search}) async {
+    final params = {
+      "count": count,
+      "search": search,
+    };
+    return await ArticleNetwork.getArticleList(params);
   }
 
   Future<dynamic> articleLikeApiCall({String? articleID}) async {

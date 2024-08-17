@@ -1,13 +1,13 @@
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/auth/edit_profile/edit_profile_screen.dart';
 import 'package:app/screen/auth/password_change/password_change_screen.dart';
-import 'package:app/screen/chatbot/chatbot.dart';
 import 'package:app/screen/faqs/faq_screen.dart';
-import 'package:app/screen/help/help_screen.dart';
+import 'package:app/screen/feedback/feedback_screen.dart';
 import 'package:app/screen/home_maker/home_maker_screen.dart';
 import 'package:app/screen/list/list_screen.dart';
 import 'package:app/screen/membership/my_memership_screen.dart';
 import 'package:app/screen/my_plans/my_planes_screen.dart';
+import 'package:app/screen/profile/profile_screen.dart';
 import 'package:app/screen/recipe/my_recipe/my_recipe_screen.dart';
 import 'package:app/screen/social_media/social_media_share_screen.dart';
 import 'package:app/screen/splash/splash_screen.dart';
@@ -15,7 +15,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CommonDrawer extends StatefulWidget {
   const CommonDrawer({super.key});
@@ -61,7 +61,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 35,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.userSecret),
+                  icon: FaIcon(
+                    FontAwesomeIcons.userSecret,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -76,7 +79,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bellConcierge),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bellConcierge,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -91,14 +97,21 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bookOpen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bookOpen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyPlanesScreen(),
-                      ),
-                    );
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyPlanesScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "Meal Plans",
                 ),
@@ -106,9 +119,24 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.bowlFood),
+                  icon: FaIcon(
+                    FontAwesomeIcons.bowlFood,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const MyRecipeScreen());
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const MyRecipeScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "My Recipes",
                 ),
@@ -116,9 +144,24 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.listCheck),
+                  icon: FaIcon(
+                    FontAwesomeIcons.listCheck,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const ListScreen());
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const ListScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "Shopping List",
                 ),
@@ -133,19 +176,41 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.dollar),
+                  icon: FaIcon(
+                    FontAwesomeIcons.dollar,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const MyMembershipScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const MyMembershipScreen(),
+                      ),
+                    );
                   },
-                  title: "Payments",
+                  title: "Payment History",
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.userPen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.userPen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const EditProfileScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const EditProfileScreen(),
+                      ),
+                    );
                   },
                   title: "Profile Update",
                 ),
@@ -153,22 +218,44 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.lockOpen),
+                  icon: FaIcon(
+                    FontAwesomeIcons.lockOpen,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const ChangePasswordScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const ChangePasswordScreen(),
+                      ),
+                    );
                   },
                   title: "Change Password",
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.robot),
-                  onTap: () {
-                    Get.to(() => const ChatScreen());
-                  },
-                  title: "Ask AI",
-                ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // commonRaw(
+                //   icon: FaIcon(
+                //     FontAwesomeIcons.robot,
+                //     color: ColorConstant.mainColor.withOpacity(0.8),
+                //   ),
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       PageTransition(
+                //         type: PageTransitionType.leftToRight,
+                //         duration: Duration(
+                //             milliseconds: AppConstant.pageAnimationDuration),
+                //         child: const ChatScreen(),
+                //       ),
+                //     );
+                //   },
+                //   title: "Ask AI",
+                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -180,19 +267,41 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.circleInfo),
+                  icon: FaIcon(
+                    FontAwesomeIcons.star,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const HelpScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const FeedBackScreen(),
+                      ),
+                    );
                   },
-                  title: "Help",
+                  title: "Feedback",
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.circleQuestion),
+                  icon: FaIcon(
+                    FontAwesomeIcons.circleQuestion,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const FAQScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const FAQScreen(),
+                      ),
+                    );
                   },
                   title: "FAQs",
                 ),
@@ -200,9 +309,20 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.heart),
+                  icon: FaIcon(
+                    FontAwesomeIcons.heart,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
-                    Get.to(() => const SocialMediaShareScreen());
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: const SocialMediaShareScreen(),
+                      ),
+                    );
                   },
                   title: "Follow Us",
                 ),
@@ -210,7 +330,10 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   height: 20,
                 ),
                 commonRaw(
-                  icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
+                  icon: FaIcon(
+                    FontAwesomeIcons.rightFromBracket,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
                   onTap: () {
                     logOutPopUp();
                   },
@@ -228,20 +351,117 @@ class _CommonDrawerState extends State<CommonDrawer> {
   }
 
   Widget commonRaw({FaIcon? icon, String? title, VoidCallback? onTap}) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Row(
-        children: [
-          SizedBox(width: 41, child: icon!),
-          Text(
-            title!,
-            style: const TextStyle(
-                fontSize: 14,
-                color: ColorConstant.black,
-                fontWeight: FontWeight.w500),
-          )
-        ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            SizedBox(width: 41, child: icon!),
+            Text(
+              title!,
+              style: const TextStyle(
+                  fontSize: 14,
+                  color: ColorConstant.black,
+                  fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  void popUpForNormalUsers() async {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                side: BorderSide(color: ColorConstant.greyColor),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+              ),
+              elevation: 0,
+              backgroundColor: ColorConstant.white,
+              actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+              title: Container(
+                alignment: Alignment.topLeft,
+                decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    borderRadius: BorderRadius.circular(15)),
+                // height: MediaQuery.of(context).size.height * .25,
+                width: MediaQuery.of(context).size.width * .9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'PREMIUM FEATURE',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.mainColor,
+                        fontSize: 20,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    const Text(
+                      'To access this feature to upgrade to premium profile.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 12,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: const ProfileScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorConstant.mainColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        height: 35,
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Upgrade Now',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: ColorConstant.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -305,7 +525,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: ColorConstant.mainColor,
+                                color: ColorConstant.mainColor.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
                             // width: MediaQuery.of(context).size.width * .2,
@@ -331,7 +551,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: ColorConstant.mainColor,
+                                color: ColorConstant.mainColor.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(8)),
                             height: 35,
                             // width: MediaQuery.of(context).size.width * .2,
@@ -367,6 +587,12 @@ class _CommonDrawerState extends State<CommonDrawer> {
     toastShow(message: "Log out successfully");
 
     await AppConstant.userDetailSaved("null");
-    Get.to(() => const SplashScreen());
+    Navigator.push(
+      context,
+      PageTransition(
+          type: PageTransitionType.leftToRight,
+          duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+          child: const SplashScreen()),
+    );
   }
 }

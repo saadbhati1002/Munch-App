@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app/api/repository/auth/auth.dart';
+import 'package:app/api/repository/membership/membership.dart';
+import 'package:app/models/membership/list/membership_list_model.dart';
 import 'package:app/models/user/user_model.dart';
 import 'package:app/screen/dashboard/dashboard_screen.dart';
 import 'package:app/utility/color.dart';
@@ -12,10 +14,13 @@ import 'package:app/widgets/common_text_field.dart';
 import 'package:app/widgets/common_text_field_text.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -26,6 +31,12 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   bool isLoading = false;
+  bool isShowPlan = false;
+  int? selectedMembership;
+  String? amount;
+  List<MembershipData> membershipList = [];
+
+  Map<String, dynamic>? paymentIntent;
   TextEditingController userNameController = TextEditingController();
   TextEditingController userDateOfBirthController = TextEditingController();
   TextEditingController userPhoneNumberController = TextEditingController();
@@ -37,8 +48,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     _checkUserData();
-
+    _getMembershipList();
     super.initState();
+  }
+
+  Future _getMembershipList() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      MembershipRes response =
+          await MembershipRepository().getMembershipListApiCall();
+      if (response.data != null) {
+        membershipList = response.data!;
+
+        if (membershipList.first.amount == "0") {
+          if (AppConstant.userData!.isPremiumUser == false) {
+            selectedMembership = membershipList.first.id!;
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -57,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .03,
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +146,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .03,
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        isShowPlan = true;
+                        setState(() {});
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorConstant.mainColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        height: 30,
+                        width: MediaQuery.of(context).size.width * .4,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "Choose Plan",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 Container(
                   color: ColorConstant.white,
@@ -185,6 +251,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ],
             ),
           ),
+          isShowPlan ? membershipListWidget() : const SizedBox(),
           isLoading ? const ShowProgressBar() : const SizedBox()
         ],
       ),
@@ -204,6 +271,234 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       userDateOfBirthController.text = DateFormat('yyyy-MM-dd').format(picked);
       setState(() {});
     }
+  }
+
+  Widget membershipListWidget() {
+    return Container(
+      color: ColorConstant.black.withOpacity(0.2),
+      width: MediaQuery.of(context).size.width * 1,
+      height: MediaQuery.of(context).size.height * 1,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: ColorConstant.white,
+        ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isShowPlan = false;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10, left: 5),
+                      height: 23,
+                      width: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: ColorConstant.black,
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: ColorConstant.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'Back',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'inter',
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  'SUBSCRIPTION PLANS',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: ColorConstant.mainColor,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  'Select a plan, you will be billed as per you selection.',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorConstant.greyColor,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListView.builder(
+                itemCount: membershipList.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return membershipWidget(
+                    membershipData: membershipList[index],
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CommonButton(
+                  color: ColorConstant.mainColor,
+                  textColor: ColorConstant.white,
+                  title: "Subscribe",
+                  onTap: () {
+                    if (selectedMembership == null) {
+                      toastShow(
+                          message: "Please select membership plan to proceed");
+                      return;
+                    }
+                    makeStripePayment(amount);
+                    setState(() {
+                      isShowPlan = false;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget membershipWidget({MembershipData? membershipData}) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          amount = membershipData.amount;
+          selectedMembership = membershipData.id;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Material(
+          elevation: 2,
+          borderRadius: BorderRadius.circular(5),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: selectedMembership == membershipData!.id
+                    ? ColorConstant.mainColor
+                    : Colors.transparent),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    membershipData.title!,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: selectedMembership == membershipData.id
+                          ? ColorConstant.white
+                          : ColorConstant.mainColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 0,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "${membershipData.amount!} AED/ ${membershipData.days!} Days",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: selectedMembership == membershipData.id
+                          ? ColorConstant.white
+                          : ColorConstant.black,
+                    ),
+                  ),
+                ),
+                if (AppConstant.userData!.isPremiumUser == false &&
+                    membershipData.amount == "0") ...[
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: selectedMembership == membershipData.id
+                          ? ColorConstant.white
+                          : Colors.transparent,
+                      border: Border.all(color: ColorConstant.greyColor),
+                    ),
+                    child: const Text(
+                      "Currently active",
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+                const SizedBox(
+                  height: 0,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    membershipData.desc!,
+                    maxLines: 3,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: selectedMembership == membershipData.id
+                            ? ColorConstant.white
+                            : ColorConstant.black),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void imagePickerPopUp() async {
@@ -313,8 +608,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final XFile? result =
           await _picker.pickImage(source: ImageSource.camera, imageQuality: 75);
       if (result != null) {
-        userImage = File(result.path);
-        setState(() {});
+        _cropImage(result.path);
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -326,11 +620,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final XFile? result = await _picker.pickImage(
           source: ImageSource.gallery, imageQuality: 75);
       if (result != null) {
-        userImage = File(result.path);
-        setState(() {});
+        _cropImage(result.path);
       }
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future _cropImage(String? imagePath) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: imagePath!,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: ColorConstant.mainColor,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Image Crop',
+        ),
+        WebUiSettings(
+          context: context,
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      userImage = File(croppedFile.path);
+      setState(() {});
     }
   }
 
@@ -403,9 +727,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         AppConstant.userData!.name = response.data!.name!;
         AppConstant.userData!.dateOfBirth = response.data!.dateOfBirth!;
         AppConstant.userData!.userBio = response.data!.userBio!;
-        response.data = AppConstant.userData!;
+        AppConstant.userData = response.data;
+
         await AppConstant.userDetailSaved(json.encode(response));
-        Get.to(() => const DashBoardScreen());
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: const DashBoardScreen(),
+          ),
+        );
       } else {
         toastShow(message: response.message);
       }
@@ -416,5 +748,128 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         isLoading = false;
       });
     }
+  }
+
+  Future<void> makeStripePayment(String? priceTotal) async {
+    Stripe.publishableKey = AppConstant.stripePublic;
+    Stripe.merchantIdentifier = 'Mohd Saad bhati';
+    await Stripe.instance.applySettings();
+    int price = double.parse(priceTotal!).toInt();
+    try {
+      paymentIntent = await createPaymentIntent(price.toString(), 'INR');
+
+      // STEP 2: Initialize Payment Sheet
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+            paymentIntentClientSecret:
+                paymentIntent!['client_secret'], //Gotten from payment intent
+            style: ThemeMode.light,
+            merchantDisplayName: 'NowoChat',
+          ))
+          .then((value) {});
+
+      //STEP 3: Display Payment sheet
+      displayPaymentSheet();
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: paymentIntent!['client_secret'],
+          customFlow: true,
+          allowsDelayedPaymentMethods: true,
+          googlePay: const PaymentSheetGooglePay(
+            merchantCountryCode: 'IN',
+            testEnv: true,
+          ),
+          style: ThemeMode.light,
+          merchantDisplayName: 'NowoChat',
+        ),
+      );
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+            context: context,
+            builder: (_) => const AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
+                  ),
+                ));
+        // paymentSuccess(
+        //   transactionID: DateTime.now().millisecondsSinceEpoch.toString(),
+        // );
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      debugPrint(e.toString());
+      const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                Text("Payment Failed"),
+              ],
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  createPaymentIntent(String amount, String currency) async {
+    try {
+      //Request body
+      Map<String, dynamic> body = {
+        'amount': calculateAmount(amount),
+        'currency': currency,
+      };
+
+      //Make post request to Stripe
+      var response = await Dio().post(
+        'https://api.stripe.com/v1/payment_intents',
+        data: body,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${AppConstant.stripeSecretKey}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+        ),
+      );
+      paymentIntent = response.data;
+      return response.data;
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
+
+  calculateAmount(String amount) {
+    final calculatedAmount = (int.parse(amount)) * 100;
+    return calculatedAmount.toString();
   }
 }

@@ -1,14 +1,16 @@
 import 'dart:io';
-
+import 'package:app/screen/profile/guest_profile/guest_profile_screen.dart';
+import 'package:get/get.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/video_player/video_player_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 Widget recipeListWidget(
     {BuildContext? context,
@@ -22,51 +24,72 @@ Widget recipeListWidget(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 1.5,
-          decoration: const BoxDecoration(color: ColorConstant.greyDarkColor),
-        ),
         const SizedBox(
-          height: 15,
+          height: 5,
         ),
         isMyRecipe == true
             ? const SizedBox()
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomImageCircular(
-                        imagePath: recipeData!.userImage ?? "",
-                        height: 35,
-                        width: 35,
-                      ),
-                      Text(
-                        recipeData.user ?? AppConstant.appName,
-                        style: const TextStyle(
-                            fontSize: 14,
-                            color: ColorConstant.black,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                    ],
+            : Column(
+                children: [
+                  const Divider(
+                    thickness: 2,
                   ),
-                ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(
+                          () => GuestProfileScreen(
+                            userID: recipeData.userID,
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CustomImageCircular(
+                            imagePath: recipeData!.userImage ?? "",
+                            height: 35,
+                            width: 35,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            recipeData.user ?? AppConstant.appName,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: "rubik",
+                                color: ColorConstant.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
         const SizedBox(
-          height: 15,
+          height: 13,
         ),
         recipeData!.media.toString().contains('.mp4')
             ? GestureDetector(
                 onTap: () {
-                  Get.to(() => VideoPlayerScreen(
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      duration: Duration(
+                          milliseconds: AppConstant.pageAnimationDuration),
+                      child: VideoPlayerScreen(
                         videoPath:
                             "${AppConstant.imagePath}${recipeData.media}",
-                      ));
+                      ),
+                    ),
+                  );
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 1,
@@ -82,7 +105,7 @@ Widget recipeListWidget(
                               )
                             : Image.file(
                                 File(recipeData.videoThumbnail ?? ""),
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                               ),
                       ),
                       Center(
@@ -144,29 +167,33 @@ Widget recipeListWidget(
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                height: 30,
-                decoration: BoxDecoration(
-                  color: ColorConstant.greyColor.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: GestureDetector(
-                  onTap: onTap,
+              InkWell(
+                onTap: onTap,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.greyColor.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.favorite,
-                        color: recipeData.isLikedByMe == true
-                            ? ColorConstant.mainColor
-                            : ColorConstant.greyDarkColor,
-                        size: 18,
-                      ),
+                      !recipeData.isLoading
+                          ? Icon(
+                              Icons.favorite,
+                              color: recipeData.isLikedByMe == true
+                                  ? ColorConstant.mainColor
+                                  : ColorConstant.greyDarkColor,
+                              size: 18,
+                            )
+                          : microLoader(height: 16, width: 16),
                       const SizedBox(
                         width: 7,
                       ),
                       Text(
-                        "${recipeData.likeCount} Likes",
+                        (recipeData.likeCount == 0 || recipeData.likeCount == 1)
+                            ? "${recipeData.likeCount} Like"
+                            : "${recipeData.likeCount} Likes",
                         style: const TextStyle(
                             fontSize: 12,
                             color: ColorConstant.black,
@@ -217,17 +244,19 @@ Widget recipeListWidget(
                   TextSpan(
                     text: '${recipeData.nameDish} - ',
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "rubik",
                       color: ColorConstant.mainColor,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                   TextSpan(
                     text: recipeData.smallDesc,
                     style: const TextStyle(
+                      fontFamily: "rubik",
                       fontWeight: FontWeight.w500,
                       color: ColorConstant.black,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                 ],
@@ -235,26 +264,32 @@ Widget recipeListWidget(
             ),
           ),
         ),
-        SizedBox(
-          height: isFromRecipe == true ? 10 : 0,
+        const SizedBox(
+          height: 10,
         ),
-        isFromRecipe == true
+        recipeData.categories!.isNotEmpty
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10.0,
-                    childAspectRatio: 4,
-                    crossAxisSpacing: 12,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 22,
+                  child: ListView.builder(
+                    // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //   crossAxisCount: 3,
+                    //   mainAxisSpacing: 10.0,
+                    //   childAspectRatio: 4,
+                    //   crossAxisSpacing: 12,
+                    // ),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: recipeData.categories!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return categoryBox(
+                          title: recipeData.categories![index],
+                          context: context);
+                    },
                   ),
-                  itemCount: recipeData.categories!.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return categoryBox(
-                        title: recipeData.categories![index], context: context);
-                  },
                 ),
               )
             : const SizedBox(),
@@ -267,20 +302,24 @@ Widget recipeListWidget(
 }
 
 Widget categoryBox({String? title, BuildContext? context}) {
-  return Container(
-    height: 24,
-    width: MediaQuery.of(context!).size.width * .29,
-    decoration: BoxDecoration(
-      color: ColorConstant.mainColor,
-      borderRadius: BorderRadius.circular(15),
-    ),
-    alignment: Alignment.center,
-    child: Text(
-      title!,
-      style: const TextStyle(
-          fontSize: 14,
+  return Padding(
+    padding: const EdgeInsets.only(right: 7),
+    child: Container(
+      height: 18,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: ColorConstant.mainColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        title!,
+        style: const TextStyle(
+          fontSize: 12,
           color: ColorConstant.white,
-          fontWeight: FontWeight.w400),
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     ),
   );
 }

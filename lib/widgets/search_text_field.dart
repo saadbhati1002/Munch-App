@@ -1,5 +1,6 @@
 import 'package:app/utility/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomSearchTextField extends StatelessWidget {
   const CustomSearchTextField(
@@ -73,6 +74,8 @@ class CustomSearchTextField extends StatelessWidget {
       margin: margin,
       height: isMaxLine == true ? 150 : 45,
       child: TextField(
+        textCapitalization: TextCapitalization.characters,
+        inputFormatters: <TextInputFormatter>[UpperCaseTextFormatter()],
         textInputAction:
             isMaxLine == true ? TextInputAction.newline : TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.multiline,
@@ -149,4 +152,20 @@ class CustomSearchTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: capitalize(newValue.text),
+      selection: newValue.selection,
+    );
+  }
+}
+
+String capitalize(String value) {
+  if (value.trim().isEmpty) return "";
+  return "${value[0].toUpperCase()}${value.substring(1).toLowerCase()}";
 }

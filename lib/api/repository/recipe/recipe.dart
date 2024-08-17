@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:app/api/network/recipe/recipe.dart';
 import 'package:app/utility/constant.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class RecipeRepository {
-  Future<dynamic> getRecipesApiCall() async {
-    return await RecipeNetwork.getRecipeList();
+  Future<dynamic> getRecipesApiCall({int? count, String? search}) async {
+    final prams = {"count": count, "search": search};
+
+    return await RecipeNetwork.getRecipeList(prams);
   }
 
   Future<dynamic> recipeLikeApiCall({String? recipeID}) async {
@@ -79,7 +82,8 @@ class RecipeRepository {
       String? method,
       String? methodTagLine,
       String? chefWhisper,
-      String? chefWhisperTagline}) async {
+      String? chefWhisperTagline,
+      @required int? status}) async {
     String fileName = recipeImage!.path.split('/').last;
 
     final body = FormData.fromMap({
@@ -97,11 +101,17 @@ class RecipeRepository {
       "method_tagline": methodTagLine,
       "chefs_whisper": chefWhisper,
       "chefs_whisper_tagline": chefWhisperTagline,
+      "is_approved": status
     });
     return await RecipeNetwork.createRecipe(body);
   }
 
   Future<dynamic> getMyRecipesApiCall() async {
     return await RecipeNetwork.getMyRecipeList();
+  }
+
+  Future<dynamic> deleteRecipeApiCall({String? recipeID}) async {
+    final params = {"id": recipeID};
+    return await RecipeNetwork.deleteRecipe(params);
   }
 }

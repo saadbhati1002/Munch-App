@@ -14,6 +14,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "audio_session",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.19",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "blur",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/blur-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -56,6 +68,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "chewie",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/chewie-1.7.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -90,6 +108,12 @@
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "dbus",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "dio",
@@ -176,6 +200,18 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flutter_rating_bar",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_rating_bar-4.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "flutter_stripe",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_stripe-10.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
@@ -194,6 +230,18 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "flutter_widget_from_html",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_widget_from_html-0.15.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "flutter_widget_from_html_core",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_widget_from_html_core-0.15.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "fluttertoast",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fluttertoast-8.2.4",
       "packageUri": "lib/",
@@ -204,6 +252,48 @@
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "freezed_annotation",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/freezed_annotation-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "fwfh_cached_network_image",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_cached_network_image-0.14.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "fwfh_chewie",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_chewie-0.14.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "fwfh_just_audio",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_just_audio-0.15.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "fwfh_svg",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_svg-0.8.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "fwfh_url_launcher",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_url_launcher-0.9.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "fwfh_webview",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_webview-0.15.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "get",
@@ -228,6 +318,24 @@
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "image_cropper",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper-5.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "image_cropper_for_web",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper_for_web-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "image_cropper_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper_platform_interface-5.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "image_picker",
@@ -284,10 +392,46 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "js",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "just_audio",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio-0.9.38",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "just_audio_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_platform_interface-4.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "just_audio_web",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_web-0.4.11",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "logging",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "matcher",
@@ -320,10 +464,34 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "octo_image",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/octo_image-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "package_info_plus",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/package_info_plus-5.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/package_info_plus_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "page_transition",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/page_transition-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "path",
@@ -390,6 +558,12 @@
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "rxdart",
@@ -510,6 +684,24 @@
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "stripe_android",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_android-10.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "stripe_ios",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_ios-10.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "stripe_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_platform_interface-10.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "synchronized",
@@ -650,8 +842,44 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "wakelock_plus",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/wakelock_plus-1.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "wakelock_plus_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/wakelock_plus_platform_interface-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "web",
       "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "webview_flutter",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter-4.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_android-3.16.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_platform_interface-2.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///C:/Users/saadb/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -680,7 +908,6 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-04-20T09:08:36.008149Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

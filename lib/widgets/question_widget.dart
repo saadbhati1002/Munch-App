@@ -2,6 +2,7 @@ import 'package:app/models/q_and_a/question_model.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 
 Widget questionWidget(
@@ -20,25 +21,34 @@ Widget questionWidget(
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomImageCircular(
-                imagePath: questionData!.userImage,
-                height: 25,
-                width: 25,
-              ),
-              const SizedBox(
-                width: 7,
-              ),
-              Text(
-                questionData.user ?? AppConstant.appName,
-                style: const TextStyle(
-                    fontSize: 13,
-                    color: ColorConstant.black,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
+          child: GestureDetector(
+            onTap: () {
+              // Get.to(
+              //   () => GuestProfileScreen(
+              //     userID: questionData.user,
+              //   ),
+              // );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomImageCircular(
+                  imagePath: questionData!.userImage,
+                  height: 25,
+                  width: 25,
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
+                Text(
+                  questionData.user ?? AppConstant.appName,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      color: ColorConstant.black,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(
@@ -78,21 +88,26 @@ Widget questionWidget(
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: onLikeUnlikeTap,
-                    child: Icon(
-                      Icons.favorite,
-                      color: questionData.isLikedByMe
-                          ? ColorConstant.mainColor
-                          : ColorConstant.greyColor,
-                      size: 17,
-                    ),
-                  ),
+                  !questionData.isLoading
+                      ? GestureDetector(
+                          onTap: onLikeUnlikeTap,
+                          child: Icon(
+                            Icons.favorite,
+                            color: questionData.isLikedByMe
+                                ? ColorConstant.mainColor
+                                : ColorConstant.greyColor,
+                            size: 17,
+                          ),
+                        )
+                      : microLoader(height: 16, width: 16),
                   const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "${questionData.likeCount} Likes",
+                    (int.parse(questionData.likeCount!) == 0 ||
+                            int.parse(questionData.likeCount!) == 1)
+                        ? "${questionData.likeCount} Like"
+                        : "${questionData.likeCount} Likes",
                     style: const TextStyle(
                         fontSize: 12,
                         color: ColorConstant.black,
@@ -101,7 +116,10 @@ Widget questionWidget(
                 ],
               ),
               Text(
-                "${questionData.replyCount} Replays",
+                (int.parse(questionData.replyCount!) == 0 ||
+                        int.parse(questionData.replyCount!) == 1)
+                    ? "${questionData.replyCount} reply"
+                    : "${questionData.replyCount} reply's",
                 style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstant.black,

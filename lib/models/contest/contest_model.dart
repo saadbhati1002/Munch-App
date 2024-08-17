@@ -41,7 +41,7 @@ class ContestData {
     title = json['title'];
     titleTagline = json['title_tagline'];
     rules = json['rules'] != null ? json['rules'].split(',') : [];
-    numOfParticipate = json['num_of_participate'];
+    numOfParticipate = json['num_of_participate'].toString();
   }
 
   Map<String, dynamic> toJson() {

@@ -10,12 +10,14 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/common_skeleton.dart';
+import 'package:page_transition/page_transition.dart';
+
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/question_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:skeletons/skeletons.dart';
 
 class QuestionAndAnswerScreen extends StatefulWidget {
   const QuestionAndAnswerScreen({super.key});
@@ -45,9 +47,8 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       });
       QuestionRes response = await QAndARepository().getQuestionListApiCall();
       if (response.data!.isNotEmpty) {
-        setState(() {
-          questionList = response.data!;
-        });
+        questionList = response.data!;
+        _checkForUserQuestionLike();
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -55,6 +56,19 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       setState(() {
         isLoading = false;
       });
+    }
+  }
+
+  _checkForUserQuestionLike() {
+    for (int i = 0; i < questionList.length; i++) {
+      var contain = questionList[i].likedUsers.where(
+          (element) => element.id.toString() == AppConstant.userData!.id);
+      if (contain.isNotEmpty) {
+        questionList[i].isLikedByMe = true;
+      }
+    }
+    if (mounted) {
+      setState(() {});
     }
   }
 
@@ -86,8 +100,14 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          var response = await Get.to(
-            () => const AddQuestionsScreen(),
+          var response = await Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.leftToRight,
+              duration:
+                  Duration(milliseconds: AppConstant.pageAnimationDuration),
+              child: const AddQuestionsScreen(),
+            ),
           );
 
           if (response != null) {
@@ -119,6 +139,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                   AppConstant.userData!.name;
               questionList[questionList.length - 1].userImage =
                   AppConstant.userData!.image;
+              questionList[questionList.length - 1].replyCount = "0";
             } catch (e) {
               debugPrint(e.toString());
             }
@@ -161,7 +182,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                     'Q&A',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: ColorConstant.organColor,
+                      color: ColorConstant.mainColor,
                       fontSize: 20,
                     ),
                   ),
@@ -206,21 +227,31 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                               return searchedName == null || searchedName == ""
                                   ? GestureDetector(
                                       onTap: () async {
-                                        var response = await Get.to(
-                                          () => QuestionReplyScreen(
-                                            questionData: questionList[index],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: QuestionReplyScreen(
+                                              questionData: questionList[index],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
                                           QuestionData questionResponse =
                                               QuestionData.fromJson(
                                                   jsonDecode(response));
+
                                           questionList[index].isLikedByMe =
                                               questionResponse.isLikedByMe;
                                           questionList[index].likeCount =
                                               questionResponse.likeCount;
                                           questionList[index].replyCount =
                                               questionResponse.replyCount;
+                                          _checkForUserQuestionLike();
                                           setState(() {});
                                         }
                                       },
@@ -238,14 +269,24 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                                         },
                                       ),
                                     )
-                                  : searchedName!.contains(
-                                          questionList[index].questionTitle!)
+                                  : searchedName!.toLowerCase().contains(
+                                          questionList[index]
+                                              .questionTitle!
+                                              .toLowerCase())
                                       ? GestureDetector(
                                           onTap: () async {
-                                            var response = await Get.to(
-                                              () => QuestionReplyScreen(
-                                                questionData:
-                                                    questionList[index],
+                                            var response = await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: Duration(
+                                                    milliseconds: AppConstant
+                                                        .pageAnimationDuration),
+                                                child: QuestionReplyScreen(
+                                                  questionData:
+                                                      questionList[index],
+                                                ),
                                               ),
                                             );
                                             if (response != null) {
@@ -300,6 +341,9 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                           return const CommonSkeleton();
                         },
                       ),
+                const SizedBox(
+                  height: 60,
+                ),
               ],
             ),
           ),
@@ -309,10 +353,117 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
     );
   }
 
+  Widget questionSkeleton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      child: Material(
+        elevation: 1,
+        borderRadius: BorderRadius.circular(10),
+        shadowColor: ColorConstant.mainColor,
+        child: Container(
+          height: MediaQuery.of(context).size.height * .23,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(width: 0.5, color: ColorConstant.mainColor),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                          width: 30,
+                          height: 30,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 15,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .25,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .025,
+                  ),
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      height: 15,
+                      randomLength: false,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .85,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .01,
+                  ),
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      height: 15,
+                      randomLength: false,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .85,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .01,
+                  ),
+                  SkeletonLine(
+                    style: SkeletonLineStyle(
+                      height: 15,
+                      randomLength: true,
+                      borderRadius: BorderRadius.circular(10),
+                      width: MediaQuery.of(context).size.width * .85,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .02,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 15,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .35,
+                        ),
+                      ),
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 15,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .35,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   _questionLike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        questionList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository()
           .questionLikeApiCall(questionID: questionList[index!].id.toString());
@@ -323,7 +474,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
         // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Question.") {
+        if (response.message!.trim() == "You are already like this question.") {
           questionList[index].likeCount =
               (int.parse(questionList[index].likeCount!) + 1).toString();
           questionList[index].isLikedByMe = true;
@@ -333,7 +484,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        questionList[index!].isLoading = false;
       });
     }
   }
@@ -341,7 +492,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
   _questionUnlike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        questionList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository().questionUnlikeApiCall(
           questionID: questionList[index!].id.toString());
@@ -357,7 +508,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        questionList[index!].isLoading = false;
       });
     }
   }

@@ -31,15 +31,17 @@ class BannerData {
   int? id;
   String? image;
   String? url;
+  String? recipeID;
   String? createdAt;
   String? updatedAt;
 
-  BannerData({id, image, url, createdAt, updatedAt});
+  BannerData({id, image, url, createdAt, updatedAt, recipeID});
 
   BannerData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     image = json['image'];
     url = json['url'];
+    recipeID = json['recipie_id'].toString();
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -49,6 +51,7 @@ class BannerData {
     data['id'] = id;
     data['image'] = image;
     data['url'] = url;
+    data["recipie_id"] = recipeID;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

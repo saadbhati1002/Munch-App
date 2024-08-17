@@ -9,4 +9,8 @@ class ContestRepository {
     final param = {"id": contestID};
     return await ContestNetwork.participateInContest(param);
   }
+
+  Future<dynamic> getContestParticipateApiCall({String? contestID}) async {
+    return await ContestNetwork.getContestParticipate(contestID);
+  }
 }

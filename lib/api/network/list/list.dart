@@ -10,7 +10,7 @@ class ListNetwork {
   static const String listRemoveUrl = "ingredent/delete";
   static Future<dynamic> getList() async {
     final result = await httpManager.get(url: listUrl);
-    print(result);
+
     ListRes response = ListRes.fromJson(result);
     return response;
   }

@@ -88,7 +88,7 @@ class _GuestProfileScreenState extends State<GuestProfileScreen> {
                           width: MediaQuery.of(context).size.width * .4,
                           alignment: Alignment.center,
                           child: const Text(
-                            "Premium Member",
+                            "Normal Member",
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
@@ -154,7 +154,7 @@ class _GuestProfileScreenState extends State<GuestProfileScreen> {
       ),
       alignment: Alignment.centerLeft,
       child: Text(
-        text!,
+        text ?? '',
         style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,

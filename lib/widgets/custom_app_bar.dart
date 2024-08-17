@@ -5,7 +5,7 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 customAppBar(
   key, {
@@ -22,8 +22,10 @@ customAppBar(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const ProfileScreen(),
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+            child: const ProfileScreen(),
           ),
         );
       },
@@ -36,13 +38,14 @@ customAppBar(
             CustomImageCircular(
               height: 45,
               width: 45,
-              imagePath: AppConstant.userData!.image ?? '',
+              imagePath:
+                  "${AppConstant.imagePath}${AppConstant.userData!.image}",
             ),
             const SizedBox(
               width: 10,
             ),
             SizedBox(
-              width: MediaQuery.of(context!).size.width * .56,
+              width: MediaQuery.of(context!).size.width * .55,
               child: Text(
                 AppConstant.userData!.name ?? AppConstant.appName,
                 maxLines: 1,
@@ -61,7 +64,14 @@ customAppBar(
         padding: const EdgeInsets.only(top: 3, right: 20),
         child: GestureDetector(
           onTap: () {
-            Get.to(() => const NotificationScreen());
+            Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.leftToRight,
+                  duration:
+                      Duration(milliseconds: AppConstant.pageAnimationDuration),
+                  child: const NotificationScreen()),
+            );
           },
           child: const Icon(
             Icons.notifications,

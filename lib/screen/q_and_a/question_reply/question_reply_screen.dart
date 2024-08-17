@@ -186,7 +186,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
   _questionLike() async {
     try {
       setState(() {
-        isApiLoading = true;
+        widget.questionData!.isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository()
           .questionLikeApiCall(questionID: widget.questionData!.id.toString());
@@ -194,10 +194,8 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
         widget.questionData!.likeCount =
             (int.parse(widget.questionData!.likeCount!) + 1).toString();
         widget.questionData!.isLikedByMe = true;
-        toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Question.") {
+        if (response.message!.trim() == "You are already like this question.") {
           widget.questionData!.likeCount =
               (int.parse(widget.questionData!.likeCount!) + 1).toString();
           widget.questionData!.isLikedByMe = true;
@@ -207,7 +205,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        widget.questionData!.isLoading = false;
       });
     }
   }
@@ -215,7 +213,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
   _questionUnlike() async {
     try {
       setState(() {
-        isApiLoading = true;
+        widget.questionData!.isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository().questionUnlikeApiCall(
           questionID: widget.questionData!.id.toString());
@@ -231,7 +229,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        widget.questionData!.isLoading = false;
       });
     }
   }
@@ -239,7 +237,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
   _replyLike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        replyList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository()
           .replyLikeApiCall(replyID: replyList[index!].id.toString());
@@ -247,9 +245,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
         replyList[index].likeCount =
             (int.parse(replyList[index].likeCount!) + 1).toString();
         replyList[index].isLikedByMe = true;
-        // toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
         if (response.message!.trim() == "You are already Like This Reply.") {
           replyList[index].likeCount =
               (int.parse(replyList[index].likeCount!) + 1).toString();
@@ -260,7 +256,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        replyList[index!].isLoading = false;
       });
     }
   }
@@ -268,7 +264,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
   _replyUnlike({int? index}) async {
     try {
       setState(() {
-        isApiLoading = true;
+        replyList[index!].isLoading = true;
       });
       LikeUnlikeRes response = await QAndARepository()
           .replyUnlikeApiCall(replyID: replyList[index!].id.toString());
@@ -284,7 +280,7 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isApiLoading = false;
+        replyList[index!].isLoading = false;
       });
     }
   }

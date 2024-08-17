@@ -36,15 +36,16 @@ class HTTPManager {
     BuildContext? context,
   }) async {
     var optionsMain = Options(
-        followRedirects: false,
-        validateStatus: (status) {
-          return status! < 500;
-        },
-        headers: {
-          "Authorization": AppConstant.bearerToken != "null"
-              ? "Bearer ${AppConstant.bearerToken}"
-              : "",
-        });
+      followRedirects: false,
+      validateStatus: (status) {
+        return status! < 500;
+      },
+      headers: {
+        "Authorization": AppConstant.bearerToken != "null"
+            ? "Bearer ${AppConstant.bearerToken}"
+            : "",
+      },
+    );
 
     Dio dio = Dio(baseOptions);
     var internet = await ViewUtils.isConnected();
@@ -59,6 +60,7 @@ class HTTPManager {
         if (response.statusCode == 200 && response.statusCode == 422) {
           return response.data;
         } else {
+          print(response.data);
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
             await AppConstant.userDetailSaved("null");
@@ -68,6 +70,7 @@ class HTTPManager {
           return response.data;
         }
       } on DioException catch (error) {
+        print(error);
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
           await AppConstant.userDetailSaved("null");

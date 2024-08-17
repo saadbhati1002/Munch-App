@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.flutter.stripe.stripe_android-mergeReleaseResources-88:/values-ht/values-ht.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\5363c22c35411896eb356f3f52be617a\\transformed\\jetified-hcaptcha-20.37.4\\res\\values-ht\\values-ht.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "75",
+                        "endOffsets": "126"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.flutter.stripe.stripe_android-merged_res-90:/values-ht/values-ht.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\saadb\\.gradle\\caches\\transforms-3\\5363c22c35411896eb356f3f52be617a\\transformed\\jetified-hcaptcha-20.37.4\\res\\values-ht\\values-ht.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "75",
+                        "endOffsets": "126"
+                    }
+                }
+            ]
+        }
+    ]
+}

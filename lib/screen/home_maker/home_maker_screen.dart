@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:app/api/repository/user/user.dart';
@@ -8,13 +9,13 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_title.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeMakerScreen extends StatefulWidget {
   const HomeMakerScreen({super.key});
@@ -26,6 +27,8 @@ class HomeMakerScreen extends StatefulWidget {
 class _HomeMakerScreenState extends State<HomeMakerScreen> {
   List<AdminUser> adminList = [];
   bool isLoading = false;
+  Timer? _debounce;
+  String? searchedName;
   @override
   void initState() {
     _getAdminUser();
@@ -74,6 +77,20 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
   }
 
   @override
+  void dispose() {
+    _debounce?.cancel();
+
+    super.dispose();
+  }
+
+  _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      searchedName = query;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.backGroundColor,
@@ -94,6 +111,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CustomSearchTextField(
                 context: context,
+                onChanged: _onSearchChanged,
                 hintText: 'Search for home makers',
                 prefix: const Icon(
                   Icons.search,
@@ -111,10 +129,18 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return homeMakerWidget(
-                        context: context,
-                        userData: adminList[index],
-                      );
+                      return searchedName == null || searchedName == ""
+                          ? homeMakerWidget(
+                              context: context,
+                              userData: adminList[index],
+                            )
+                          : searchedName!.toLowerCase().contains(
+                                  adminList[index].name!.toLowerCase())
+                              ? homeMakerWidget(
+                                  context: context,
+                                  userData: adminList[index],
+                                )
+                              : const SizedBox();
                     },
                   )
                 : ListView.builder(
@@ -123,40 +149,10 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return recipeSkeleton();
+                      return recipeSkeleton(context: context);
                     },
                   ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget recipeSkeleton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(10),
-        shadowColor: ColorConstant.mainColor,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SkeletonTheme(
-              themeMode: ThemeMode.light,
-              child: SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ),
-          ),
         ),
       ),
     );
@@ -181,10 +177,15 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomImageCircular(
-                  imagePath: userData!.image,
-                  height: 25,
-                  width: 25,
+                GestureDetector(
+                  onTap: () {
+                    print("${AppConstant.imagePath}${userData.image}");
+                  },
+                  child: CustomImageCircular(
+                    imagePath: "${AppConstant.imagePath}${userData!.image}",
+                    height: 25,
+                    width: 25,
+                  ),
                 ),
                 Text(
                   userData.name!,
@@ -206,10 +207,18 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
           userData.video.toString().contains('.mp4')
               ? GestureDetector(
                   onTap: () {
-                    Get.to(() => VideoPlayerScreen(
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: VideoPlayerScreen(
                           videoPath:
                               "${AppConstant.imagePath}${userData.video}",
-                        ));
+                        ),
+                      ),
+                    );
                   },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 1,
@@ -225,7 +234,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                                 )
                               : Image.file(
                                   File(userData.videoThumbnail ?? ""),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.contain,
                                 ),
                         ),
                         Center(
@@ -249,7 +258,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
               : CustomImage(
                   width: MediaQuery.of(context).size.width * 1,
                   height: MediaQuery.of(context).size.height * .45,
-                  imagePath: userData.video,
+                  imagePath: "${AppConstant.imagePath}${userData.video}",
                 ),
           const SizedBox(
             height: 15,

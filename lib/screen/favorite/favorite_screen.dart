@@ -9,13 +9,13 @@ import 'package:app/utility/constant.dart';
 import 'package:app/widgets/common_drawer.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
+import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -192,9 +192,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               return searchedName == null || searchedName == ""
                                   ? GestureDetector(
                                       onTap: () async {
-                                        var response = await Get.to(
-                                          () => RecipeDetailScreen(
-                                            recipeData: recipeList[index],
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: RecipeDetailScreen(
+                                              recipeData: recipeList[index],
+                                            ),
                                           ),
                                         );
                                         if (response != null) {
@@ -241,9 +249,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           .contains(recipeList[index].nameDish!)
                                       ? GestureDetector(
                                           onTap: () async {
-                                            var response = await Get.to(
-                                              () => RecipeDetailScreen(
-                                                recipeData: recipeList[index],
+                                            var response = await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: Duration(
+                                                    milliseconds: AppConstant
+                                                        .pageAnimationDuration),
+                                                child: RecipeDetailScreen(
+                                                  recipeData: recipeList[index],
+                                                ),
                                               ),
                                             );
                                             if (response != null) {
@@ -301,7 +317,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return recipeSkeleton();
+                          return recipeSkeleton(context: context);
                         },
                       ),
               ],
@@ -313,50 +329,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     );
   }
 
-  Widget recipeSkeleton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(10),
-        shadowColor: ColorConstant.mainColor,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.9, color: ColorConstant.mainColor),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SkeletonTheme(
-              themeMode: ThemeMode.light,
-              child: SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   _recipeLike({String? recipeID, int? index}) async {
     try {
       setState(() {
-        isLoading = true;
+        recipeList[index!].isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeLikeApiCall(recipeID: recipeID);
       if (response.success == true) {
         recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
         recipeList[index].isLikedByMe = true;
-        toastShow(message: response.message);
       } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
+        if (response.message!.trim() == "You are already like this recipe.") {
           recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
           recipeList[index].isLikedByMe = true;
         }
@@ -365,7 +349,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        recipeList[index!].isLoading = true;
       });
     }
   }
@@ -373,7 +357,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   _recipeUnlike({String? recipeID, int? index}) async {
     try {
       setState(() {
-        isLoading = true;
+        recipeList[index!].isLoading = true;
       });
       LikeUnlikeRes response =
           await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
@@ -381,7 +365,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
         recipeList[index].isLikedByMe = false;
         recipeList.removeAt(index);
-        toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
@@ -389,7 +372,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       debugPrint(e.toString());
     } finally {
       setState(() {
-        isLoading = false;
+        // recipeList[index!].isLoading = true;
       });
     }
   }

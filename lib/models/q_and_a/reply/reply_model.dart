@@ -37,6 +37,7 @@ class ReplyData {
   String? userImage;
   List<LikedUsers> likedUsers = [];
   bool isLikedByMe = false;
+  bool isLoading = false;
 
   ReplyData(
       {id,
@@ -50,10 +51,10 @@ class ReplyData {
 
   ReplyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    questionId = json['question_id'];
+    questionId = json['question_id'].toString();
     questionTitle = json['question_title'];
     replyText = json['reply_text'];
-    likeCount = json['like_count'];
+    likeCount = json['like_count'].toString();
     user = json['user'];
     userImage = json['user_image'];
     if (json['liked_users'] != null) {

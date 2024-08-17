@@ -1,5 +1,7 @@
 import 'package:app/utility/color.dart';
+import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
@@ -73,6 +75,8 @@ class CustomTextFormField extends StatelessWidget {
       margin: margin,
       height: isMaxLine == true ? 180 : 45,
       child: TextField(
+        inputFormatters: <TextInputFormatter>[UpperCaseTextFormatter()],
+        textCapitalization: TextCapitalization.words,
         onTap: onTap,
         onChanged: onChanged,
         cursorColor: ColorConstant.mainColor,

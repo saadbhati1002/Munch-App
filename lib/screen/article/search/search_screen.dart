@@ -10,10 +10,10 @@ import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ArticleSearchScreen extends StatefulWidget {
   const ArticleSearchScreen({super.key});
@@ -24,27 +24,46 @@ class ArticleSearchScreen extends StatefulWidget {
 
 class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
   List<RecipeData> articleList = [];
+  final ScrollController _scrollController = ScrollController();
 
   Timer? _debounce;
   String? searchedName;
   bool isLoading = false;
+  bool isMoreArticleLoading = false;
+  int articleCount = 0;
 
   @override
   void initState() {
     _getArticleList();
+    _scrollController.addListener(_onScroll);
+
     super.initState();
   }
 
+  _onScroll() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      _getArticleList();
+    }
+  }
+
   Future _getArticleList() async {
+    articleCount = articleCount + 10;
+    isMoreArticleLoading = false;
     try {
       setState(() {
         isLoading = true;
       });
-      RecipeRes response = await ArticleRepository().getArticlesApiCall();
+      RecipeRes response =
+          await ArticleRepository().getArticlesApiCall(count: articleCount);
       if (response.data.isNotEmpty) {
         articleList = response.data;
         _checkForUserArticleLike();
         _getArticleVideoThumbnail();
+        if (articleList.length == articleCount) {
+          isMoreArticleLoading = true;
+        }
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -106,7 +125,36 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
       setState(() {
         searchedName = query;
       });
+      _getArticleSearchList();
     });
+  }
+
+  Future _getArticleSearchList() async {
+    articleCount = articleCount + 10;
+    isMoreArticleLoading = false;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      RecipeRes response = await ArticleRepository()
+          .getArticlesApiCall(count: articleCount, search: searchedName);
+      if (response.data.isNotEmpty) {
+        articleList = response.data;
+        _checkForUserArticleLike();
+        _getArticleVideoThumbnail();
+        if (articleList.length == articleCount) {
+          isMoreArticleLoading = true;
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -120,6 +168,7 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
         },
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             const SizedBox(
@@ -130,14 +179,9 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
               child: CustomSearchTextField(
                 onChanged: _onSearchChanged,
                 context: context,
-                hintText: 'Search for Article',
+                hintText: 'Search for Community',
                 prefix: const Icon(
                   Icons.search,
-                  size: 25,
-                  color: ColorConstant.greyColor,
-                ),
-                suffix: const Icon(
-                  Icons.filter_alt_rounded,
                   size: 25,
                   color: ColorConstant.greyColor,
                 ),
@@ -148,61 +192,24 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
             ),
             isLoading == false
                 ? ListView.builder(
-                    itemCount: articleList.length,
+                    itemCount: articleList.length + 1,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return searchedName == null || searchedName == ""
-                          ? GestureDetector(
-                              onTap: () async {
-                                var response = await Get.to(
-                                  () => ArticleDetailScreen(
-                                    articleDate: articleList[index],
-                                  ),
-                                );
-                                if (response != null) {
-                                  if (response == 0 &&
-                                      articleList[index].isLikedByMe == false) {
-                                    articleList[index].isLikedByMe = true;
-                                    articleList[index].likeCount =
-                                        articleList[index].likeCount! + 1;
-                                  } else if (response == 1 &&
-                                      articleList[index].isLikedByMe == true) {
-                                    articleList[index].isLikedByMe = false;
-                                    articleList[index].likeCount =
-                                        articleList[index].likeCount! - 1;
-                                  }
-                                  setState(() {});
-                                }
-                              },
-                              child: recipeListWidget(
-                                  context: context,
-                                  recipeData: articleList[index],
-                                  isFromRecipe: false,
-                                  onTap: () {
-                                    if (articleList[index].isLikedByMe ==
-                                        true) {
-                                      _articleUnlike(
-                                          articleID: articleList[index].id,
-                                          index: index);
-                                    } else {
-                                      _articleLike(
-                                        articleID: articleList[index].id,
-                                        index: index,
-                                      );
-                                    }
-                                  }),
-                            )
-                          : articleList[index]
-                                  .nameDish!
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(searchedName!.toLowerCase())
+                      return (index < articleList.length)
+                          ? searchedName == null || searchedName == ""
                               ? GestureDetector(
                                   onTap: () async {
-                                    var response = await Get.to(
-                                      () => ArticleDetailScreen(
-                                        articleDate: articleList[index],
+                                    var response = await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.leftToRight,
+                                        duration: Duration(
+                                            milliseconds: AppConstant
+                                                .pageAnimationDuration),
+                                        child: ArticleDetailScreen(
+                                          articleDate: articleList[index],
+                                        ),
                                       ),
                                     );
                                     if (response != null) {
@@ -240,6 +247,71 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                         }
                                       }),
                                 )
+                              : articleList[index]
+                                      .nameDish!
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(searchedName!.toLowerCase())
+                                  ? GestureDetector(
+                                      onTap: () async {
+                                        var response = await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: Duration(
+                                                milliseconds: AppConstant
+                                                    .pageAnimationDuration),
+                                            child: ArticleDetailScreen(
+                                              articleDate: articleList[index],
+                                            ),
+                                          ),
+                                        );
+                                        if (response != null) {
+                                          if (response == 0 &&
+                                              articleList[index].isLikedByMe ==
+                                                  false) {
+                                            articleList[index].isLikedByMe =
+                                                true;
+                                            articleList[index].likeCount =
+                                                articleList[index].likeCount! +
+                                                    1;
+                                          } else if (response == 1 &&
+                                              articleList[index].isLikedByMe ==
+                                                  true) {
+                                            articleList[index].isLikedByMe =
+                                                false;
+                                            articleList[index].likeCount =
+                                                articleList[index].likeCount! -
+                                                    1;
+                                          }
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: recipeListWidget(
+                                          context: context,
+                                          recipeData: articleList[index],
+                                          isFromRecipe: false,
+                                          onTap: () {
+                                            if (articleList[index]
+                                                    .isLikedByMe ==
+                                                true) {
+                                              _articleUnlike(
+                                                  articleID:
+                                                      articleList[index].id,
+                                                  index: index);
+                                            } else {
+                                              _articleLike(
+                                                articleID:
+                                                    articleList[index].id,
+                                                index: index,
+                                              );
+                                            }
+                                          }),
+                                    )
+                                  : const SizedBox()
+                          : (isMoreArticleLoading)
+                              ? recipeSkeleton()
                               : const SizedBox();
                     },
                   )

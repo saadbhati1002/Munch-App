@@ -8,11 +8,11 @@ import 'package:app/screen/list/add/add_list_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
-import 'package:app/widgets/common_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:skeletons/skeletons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -64,7 +64,6 @@ class _ListScreenState extends State<ListScreen> {
   @override
   void dispose() {
     _debounce?.cancel();
-
     super.dispose();
   }
 
@@ -94,15 +93,22 @@ class _ListScreenState extends State<ListScreen> {
                           'Your List',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: ColorConstant.organColor,
+                            color: ColorConstant.mainColor,
                             fontSize: 20,
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () async {
-                          var response = await Get.to(
-                            () => const AddListScreen(),
+                          var response = await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.leftToRight,
+                              duration: Duration(
+                                  milliseconds:
+                                      AppConstant.pageAnimationDuration),
+                              child: const AddListScreen(),
+                            ),
                           );
                           if (response != null) {
                             _getData();
@@ -184,7 +190,7 @@ class _ListScreenState extends State<ListScreen> {
                         itemCount: 10,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return const CommonSkeleton();
+                          return listSkeleton();
                         },
                       )
               ],
@@ -325,6 +331,95 @@ class _ListScreenState extends State<ListScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget listSkeleton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      child: Material(
+        elevation: 1,
+        borderRadius: BorderRadius.circular(10),
+        shadowColor: ColorConstant.mainColor,
+        child: Container(
+          height: MediaQuery.of(context).size.height * .3,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                          height: 18,
+                          randomLength: false,
+                          borderRadius: BorderRadius.circular(10),
+                          width: MediaQuery.of(context).size.width * .35,
+                        ),
+                      ),
+                      const SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                          width: 25,
+                          height: 25,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .02,
+                  ),
+                  ListView.builder(
+                    itemCount: 5,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * .01,
+                        ),
+                        child: Row(
+                          children: [
+                            const SkeletonAvatar(
+                              style: SkeletonAvatarStyle(
+                                width: 22,
+                                maxWidth: 22,
+                                maxHeight: 22,
+                                height: 22,
+                                shape: BoxShape.rectangle,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            SkeletonLine(
+                              style: SkeletonLineStyle(
+                                height: 15,
+                                randomLength: true,
+                                borderRadius: BorderRadius.circular(10),
+                                maxLength:
+                                    MediaQuery.of(context).size.width * .75,
+                                width: MediaQuery.of(context).size.width * .75,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

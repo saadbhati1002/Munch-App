@@ -3,6 +3,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 
 import 'package:app/widgets/custom_image_view_circular.dart';
+import 'package:app/widgets/micro_loader.dart';
 import 'package:flutter/material.dart';
 
 Widget commonCommentWidget(
@@ -25,7 +26,7 @@ Widget commonCommentWidget(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomImageCircular(
-                imagePath: commentData!.userImage,
+                imagePath: commentData!.userImage ?? "",
                 height: 25,
                 width: 25,
               ),
@@ -79,21 +80,25 @@ Widget commonCommentWidget(
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: onLikeUnlikeTap,
-                    child: Icon(
-                      Icons.favorite,
-                      color: commentData.isLikedByMe
-                          ? ColorConstant.mainColor
-                          : ColorConstant.greyColor,
-                      size: 17,
-                    ),
-                  ),
+                  !commentData.isLoading
+                      ? GestureDetector(
+                          onTap: onLikeUnlikeTap,
+                          child: Icon(
+                            Icons.favorite,
+                            color: commentData.isLikedByMe
+                                ? ColorConstant.mainColor
+                                : ColorConstant.greyColor,
+                            size: 17,
+                          ),
+                        )
+                      : microLoader(height: 16, width: 16),
                   const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "${commentData.count} Likes",
+                    (commentData.count == 0 || commentData.count == 1)
+                        ? "${commentData.count} Like"
+                        : "${commentData.count} Likes",
                     style: const TextStyle(
                         fontSize: 12,
                         color: ColorConstant.black,
