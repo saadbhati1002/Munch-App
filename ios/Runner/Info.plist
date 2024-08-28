@@ -9,10 +9,14 @@
     <key>NSAllowsArbitraryLoads</key>
     <true/>
     </dict>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Please grant photo gallery access for for updating profile image and to upload recipe image</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Please grant camera access for updating profile image and to upload recipe image</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>App</string>
+	<string>Munch Monday</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

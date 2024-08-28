@@ -207,9 +207,9 @@
     },
     {
       "name": "flutter_stripe",
-      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/flutter_stripe-10.1.1",
+      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/flutter_stripe-11.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter_svg",
@@ -705,21 +705,21 @@
     },
     {
       "name": "stripe_android",
-      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_android-10.1.1",
+      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_android-11.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "stripe_ios",
-      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_ios-10.1.0",
+      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_ios-11.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "stripe_platform_interface",
-      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_platform_interface-10.1.1",
+      "rootUri": "file:///Users/saadbhati/.pub-cache/hosted/pub.dev/stripe_platform_interface-11.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "synchronized",
@@ -932,7 +932,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-08-17T11:40:41.834341Z",
+  "generated": "2024-08-28T10:56:06.145418Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }

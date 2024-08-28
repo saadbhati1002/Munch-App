@@ -48,7 +48,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         extendBody: true,
         body: _children[_currentIndex],
         bottomNavigationBar: SizedBox(
-          height: 65,
+          height:Platform.isIOS? MediaQuery.of(context).size.height*.11:65,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             onTap: onTapped,

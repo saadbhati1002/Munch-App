@@ -243,7 +243,7 @@
         <entry key="flutter_stripe">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_stripe-10.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_stripe-11.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -824,21 +824,21 @@
         <entry key="stripe_android">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_android-10.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_android-11.0.0/lib" />
             </list>
           </value>
         </entry>
         <entry key="stripe_ios">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_ios-10.1.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_ios-11.0.0/lib" />
             </list>
           </value>
         </entry>
         <entry key="stripe_platform_interface">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_platform_interface-10.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_platform_interface-11.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -1116,7 +1116,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_otp_text_field-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_rating_bar-4.0.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_stripe-10.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_stripe-11.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html-0.15.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html_core-0.15.1/lib" />
@@ -1196,9 +1196,9 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stack_trace-1.11.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stream_channel-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_android-10.1.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_ios-10.1.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_platform_interface-10.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_android-11.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_ios-11.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stripe_platform_interface-11.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/synchronized-3.1.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/test_api-0.6.1/lib" />
