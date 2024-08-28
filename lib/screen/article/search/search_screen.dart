@@ -98,7 +98,8 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
           });
         }
         articleList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: "${AppConstant.imagePath}${articleList[i].media}",
+            video: articleList[i].media??"",
+            // video: "${AppConstant.imagePath}${articleList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,
             imageFormat: ImageFormat.PNG,
             quality: 75,

@@ -127,7 +127,8 @@ class _SearchScreenState extends State<SearchScreen> {
         });
 
         recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: "${AppConstant.imagePath}${recipeList[i].media}",
+            video: recipeList[i].media ?? "",
+            // video: "${AppConstant.imagePath}${recipeList[i].media}",
             thumbnailPath: (await getTemporaryDirectory()).path,
             imageFormat: ImageFormat.PNG,
             quality: 75,

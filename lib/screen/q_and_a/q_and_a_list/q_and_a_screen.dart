@@ -125,7 +125,10 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                   questionAnswer: addedQuestionData.questionAnswer,
                   replyCount: "0",
                   user: AppConstant.userData!.name,
-                  userImage: AppConstant.userData!.image,
+                  userImage: AppConstant.userData!.image != null
+                      ? AppConstant.imagePath +
+                          AppConstant.userData!.image.toString()
+                      : null,
                 ),
               );
               questionList[questionList.length - 1].id = addedQuestionData.id;
@@ -138,7 +141,11 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
               questionList[questionList.length - 1].user =
                   AppConstant.userData!.name;
               questionList[questionList.length - 1].userImage =
-                  AppConstant.userData!.image;
+                  AppConstant.userData!.image != null
+                      ? AppConstant.imagePath +
+                          AppConstant.userData!.image.toString()
+                      : null;
+              ;
               questionList[questionList.length - 1].replyCount = "0";
             } catch (e) {
               debugPrint(e.toString());

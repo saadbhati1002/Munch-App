@@ -62,7 +62,8 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
         });
 
         adminList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: "${AppConstant.imagePath}${adminList[i].video}",
+            video: adminList[i].video,
+            // video: "${AppConstant.imagePath}${adminList[i].video}",
             thumbnailPath: (await getTemporaryDirectory()).path,
             imageFormat: ImageFormat.PNG,
             quality: 75,
@@ -204,7 +205,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
           const SizedBox(
             height: 15,
           ),
-          userData.video.toString().contains('.mp4')
+          userData.video.toString().toLowerCase().contains('.mp4')
               ? GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -214,8 +215,10 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                         duration: Duration(
                             milliseconds: AppConstant.pageAnimationDuration),
                         child: VideoPlayerScreen(
-                          videoPath:
-                              "${AppConstant.imagePath}${userData.video}",
+                          videoPath: userData.video,
+
+                          // videoPath:
+                          //     "${AppConstant.imagePath}${userData.video}",
                         ),
                       ),
                     );

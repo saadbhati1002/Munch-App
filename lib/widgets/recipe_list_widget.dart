@@ -75,7 +75,7 @@ Widget recipeListWidget(
         const SizedBox(
           height: 13,
         ),
-        recipeData!.media.toString().contains('.mp4')
+        recipeData!.media.toString().toLowerCase().contains('.mp4')
             ? GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -85,8 +85,7 @@ Widget recipeListWidget(
                       duration: Duration(
                           milliseconds: AppConstant.pageAnimationDuration),
                       child: VideoPlayerScreen(
-                        videoPath:
-                            "${AppConstant.imagePath}${recipeData.media}",
+                        videoPath: recipeData.media,
                       ),
                     ),
                   );

@@ -13,7 +13,7 @@ class AppConstant {
       'pk_live_51PKbcOSByjgYxhiE8mZfBsZCJHTeMVNA1iWrLKHaguuRT5PjWzkKwnfKnIjsTcN0RIIL0s13AiY784m5U8YuK2ze00BoYLYJPh';
   static const String stripeSecretKey =
       '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';
-  static const String baseUrl = 'http://13.200.250.55/api/';
+  static const String baseUrl = 'https://munch.yashbanerjee.com/public/api/';
   static const String imagePath =
       'https://munch-media.s3.ap-south-1.amazonaws.com/';
   static const String instagramUrl = 'https://www.instagram.com/';

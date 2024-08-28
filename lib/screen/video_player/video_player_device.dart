@@ -79,6 +79,7 @@ class _VideoPlayerDeviceScreenState extends State<VideoPlayerDeviceScreen> {
                     VideoProgressIndicator(
                       _controller,
                       allowScrubbing: true,
+
                     ),
                     const SizedBox(
                       height: 10,

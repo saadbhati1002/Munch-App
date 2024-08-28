@@ -315,9 +315,11 @@ class _QuestionReplyScreenState extends State<QuestionReplyScreen> {
         replyList[replyList.length - 1].replyText =
             replyController.text.toString().trim();
         replyList[replyList.length - 1].user = AppConstant.userData!.name;
-        replyList[replyList.length - 1].userImage = AppConstant.userData!.image;
+        replyList[replyList.length - 1].userImage =
+            AppConstant.userData!.image != null
+                ? AppConstant.imagePath + AppConstant.userData!.image.toString()
+                : null;
         replyController.clear();
-        // toastShow(message: response.message);
       } else {
         toastShow(message: response.message);
       }
