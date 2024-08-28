@@ -39,13 +39,13 @@ customAppBar(
               height: 45,
               width: 45,
               imagePath:
-                  "${AppConstant.imagePath}${AppConstant.userData!.image}",
+                 AppConstant.userData!.image??"",
             ),
             const SizedBox(
               width: 10,
             ),
             SizedBox(
-              width: MediaQuery.of(context!).size.width * .55,
+              width: MediaQuery.of(context!).size.width * .54,
               child: Text(
                 AppConstant.userData!.name ?? AppConstant.appName,
                 maxLines: 1,

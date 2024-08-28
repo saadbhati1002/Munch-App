@@ -14,7 +14,7 @@ class CommonSkeleton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         shadowColor: ColorConstant.mainColor,
         child: Container(
-          height: MediaQuery.of(context).size.height * .2,
+          // height: MediaQuery.of(context).size.height * .2,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
