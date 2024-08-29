@@ -194,7 +194,7 @@ class _ContestListScreenState extends State<ContestListScreen> {
         borderRadius: BorderRadius.circular(10),
         shadowColor: ColorConstant.mainColor,
         child: Container(
-          height: MediaQuery.of(context).size.height * .15,
+          // height: MediaQuery.of(context).size.height * .15,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

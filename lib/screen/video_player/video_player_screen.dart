@@ -2,6 +2,7 @@ import 'package:app/utility/color.dart';
 import 'package:app/widgets/app_bar_back.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
 // import 'package:flutter_vlc_player/vlc_pl ayer_flutter.dart';
 class VideoPlayerScreen extends StatefulWidget {
   final String? videoPath;
@@ -20,7 +21,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.videoPath!),
       videoPlayerOptions: VideoPlayerOptions(
-        // webOptions: const VideoPlayerWebOptions(),
+        webOptions: const VideoPlayerWebOptions(),
       ),
     );
 
