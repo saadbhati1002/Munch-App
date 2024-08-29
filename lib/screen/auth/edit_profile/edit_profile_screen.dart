@@ -109,7 +109,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           children: [
                             userImage == null
                                 ? CustomImageCircular(
-                                    imagePath: AppConstant.userData!.image,
+                                    imagePath:
+                                        "${AppConstant.imagePath}${AppConstant.userData!.image}",
                                     height: 120,
                                     width: 120,
                                   )

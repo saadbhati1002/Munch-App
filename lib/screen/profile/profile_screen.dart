@@ -83,7 +83,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Column(
                       children: [
                         CustomImageCircular(
-                          imagePath: AppConstant.userData!.image,
+                          imagePath:
+                              "${AppConstant.imagePath}${AppConstant.userData!.image}",
                           height: 120,
                           width: 120,
                         ),
