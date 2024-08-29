@@ -20,9 +20,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.initState();
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.videoPath!),
-      videoPlayerOptions: VideoPlayerOptions(
-        webOptions: const VideoPlayerWebOptions(),
-      ),
+      videoPlayerOptions: VideoPlayerOptions(),
     );
 
     _controller.addListener(() {

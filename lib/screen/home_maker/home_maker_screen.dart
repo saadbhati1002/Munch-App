@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:app/api/repository/user/user.dart';
 import 'package:app/models/user/admin_user/admin_model.dart';
@@ -176,7 +175,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
           const SizedBox(
             height: 15,
           ),
-          userData.video.toString().toLowerCase().contains('.mp4')
+          userData.thumbnail != null
               ? GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -186,10 +185,8 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                         duration: Duration(
                             milliseconds: AppConstant.pageAnimationDuration),
                         child: VideoPlayerScreen(
-                          videoPath: userData.video,
-
-                          // videoPath:
-                          //     "${AppConstant.imagePath}${userData.video}",
+                          videoPath:
+                              "${AppConstant.imagePath}${userData.video}",
                         ),
                       ),
                     );
@@ -199,17 +196,11 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                     height: MediaQuery.of(context).size.height * .45,
                     child: Stack(
                       children: [
-                        SizedBox(
+                        CustomImage(
                           width: MediaQuery.of(context).size.width * 1,
                           height: MediaQuery.of(context).size.height * .45,
-                          child: userData.isVideoThumbnailLoading == true
-                              ? Container(
-                                  color: ColorConstant.white,
-                                )
-                              : Image.file(
-                                  File(userData.videoThumbnail ?? ""),
-                                  fit: BoxFit.contain,
-                                ),
+                          imagePath:
+                              "${AppConstant.imagePath}${userData.thumbnail}",
                         ),
                         Center(
                           child: Container(
