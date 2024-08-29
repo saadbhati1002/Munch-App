@@ -10,9 +10,7 @@ import 'package:app/widgets/app_bar_back.dart';
 import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ArticleSearchScreen extends StatefulWidget {
@@ -60,7 +58,6 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
       if (response.data.isNotEmpty) {
         articleList = response.data;
         _checkForUserArticleLike();
-        _getArticleVideoThumbnail();
         if (articleList.length == articleCount) {
           isMoreArticleLoading = true;
         }
@@ -86,30 +83,6 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
     }
     if (mounted) {
       setState(() {});
-    }
-  }
-
-  Future _getArticleVideoThumbnail() async {
-    for (int i = 0; i < articleList.length; i++) {
-      if (articleList[i].media.toString().contains(".mp4")) {
-        if (mounted) {
-          setState(() {
-            articleList[i].isVideoThumbnailLoading = true;
-          });
-        }
-        articleList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: articleList[i].media??"",
-            // video: "${AppConstant.imagePath}${articleList[i].media}",
-            thumbnailPath: (await getTemporaryDirectory()).path,
-            imageFormat: ImageFormat.PNG,
-            quality: 75,
-            maxHeight: 100);
-        if (mounted) {
-          setState(() {
-            articleList[i].isVideoThumbnailLoading = false;
-          });
-        }
-      }
     }
   }
 
@@ -142,7 +115,7 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
       if (response.data.isNotEmpty) {
         articleList = response.data;
         _checkForUserArticleLike();
-        _getArticleVideoThumbnail();
+
         if (articleList.length == articleCount) {
           isMoreArticleLoading = true;
         }

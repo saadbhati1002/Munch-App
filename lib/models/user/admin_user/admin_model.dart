@@ -46,24 +46,27 @@ class AdminUser {
   String? updatedAt;
   bool isVideoThumbnailLoading = false;
   String? videoThumbnail;
+  String? thumbnail;
 
-  AdminUser(
-      {id,
-      name,
-      email,
-      image,
-      emailVerifiedAt,
-      apiToken,
-      token,
-      isAdmin,
-      desc,
-      video,
-      bio,
-      mobileNumber,
-      address,
-      dob,
-      createdAt,
-      updatedAt});
+  AdminUser({
+    id,
+    name,
+    email,
+    image,
+    emailVerifiedAt,
+    apiToken,
+    token,
+    isAdmin,
+    desc,
+    video,
+    bio,
+    mobileNumber,
+    address,
+    dob,
+    createdAt,
+    updatedAt,
+    this.thumbnail,
+  });
 
   AdminUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -82,6 +85,7 @@ class AdminUser {
     dob = json['dob'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    thumbnail = json['thumbnail'];
   }
 
   Map<String, dynamic> toJson() {
@@ -102,6 +106,8 @@ class AdminUser {
     data['dob'] = dob;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data["thumbnail"] = thumbnail;
+
     return data;
   }
 }

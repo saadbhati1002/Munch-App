@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:app/screen/profile/guest_profile/guest_profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:app/models/recipe/recipe_model.dart';
@@ -75,7 +74,7 @@ Widget recipeListWidget(
         const SizedBox(
           height: 13,
         ),
-        recipeData!.media.toString().toLowerCase().contains('.mp4')
+        recipeData!.thumbnail != null
             ? GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -95,17 +94,10 @@ Widget recipeListWidget(
                   height: MediaQuery.of(context).size.height * .45,
                   child: Stack(
                     children: [
-                      SizedBox(
+                      CustomImage(
                         width: MediaQuery.of(context).size.width * 1,
                         height: MediaQuery.of(context).size.height * .45,
-                        child: recipeData.isVideoThumbnailLoading == true
-                            ? Container(
-                                color: ColorConstant.white,
-                              )
-                            : Image.file(
-                                File(recipeData.videoThumbnail ?? ""),
-                                fit: BoxFit.contain,
-                              ),
+                        imagePath: recipeData.thumbnail,
                       ),
                       Center(
                         child: Container(

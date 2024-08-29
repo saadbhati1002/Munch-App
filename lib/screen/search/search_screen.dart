@@ -13,8 +13,6 @@ import 'package:app/widgets/recipe_list_widget.dart';
 import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -95,7 +93,6 @@ class _SearchScreenState extends State<SearchScreen> {
         recipeList = response.data;
         recipeListAll = response.data;
         _checkForUserRecipeLike();
-        _getVideoThumbnail();
         if (recipeList.length == recipeCount) {
           isMoreRecipeLoading = true;
         }
@@ -116,29 +113,6 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     if (mounted) {
       setState(() {});
-    }
-  }
-
-  Future _getVideoThumbnail() async {
-    for (int i = 0; i < recipeList.length; i++) {
-      if (recipeList[i].media.toString().contains(".mp4")) {
-        setState(() {
-          recipeList[i].isVideoThumbnailLoading = true;
-        });
-
-        recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: recipeList[i].media ?? "",
-            // video: "${AppConstant.imagePath}${recipeList[i].media}",
-            thumbnailPath: (await getTemporaryDirectory()).path,
-            imageFormat: ImageFormat.PNG,
-            quality: 75,
-            maxHeight: 100);
-        if (mounted) {
-          setState(() {
-            recipeList[i].isVideoThumbnailLoading = false;
-          });
-        }
-      }
     }
   }
 
@@ -169,7 +143,6 @@ class _SearchScreenState extends State<SearchScreen> {
         recipeList = response.data;
         recipeListAll = response.data;
         _checkForUserRecipeLike();
-        _getVideoThumbnail();
         _getSearchedRecipe();
         if (recipeList.length == recipeCount) {
           isMoreRecipeLoading = true;

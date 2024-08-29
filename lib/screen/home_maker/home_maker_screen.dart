@@ -13,8 +13,6 @@ import 'package:app/widgets/recipe_skeleton.dart';
 import 'package:app/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:page_transition/page_transition.dart';
 
 class HomeMakerScreen extends StatefulWidget {
@@ -43,7 +41,6 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
       AdminRes response = await UserRepository().getUserApiCall();
       if (response.data.isNotEmpty) {
         adminList = response.data;
-        _getVideoThumbnail();
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -54,33 +51,9 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
     }
   }
 
-  Future _getVideoThumbnail() async {
-    for (int i = 0; i < adminList.length; i++) {
-      if (adminList[i].video.toString().contains(".mp4")) {
-        setState(() {
-          adminList[i].isVideoThumbnailLoading = true;
-        });
-
-        adminList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: adminList[i].video,
-            // video: "${AppConstant.imagePath}${adminList[i].video}",
-            thumbnailPath: (await getTemporaryDirectory()).path,
-            imageFormat: ImageFormat.PNG,
-            quality: 75,
-            maxHeight: 100);
-        if (mounted) {
-          setState(() {
-            adminList[i].isVideoThumbnailLoading = false;
-          });
-        }
-      }
-    }
-  }
-
   @override
   void dispose() {
     _debounce?.cancel();
-
     super.dispose();
   }
 
@@ -179,9 +152,7 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    print("${AppConstant.imagePath}${userData.image}");
-                  },
+                  onTap: () {},
                   child: CustomImageCircular(
                     imagePath: "${AppConstant.imagePath}${userData!.image}",
                     height: 25,

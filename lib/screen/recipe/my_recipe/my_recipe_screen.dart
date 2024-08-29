@@ -15,8 +15,6 @@ import 'package:app/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class MyRecipeScreen extends StatefulWidget {
   const MyRecipeScreen({super.key});
@@ -44,7 +42,6 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
       if (response.data.isNotEmpty) {
         recipeList = response.data;
         _checkForUserRecipeLike();
-        _getVideoThumbnail();
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -67,28 +64,6 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
     }
     if (mounted) {
       setState(() {});
-    }
-  }
-
-  Future _getVideoThumbnail() async {
-    for (int i = 0; i < recipeList.length; i++) {
-      if (recipeList[i].media.toString().contains(".mp4")) {
-        setState(() {
-          recipeList[i].isVideoThumbnailLoading = true;
-        });
-
-        recipeList[i].videoThumbnail = await VideoThumbnail.thumbnailFile(
-            video: "${AppConstant.imagePath}${recipeList[i].media}",
-            thumbnailPath: (await getTemporaryDirectory()).path,
-            imageFormat: ImageFormat.PNG,
-            quality: 75,
-            maxHeight: 100);
-        if (mounted) {
-          setState(() {
-            recipeList[i].isVideoThumbnailLoading = false;
-          });
-        }
-      }
     }
   }
 

@@ -55,33 +55,36 @@ class RecipeData {
   bool isLoading = false;
   String? createdAt;
   int? featured;
+  String? thumbnail;
 
-  RecipeData(
-      {nameDish,
-      categories,
-      media,
-      tagLine,
-      preparationTime,
-      cookingTime,
-      smallDesc,
-      servingPotions,
-      ingredientList,
-      method,
-      methodTagline,
-      chefsWhisper,
-      chefsWhisperTagline,
-      isApproved,
-      user,
-      userImage,
-      likedUsers,
-      this.isLikedByMe,
-      this.likeCount,
-      this.isVideoThumbnailLoading,
-      this.id,
-      this.userID,
-      isLoading,
-      this.createdAt,
-      this.featured});
+  RecipeData({
+    nameDish,
+    categories,
+    media,
+    tagLine,
+    preparationTime,
+    cookingTime,
+    smallDesc,
+    servingPotions,
+    ingredientList,
+    method,
+    methodTagline,
+    chefsWhisper,
+    chefsWhisperTagline,
+    isApproved,
+    user,
+    userImage,
+    likedUsers,
+    this.isLikedByMe,
+    this.likeCount,
+    this.isVideoThumbnailLoading,
+    this.id,
+    this.userID,
+    isLoading,
+    this.createdAt,
+    this.featured,
+    this.thumbnail,
+  });
 
   RecipeData.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
@@ -108,6 +111,8 @@ class RecipeData {
     commentCount = int.parse(json['comment_count'].toString());
     userID = json['user_id'].toString();
     createdAt = json['created_at'].toString();
+    thumbnail = json['thumbnail'];
+
     featured =
         json["featured"] != null ? int.parse(json["featured"].toString()) : 0;
     if (json['liked_users'] != null) {
@@ -140,6 +145,8 @@ class RecipeData {
     data['comment_count'] = commentCount;
     data['created_at'] = createdAt;
     data["featured"] = featured;
+    data["thumbnail"] = thumbnail;
+
     if (likedUsers.isNotEmpty) {
       data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }
