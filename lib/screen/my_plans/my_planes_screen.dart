@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
@@ -404,7 +402,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              calenderData!.media.toString().contains('.mp4')
+              calenderData!.thumbnail != null
                   ? GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -415,8 +413,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                                 milliseconds:
                                     AppConstant.pageAnimationDuration),
                             child: VideoPlayerScreen(
-                              videoPath:
-                                  "${AppConstant.imagePath}${calenderData.media}",
+                              videoPath: calenderData.media,
                             ),
                           ),
                         );
@@ -426,18 +423,11 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                         height: 120,
                         child: Stack(
                           children: [
-                            SizedBox(
+                            CustomImage(
+                              borderRadius: 0,
+                              imagePath: calenderData.thumbnail,
                               width: MediaQuery.of(context).size.width * .35,
                               height: 120,
-                              child: calenderData.isVideoThumbnailLoading ==
-                                      true
-                                  ? Container(
-                                      color: ColorConstant.white,
-                                    )
-                                  : Image.file(
-                                      File(calenderData.videoThumbnail ?? ""),
-                                      fit: BoxFit.fill,
-                                    ),
                             ),
                             Center(
                               child: Container(

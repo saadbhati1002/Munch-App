@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/list/add/add_list_model.dart';
@@ -117,8 +116,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomImageCircular(
-                          imagePath:
-                              widget.recipeData!.userImage??"",
+                          imagePath: widget.recipeData!.userImage ?? "",
                           height: 35,
                           width: 35,
                         ),
@@ -138,7 +136,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  widget.recipeData!.media.toString().contains('.mp4')
+                  widget.recipeData!.thumbnail != null
                       ? GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -149,8 +147,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     milliseconds:
                                         AppConstant.pageAnimationDuration),
                                 child: VideoPlayerScreen(
-                                  videoPath:
-                                      "${AppConstant.imagePath}${widget.recipeData!.media}",
+                                  videoPath: widget.recipeData!.media,
                                 ),
                               ),
                             );
@@ -160,22 +157,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             height: MediaQuery.of(context).size.height * .45,
                             child: Stack(
                               children: [
-                                SizedBox(
+                                CustomImage(
                                   width: MediaQuery.of(context).size.width * 1,
                                   height:
                                       MediaQuery.of(context).size.height * .45,
-                                  child: widget.recipeData!
-                                              .isVideoThumbnailLoading ==
-                                          true
-                                      ? Container(
-                                          color: ColorConstant.white,
-                                        )
-                                      : Image.file(
-                                          File(widget
-                                                  .recipeData!.videoThumbnail ??
-                                              ""),
-                                          fit: BoxFit.contain,
-                                        ),
+                                  imagePath: widget.recipeData!.thumbnail,
                                 ),
                                 Center(
                                   child: Container(

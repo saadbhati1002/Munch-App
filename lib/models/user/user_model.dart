@@ -32,7 +32,7 @@ class UserData {
   String? dateOfBirth;
   String? address;
   String? phoneNumber;
-  bool isPremiumUser = false;
+  bool isPremiumUser = true;
 
   UserData(
       {token,

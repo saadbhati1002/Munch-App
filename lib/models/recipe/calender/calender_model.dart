@@ -48,26 +48,29 @@ class CalenderData {
   String? date;
   bool? isVideoThumbnailLoading = false;
   String? videoThumbnail;
+  String? thumbnail;
 
-  CalenderData(
-      {userId,
-      user,
-      recipeId,
-      nameDish,
-      media,
-      tagLine,
-      preparationTime,
-      cookingTime,
-      smallDesc,
-      servingPotions,
-      ingredientList,
-      method,
-      methodTagline,
-      chefsWhisper,
-      chefsWhisperTagline,
-      isApproved,
-      likeCount,
-      date});
+  CalenderData({
+    userId,
+    user,
+    recipeId,
+    nameDish,
+    media,
+    tagLine,
+    preparationTime,
+    cookingTime,
+    smallDesc,
+    servingPotions,
+    ingredientList,
+    method,
+    methodTagline,
+    chefsWhisper,
+    chefsWhisperTagline,
+    isApproved,
+    likeCount,
+    date,
+    this.thumbnail,
+  });
 
   CalenderData.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'].toString();
@@ -88,6 +91,7 @@ class CalenderData {
     isApproved = json['is_approved'].toString();
     likeCount = json['like_count'].toString();
     date = json['date'].toString();
+    thumbnail = json['thumbnail'];
   }
 
   Map<String, dynamic> toJson() {
@@ -110,6 +114,8 @@ class CalenderData {
     data['is_approved'] = isApproved;
     data['like_count'] = likeCount;
     data['date'] = date;
+    data["thumbnail"] = thumbnail;
+
     return data;
   }
 }
