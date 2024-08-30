@@ -16,7 +16,7 @@ import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -752,95 +752,95 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> makeStripePayment(String? priceTotal) async {
-    Stripe.publishableKey = AppConstant.stripePublic;
-    Stripe.merchantIdentifier = 'Mohd Saad bhati';
-    await Stripe.instance.applySettings();
-    int price = double.parse(priceTotal!).toInt();
-    try {
-      paymentIntent = await createPaymentIntent(price.toString(), 'INR');
-
-      // STEP 2: Initialize Payment Sheet
-      await Stripe.instance
-          .initPaymentSheet(
-              paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret:
-                paymentIntent!['client_secret'], //Gotten from payment intent
-            style: ThemeMode.light,
-            merchantDisplayName: 'NowoChat',
-          ))
-          .then((value) {});
-
-      //STEP 3: Display Payment sheet
-      displayPaymentSheet();
-    } catch (err) {
-      throw Exception(err);
-    }
+    // Stripe.publishableKey = AppConstant.stripePublic;
+    // Stripe.merchantIdentifier = 'Mohd Saad bhati';
+    // await Stripe.instance.applySettings();
+    // int price = double.parse(priceTotal!).toInt();
+    // try {
+    //   paymentIntent = await createPaymentIntent(price.toString(), 'INR');
+    //
+    //   // STEP 2: Initialize Payment Sheet
+    //   await Stripe.instance
+    //       .initPaymentSheet(
+    //           paymentSheetParameters: SetupPaymentSheetParameters(
+    //         paymentIntentClientSecret:
+    //             paymentIntent!['client_secret'], //Gotten from payment intent
+    //         style: ThemeMode.light,
+    //         merchantDisplayName: 'NowoChat',
+    //       ))
+    //       .then((value) {});
+    //
+    //   //STEP 3: Display Payment sheet
+    //   displayPaymentSheet();
+    // } catch (err) {
+    //   throw Exception(err);
+    // }
   }
 
   displayPaymentSheet() async {
-    try {
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentIntent!['client_secret'],
-          customFlow: true,
-          allowsDelayedPaymentMethods: true,
-          googlePay: const PaymentSheetGooglePay(
-            merchantCountryCode: 'IN',
-            testEnv: true,
-          ),
-          style: ThemeMode.light,
-          merchantDisplayName: 'NowoChat',
-        ),
-      );
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        showDialog(
-            context: context,
-            builder: (_) => const AlertDialog(
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                        size: 100.0,
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Payment Successful!"),
-                    ],
-                  ),
-                ));
-        // paymentSuccess(
-        //   transactionID: DateTime.now().millisecondsSinceEpoch.toString(),
-        // );
-        paymentIntent = null;
-      }).onError((error, stackTrace) {
-        throw Exception(error);
-      });
-    } on StripeException catch (e) {
-      debugPrint(e.toString());
-      const AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.cancel,
-                  color: Colors.red,
-                ),
-                Text("Payment Failed"),
-              ],
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    // try {
+    //   await Stripe.instance.initPaymentSheet(
+    //     paymentSheetParameters: SetupPaymentSheetParameters(
+    //       paymentIntentClientSecret: paymentIntent!['client_secret'],
+    //       customFlow: true,
+    //       allowsDelayedPaymentMethods: true,
+    //       googlePay: const PaymentSheetGooglePay(
+    //         merchantCountryCode: 'IN',
+    //         testEnv: true,
+    //       ),
+    //       style: ThemeMode.light,
+    //       merchantDisplayName: 'NowoChat',
+    //     ),
+    //   );
+    //   await Stripe.instance.presentPaymentSheet().then((value) {
+    //     showDialog(
+    //         context: context,
+    //         builder: (_) => const AlertDialog(
+    //               content: Column(
+    //                 mainAxisSize: MainAxisSize.min,
+    //                 children: [
+    //                   Icon(
+    //                     Icons.check_circle,
+    //                     color: Colors.green,
+    //                     size: 100.0,
+    //                   ),
+    //                   SizedBox(height: 10.0),
+    //                   Text("Payment Successful!"),
+    //                 ],
+    //               ),
+    //             ));
+    //     // paymentSuccess(
+    //     //   transactionID: DateTime.now().millisecondsSinceEpoch.toString(),
+    //     // );
+    //     paymentIntent = null;
+    //   }).onError((error, stackTrace) {
+    //     throw Exception(error);
+    //   });
+    // } on StripeException catch (e) {
+    //   debugPrint(e.toString());
+    //   const AlertDialog(
+    //     content: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: [
+    //         Row(
+    //           children: [
+    //             Icon(
+    //               Icons.cancel,
+    //               color: Colors.red,
+    //             ),
+    //             Text("Payment Failed"),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // } catch (e) {
+    //   debugPrint(e.toString());
+    // } finally {
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
   }
 
   createPaymentIntent(String amount, String currency) async {

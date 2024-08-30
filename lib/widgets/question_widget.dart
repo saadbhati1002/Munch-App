@@ -33,7 +33,7 @@ Widget questionWidget(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomImageCircular(
-                  imagePath: questionData!.userImage,
+                  imagePath: questionData!.userImage!,
                   height: 25,
                   width: 25,
                 ),

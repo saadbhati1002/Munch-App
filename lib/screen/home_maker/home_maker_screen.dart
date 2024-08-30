@@ -153,7 +153,9 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
                 GestureDetector(
                   onTap: () {},
                   child: CustomImageCircular(
-                    imagePath: "${AppConstant.imagePath}${userData!.image}",
+                    imagePath: userData!.image != null
+                        ? "${AppConstant.imagePath}${userData.image}"
+                        : null,
                     height: 25,
                     width: 25,
                   ),

@@ -116,7 +116,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomImageCircular(
-                          imagePath: widget.recipeData!.userImage ?? "",
+                          imagePath: widget.recipeData!.userImage!,
                           height: 35,
                           width: 35,
                         ),
