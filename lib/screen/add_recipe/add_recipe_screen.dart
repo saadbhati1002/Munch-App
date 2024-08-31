@@ -975,13 +975,14 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       setState(() {
         isLoading = true;
       });
+      List ids = [];
+      for (int i = 0; i < selectedCategoryIDList.length; i++) {
+        ids.add(selectedCategoryIDList[i].id);
+      }
       FocusManager.instance.primaryFocus?.unfocus();
 
       RecipeCreateRes response = await RecipeRepository().createRecipeApiCall(
-        categoryID: selectedCategoryIDList
-            .toString()
-            .replaceAll('[', "")
-            .replaceAll(']', ""),
+        categoryID: ids.toString().replaceAll('[', "").replaceAll(']', ""),
         chefWhisper: chiefWhisper.text.toString().trim(),
         chefWhisperTagline: "",
         cookingTime: cookingTime.text.trim(),

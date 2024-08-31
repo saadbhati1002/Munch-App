@@ -250,7 +250,6 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
               data!.thumbnail != null
                   ? GestureDetector(
                       onTap: () {
-                        print(data.media);
                         Navigator.push(
                           context,
                           PageTransition(
