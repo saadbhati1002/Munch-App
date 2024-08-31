@@ -26,7 +26,9 @@ Widget commonCommentWidget(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomImageCircular(
-                imagePath: commentData!.userImage!,
+                imagePath: commentData!.userImage != null
+                    ? commentData.userImage
+                    : null,
                 height: 25,
                 width: 25,
               ),

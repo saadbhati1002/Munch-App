@@ -67,7 +67,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomImageCircular(
-                          imagePath: widget.articleDate!.userImage ?? "",
+                          imagePath: widget.articleDate!.userImage,
                           height: 35,
                           width: 35,
                         ),

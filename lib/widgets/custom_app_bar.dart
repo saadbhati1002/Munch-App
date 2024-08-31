@@ -38,8 +38,9 @@ customAppBar(
             CustomImageCircular(
               height: 45,
               width: 45,
-              imagePath:
-                  "${AppConstant.imagePath}${AppConstant.userData!.image}",
+              imagePath: AppConstant.userData!.image != null
+                  ? "${AppConstant.imagePath}${AppConstant.userData!.image}"
+                  : null,
             ),
             const SizedBox(
               width: 10,

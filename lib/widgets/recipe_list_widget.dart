@@ -50,7 +50,9 @@ Widget recipeListWidget(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomImageCircular(
-                            imagePath: recipeData!.userImage!,
+                            imagePath: recipeData!.userImage != null
+                                ? recipeData.userImage!
+                                : null,
                             height: 35,
                             width: 35,
                           ),

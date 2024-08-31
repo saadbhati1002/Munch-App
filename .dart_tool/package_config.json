@@ -206,6 +206,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "flutter_stripe",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_stripe-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
@@ -244,6 +250,12 @@
     {
       "name": "font_awesome_flutter",
       "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "freezed_annotation",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/freezed_annotation-2.4.4",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -384,6 +396,12 @@
       "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "just_audio",
@@ -686,6 +704,24 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "stripe_android",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_android-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "stripe_ios",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_ios-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "stripe_platform_interface",
+      "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_platform_interface-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "synchronized",
       "rootUri": "file:///C:/Users/LENOVO/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.1.0+1",
       "packageUri": "lib/",
@@ -890,7 +926,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-08-31T06:54:30.135237Z",
+  "generated": "2024-08-31T07:09:22.747363Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
