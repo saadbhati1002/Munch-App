@@ -13,6 +13,8 @@
     <string>Please grant photo gallery access for for updating profile image and to upload recipe image</string>
     <key>NSCameraUsageDescription</key>
     <string>Please grant camera access for updating profile image and to upload recipe image</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Need microphone access for uploading audio</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
