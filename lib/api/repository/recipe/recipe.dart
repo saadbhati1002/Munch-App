@@ -71,6 +71,7 @@ class RecipeRepository {
 
   Future<dynamic> createRecipeApiCall(
       {File? recipeImage,
+      File? recipeThumbnail,
       String? categoryID,
       String? recipeName,
       String? tagLine,
@@ -84,11 +85,19 @@ class RecipeRepository {
       String? chefWhisper,
       String? chefWhisperTagline,
       @required int? status}) async {
+    String? thumbnailFileName;
     String fileName = recipeImage!.path.split('/').last;
+    if (recipeThumbnail != null) {
+      thumbnailFileName = recipeThumbnail.path.split('/').last;
+    }
 
     final body = FormData.fromMap({
       "media":
           await MultipartFile.fromFile(recipeImage.path, filename: fileName),
+      "thumbnail": recipeThumbnail != null
+          ? await MultipartFile.fromFile(recipeThumbnail.path,
+              filename: thumbnailFileName)
+          : null,
       "category_id": categoryID!.replaceAll(' ', ""),
       "name_dish": recipeName,
       "tag_line": tagLine,

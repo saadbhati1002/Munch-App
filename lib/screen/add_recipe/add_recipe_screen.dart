@@ -34,7 +34,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   TextEditingController severingPortion = TextEditingController();
   List<TextEditingController> ingredientList = [TextEditingController()];
   List<FocusNode> ingredientFoucusNode = [FocusNode()];
-
   TextEditingController method = TextEditingController();
   TextEditingController chiefWhisper = TextEditingController();
   bool isLoading = false;
@@ -43,6 +42,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   List<CategoryData> selectedCategoryIDList = [];
   bool isVideoUploading = false;
   File? recipeImage;
+  File? recipeThumbnail;
+  bool isVideo = false;
   @override
   void initState() {
     _getCategory();
@@ -89,10 +90,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    imagePickerPopUp();
+                    imagePickerPopUp(uploadType: 1);
                   },
                   child: recipeImage != null
-                      ? isVideoUploading
+                      ? isVideoUploading == true
                           ? Container(
                               height: MediaQuery.of(context).size.height * .35,
                               width: MediaQuery.of(context).size.width * 1,
@@ -158,6 +159,53 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                           ),
                         ),
                 ),
+                if (isVideoUploading) ...[
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      imagePickerPopUp(uploadType: 2);
+                    },
+                    child: recipeThumbnail != null
+                        ? Container(
+                            height: MediaQuery.of(context).size.height * .35,
+                            width: MediaQuery.of(context).size.width * 1,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: FileImage(recipeThumbnail!),
+                                  fit: BoxFit.cover),
+                            ),
+                          )
+                        : Container(
+                            height: MediaQuery.of(context).size.height * .35,
+                            width: MediaQuery.of(context).size.width * 1,
+                            color: ColorConstant.greyColor.withOpacity(0.3),
+                            alignment: Alignment.center,
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: ColorConstant.black,
+                                  size: 25,
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  "Upload Thumbnail Image",
+                                  style: TextStyle(
+                                      color: ColorConstant.mainColor,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                          ),
+                  ),
+                ],
                 const SizedBox(
                   height: 15,
                 ),
@@ -541,7 +589,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         });
   }
 
-  void imagePickerPopUp() async {
+  void imagePickerPopUp({int? uploadType}) async {
     return showDialog(
       context: context,
       builder: (_) {
@@ -586,7 +634,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop(false);
-                            imageFromGallery();
+                            imageFromGallery(uploadType: uploadType);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -609,7 +657,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop(false);
-                            imageFromCamera();
+                            imageFromCamera(uploadType: uploadType);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -629,30 +677,32 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop(false);
-                            selectVideoFromGallery();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: ColorConstant.mainColor,
-                                borderRadius: BorderRadius.circular(8)),
-                            height: 35,
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * .035),
-                            // width: MediaQuery.of(context).size.width * .2,
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Video',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: ColorConstant.white),
+                        if (uploadType == 1) ...[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop(false);
+                              selectVideoFromGallery();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: ColorConstant.mainColor,
+                                  borderRadius: BorderRadius.circular(8)),
+                              height: 35,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * .035),
+                              // width: MediaQuery.of(context).size.width * .2,
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Video',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: ColorConstant.white),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ],
                     ),
                     const SizedBox(
@@ -761,12 +811,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     );
   }
 
-  imageFromCamera() async {
+  imageFromCamera({int? uploadType}) async {
     try {
       final XFile? result =
           await _picker.pickImage(source: ImageSource.camera, imageQuality: 60);
       if (result != null) {
-        _cropImage(result.path);
+        _cropImage(imagePath: result.path, uploadType: uploadType);
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -775,31 +825,48 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   selectVideoFromGallery() async {
     try {
-      final XFile? result =
-          await _picker.pickVideo(source: ImageSource.gallery);
+      setState(() {
+        isLoading = true;
+      });
+      final XFile? result = await _picker.pickVideo(
+        source: ImageSource.gallery,
+      );
       if (result != null) {
+        File dummyFile = File(result.path);
+        int sizeInBytes = dummyFile.lengthSync();
+        double sizeInMb = sizeInBytes / (1024 * 1024);
+        if (sizeInMb > 200) {
+          isVideoUploading = false;
+          recipeImage = null;
+          toastShow(message: "Your selected video is above 200MB");
+          return;
+        }
         isVideoUploading = true;
         recipeImage = File(result.path);
         setState(() {});
       }
     } catch (e) {
       debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  imageFromGallery() async {
+  imageFromGallery({int? uploadType}) async {
     try {
       final XFile? result = await _picker.pickImage(
           source: ImageSource.gallery, imageQuality: 60);
       if (result != null) {
-        _cropImage(result.path);
+        _cropImage(imagePath: result.path, uploadType: uploadType);
       }
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-  Future _cropImage(String? imagePath) async {
+  Future _cropImage({String? imagePath, int? uploadType}) async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: imagePath!,
       aspectRatioPresets: [
@@ -825,8 +892,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       ],
     );
     if (croppedFile != null) {
-      recipeImage = File(croppedFile.path);
-      isVideoUploading = false;
+      if (uploadType == 1) {
+        recipeImage = File(croppedFile.path);
+      } else {
+        recipeThumbnail = File(croppedFile.path);
+      }
+
       setState(() {});
     }
   }
@@ -847,6 +918,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Future _createRecipe(status) async {
     if (recipeImage == null) {
       toastShow(message: "Please select recipe image");
+      return;
+    }
+    if (isVideoUploading && recipeThumbnail == null) {
+      toastShow(message: "Please select thumbnail image");
       return;
     }
 
@@ -903,23 +978,25 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       FocusManager.instance.primaryFocus?.unfocus();
 
       RecipeCreateRes response = await RecipeRepository().createRecipeApiCall(
-          categoryID: selectedCategoryIDList
-              .toString()
-              .replaceAll('[', "")
-              .replaceAll(']', ""),
-          chefWhisper: chiefWhisper.text.toString().trim(),
-          chefWhisperTagline: "",
-          cookingTime: cookingTime.text.trim(),
-          description: discretion.text.trim(),
-          ingredientList: ingredientListString,
-          method: method.text.trim(),
-          methodTagLine: "",
-          preparationTime: preparationTime.text.trim(),
-          recipeImage: recipeImage,
-          recipeName: recipeName.text.trim(),
-          servingPortion: severingPortion.text.trim(),
-          tagLine: recipeTagLine.text.trim(),
-          status: status);
+        categoryID: selectedCategoryIDList
+            .toString()
+            .replaceAll('[', "")
+            .replaceAll(']', ""),
+        chefWhisper: chiefWhisper.text.toString().trim(),
+        chefWhisperTagline: "",
+        cookingTime: cookingTime.text.trim(),
+        description: discretion.text.trim(),
+        ingredientList: ingredientListString,
+        method: method.text.trim(),
+        methodTagLine: "",
+        preparationTime: preparationTime.text.trim(),
+        recipeImage: recipeImage,
+        recipeName: recipeName.text.trim(),
+        servingPortion: severingPortion.text.trim(),
+        tagLine: recipeTagLine.text.trim(),
+        status: status,
+        recipeThumbnail: recipeThumbnail,
+      );
       if (response.success == true) {
         if (status == 0) {
           recipeUploadedPopUp();
