@@ -47,6 +47,9 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
   }
 
   Future _getArticleList() async {
+    if (isMoreArticleLoading == false) {
+      return;
+    }
     articleCount = articleCount + 10;
     isMoreArticleLoading = false;
     try {

@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/common_model.dart';
-import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
@@ -250,9 +247,10 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              data!.media.toString().contains('.mp4')
+              data!.thumbnail != null
                   ? GestureDetector(
                       onTap: () {
+                        print(data.media);
                         Navigator.push(
                           context,
                           PageTransition(
@@ -272,17 +270,11 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
                         height: 120,
                         child: Stack(
                           children: [
-                            SizedBox(
+                            CustomImage(
+                              borderRadius: 0,
+                              imagePath: data.thumbnail,
                               width: MediaQuery.of(context).size.width * .35,
                               height: 120,
-                              child: data.isVideoThumbnailLoading == true
-                                  ? Container(
-                                      color: ColorConstant.white,
-                                    )
-                                  : Image.file(
-                                      File(data.videoThumbnail ?? ""),
-                                      fit: BoxFit.fill,
-                                    ),
                             ),
                             Center(
                               child: Container(
@@ -527,56 +519,6 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
         );
       },
     );
-  }
-
-  _recipeLike({String? recipeID, int? index}) async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-      LikeUnlikeRes response =
-          await RecipeRepository().recipeLikeApiCall(recipeID: recipeID);
-      if (response.success == true) {
-        recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
-        recipeList[index].isLikedByMe = true;
-        toastShow(message: response.message);
-      } else {
-        toastShow(message: response.message);
-        if (response.message!.trim() == "You are already Like This Recipy.") {
-          recipeList[index!].likeCount = recipeList[index].likeCount! + 1;
-          recipeList[index].isLikedByMe = true;
-        }
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  _recipeUnlike({String? recipeID, int? index}) async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-      LikeUnlikeRes response =
-          await RecipeRepository().recipeUnlikeApiCall(recipeID: recipeID);
-      if (response.success == true) {
-        recipeList[index!].likeCount = recipeList[index].likeCount! - 1;
-        recipeList[index].isLikedByMe = false;
-        toastShow(message: response.message);
-      } else {
-        toastShow(message: response.message);
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 
   Future _recipeDelete({int? index}) async {
