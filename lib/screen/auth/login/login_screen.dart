@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 150,
                   child: Image.asset(Images.logo),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * .02,
                 ),
                 Container(
@@ -193,10 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       if (response.success == true) {
         AppConstant.bearerToken = response.data!.token!;
-
-        AppConstant.userData = response.data;
         response.data!.userEmail = emailController.text.trim();
-
+        AppConstant.userData = response.data;
         await AppConstant.userDetailSaved(json.encode(response));
         toastShow(message: response.message);
         Navigator.push(

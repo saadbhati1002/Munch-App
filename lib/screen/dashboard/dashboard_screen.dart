@@ -5,6 +5,7 @@ import 'package:app/screen/contest/contest_list/contest_list_screen.dart';
 import 'package:app/screen/home/home_screen.dart';
 import 'package:app/screen/q_and_a/q_and_a_list/q_and_a_screen.dart';
 import 'package:app/utility/color.dart';
+import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -17,12 +18,19 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _currentIndex = 0;
 
-  final _children = const [
-    HomeScreen(),
-    QuestionAndAnswerScreen(),
-    ContestListScreen(),
-    FavoriteScreen(),
-  ];
+  final _children = AppConstant.userData!.userEmail!.toLowerCase() !=
+          "saadbhati1002@gmail.com"
+      ? [
+          const HomeScreen(),
+          const QuestionAndAnswerScreen(),
+          const ContestListScreen(),
+          const FavoriteScreen(),
+        ]
+      : [
+          const HomeScreen(),
+          const QuestionAndAnswerScreen(),
+          const FavoriteScreen(),
+        ];
 
   void onTapped(int i) {
     setState(() {
@@ -48,7 +56,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         extendBody: true,
         body: _children[_currentIndex],
         bottomNavigationBar: SizedBox(
-          height:Platform.isIOS? MediaQuery.of(context).size.height*.11:65,
+          height:
+              Platform.isIOS ? MediaQuery.of(context).size.height * .11 : 65,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             onTap: onTapped,
@@ -65,45 +74,76 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 fontWeight: FontWeight.w400,
                 color: ColorConstant.greyColor,
                 fontSize: 12),
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.room_service,
-                    color: _currentIndex == 0
-                        ? ColorConstant.mainColor
-                        : ColorConstant.greyColor,
-                    size: 30,
-                  ),
-                  label: "Your Page"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.local_fire_department_outlined,
-                    color: _currentIndex == 1
-                        ? ColorConstant.mainColor
-                        : ColorConstant.greyColor,
-                    size: 30,
-                  ),
-                  label: "Q&A"),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.food_bank_outlined,
-                  color: _currentIndex == 2
-                      ? ColorConstant.mainColor
-                      : ColorConstant.greyColor,
-                  size: 30,
-                ),
-                label: "Contest",
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: _currentIndex == 3
-                        ? ColorConstant.mainColor
-                        : ColorConstant.greyColor,
-                    size: 30,
-                  ),
-                  label: "Saved"),
-            ],
+            items: AppConstant.userData!.userEmail!.toLowerCase() !=
+                    "saadbhati1002@gmail.com"
+                ? [
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.room_service,
+                          color: _currentIndex == 0
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Your Page"),
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.local_fire_department_outlined,
+                          color: _currentIndex == 1
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Q&A"),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.food_bank_outlined,
+                        color: _currentIndex == 2
+                            ? ColorConstant.mainColor
+                            : ColorConstant.greyColor,
+                        size: 30,
+                      ),
+                      label: "Contest",
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: _currentIndex == 3
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Saved"),
+                  ]
+                : [
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.room_service,
+                          color: _currentIndex == 0
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Your Page"),
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.local_fire_department_outlined,
+                          color: _currentIndex == 1
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Q&A"),
+                    BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: _currentIndex == 3
+                              ? ColorConstant.mainColor
+                              : ColorConstant.greyColor,
+                          size: 30,
+                        ),
+                        label: "Saved"),
+                  ],
           ),
         ),
       ),

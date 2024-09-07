@@ -32,7 +32,7 @@ class UserData {
   String? dateOfBirth;
   String? address;
   String? phoneNumber;
-  bool isPremiumUser = true;
+  bool isPremiumUser = false;
 
   UserData(
       {token,
@@ -47,6 +47,7 @@ class UserData {
 
   UserData.fromJson(Map<String, dynamic> json) {
     token = json['token'];
+    userEmail = json["email"];
     name = json['name'];
     image = json['image'];
     id = json['id'].toString();
@@ -62,6 +63,7 @@ class UserData {
     data['name'] = name;
     data['image'] = image;
     data['id'] = id;
+    data["email"] = userEmail;
     data['address'] = address;
     data['dob'] = dateOfBirth;
     data['mobile_number'] = phoneNumber;

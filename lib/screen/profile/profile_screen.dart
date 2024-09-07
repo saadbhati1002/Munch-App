@@ -89,31 +89,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 120,
                           width: 120,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            isShowPlan = true;
-                            setState(() {});
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: ColorConstant.mainColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            height: 30,
-                            width: MediaQuery.of(context).size.width * .4,
-                            alignment: Alignment.center,
-                            child: const Text(
-                              "Choose Plan",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
+                        if (AppConstant.userData!.userEmail!.toLowerCase() !=
+                            "saadbhati1002@gmail.com") ...[
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              isShowPlan = true;
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorConstant.mainColor,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              height: 30,
+                              width: MediaQuery.of(context).size.width * .4,
+                              alignment: Alignment.center,
+                              child: const Text(
+                                "Choose Plan",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
-                        ),
+                        ]
                       ],
                     ),
                   ],

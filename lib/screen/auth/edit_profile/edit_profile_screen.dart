@@ -148,36 +148,39 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        isShowPlan = true;
-                        setState(() {});
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: ColorConstant.mainColor,
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        height: 30,
-                        width: MediaQuery.of(context).size.width * .4,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Choose Plan",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500),
+                if (AppConstant.userData!.userEmail!.toLowerCase() !=
+                    "saadbhati1002@gmail.com") ...[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .02,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          isShowPlan = true;
+                          setState(() {});
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: ColorConstant.mainColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          height: 30,
+                          width: MediaQuery.of(context).size.width * .4,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "Choose Plan",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .02,
                 ),
@@ -722,14 +725,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         userImage: userImage,
         userName: userNameController.text.trim(),
       );
+
       if (response.success == true) {
         toastShow(message: response.message);
-        AppConstant.userData!.address = response.data!.address!;
-        AppConstant.userData!.image = response.data!.image!;
-        AppConstant.userData!.phoneNumber = response.data!.phoneNumber!;
-        AppConstant.userData!.name = response.data!.name!;
-        AppConstant.userData!.dateOfBirth = response.data!.dateOfBirth!;
-        AppConstant.userData!.userBio = response.data!.userBio!;
+        AppConstant.userData!.address = response.data!.address;
+        AppConstant.userData!.image = response.data!.image;
+        AppConstant.userData!.phoneNumber = response.data!.phoneNumber;
+        AppConstant.userData!.name = response.data!.name;
+        AppConstant.userData!.dateOfBirth = response.data!.dateOfBirth;
+        AppConstant.userData!.userBio = response.data!.userBio;
         AppConstant.userData = response.data;
 
         await AppConstant.userDetailSaved(json.encode(response));

@@ -403,9 +403,10 @@ class _SignupScreenState extends State<SignupScreen> {
       );
       if (response.success == true) {
         AppConstant.bearerToken = response.data!.token!;
-        AppConstant.userData = response.data;
-        response.data!.userEmail = emailController.text.trim();
+
         response.data!.userBio = bioController.text.trim();
+        AppConstant.userData = response.data;
+
         await AppConstant.userDetailSaved(json.encode(response));
         toastShow(message: response.message);
         Navigator.push(
@@ -413,13 +414,15 @@ class _SignupScreenState extends State<SignupScreen> {
           PageTransition(
             type: PageTransitionType.leftToRight,
             duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
-            child: DashBoardScreen(),
+            child: const DashBoardScreen(),
           ),
         );
       } else {
         toastShow(message: "Email already exists");
       }
     } catch (e) {
+      toastShow(message: "Email is not valid");
+
       debugPrint(e.toString());
     } finally {
       setState(() {

@@ -172,27 +172,30 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   thickness: 1,
                   color: ColorConstant.greyColor,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                commonRaw(
-                  icon: FaIcon(
-                    FontAwesomeIcons.dollar,
-                    color: ColorConstant.mainColor.withOpacity(0.8),
+                if (AppConstant.userData!.userEmail!.toLowerCase() !=
+                    "saadbhati1002@gmail.com") ...[
+                  const SizedBox(
+                    height: 20,
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        duration: Duration(
-                            milliseconds: AppConstant.pageAnimationDuration),
-                        child: const MyMembershipScreen(),
-                      ),
-                    );
-                  },
-                  title: "Payment History",
-                ),
+                  commonRaw(
+                    icon: FaIcon(
+                      FontAwesomeIcons.dollar,
+                      color: ColorConstant.mainColor.withOpacity(0.8),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const MyMembershipScreen(),
+                        ),
+                      );
+                    },
+                    title: "Payment History",
+                  ),
+                ],
                 const SizedBox(
                   height: 20,
                 ),
