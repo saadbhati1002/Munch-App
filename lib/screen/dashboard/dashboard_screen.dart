@@ -18,7 +18,7 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _currentIndex = 0;
 
-  final _children = AppConstant.userData!.userEmail!.toLowerCase() !=
+  final _children = AppConstant.userData!.userEmail.toString().toLowerCase() !=
           "saadbhati1002@gmail.com"
       ? [
           const HomeScreen(),
@@ -74,7 +74,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 fontWeight: FontWeight.w400,
                 color: ColorConstant.greyColor,
                 fontSize: 12),
-            items: AppConstant.userData!.userEmail!.toLowerCase() !=
+            items: AppConstant.userData!.userEmail.toString().toLowerCase() !=
                     "saadbhati1002@gmail.com"
                 ? [
                     BottomNavigationBarItem(
