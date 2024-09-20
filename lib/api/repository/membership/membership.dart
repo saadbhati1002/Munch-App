@@ -8,4 +8,9 @@ class MembershipRepository {
   Future<dynamic> getMyMembershipApiCall() async {
     return await MembershipNetwork.getMyMembership();
   }
+
+  Future<dynamic> byMemberShip({String? memberShipID}) async {
+    final param = {"plan_id": memberShipID};
+    return await MembershipNetwork.byMemberShip(param);
+  }
 }

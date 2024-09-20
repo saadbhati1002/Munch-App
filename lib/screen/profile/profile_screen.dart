@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:app/api/repository/membership/membership.dart';
+import 'package:app/models/common_model.dart';
 import 'package:app/models/membership/list/membership_list_model.dart';
+import 'package:app/models/user/user_model.dart';
+import 'package:app/screen/dashboard/dashboard_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_title.dart';
@@ -9,7 +14,8 @@ import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,8 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<MembershipData> membershipList = [];
   bool isLoading = false;
   bool isShowPlan = false;
-  int? selectedMembership;
-  String? amount;
+  MembershipData? selectedMembership;
+
   Map<String, dynamic>? paymentIntent;
   @override
   void initState() {
@@ -43,7 +49,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         if (membershipList.first.amount == "0") {
           if (AppConstant.userData!.isPremiumUser == false) {
-            selectedMembership = membershipList.first.id!;
+            selectedMembership = membershipList.first;
+          }
+        }
+        if (AppConstant.userData!.latestPlanName != null) {
+          for (int i = 0; i < membershipList.length; i++) {
+            if (membershipList[i].id ==
+                AppConstant.userData!.latestPlanName!.plan!.id) {
+              selectedMembership = membershipList[i];
+            }
           }
         }
       }
@@ -311,7 +325,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           message: "Please select membership plan to proceed");
                       return;
                     }
-                    makeStripePayment(amount);
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      if (selectedMembership!.id ==
+                          AppConstant.userData!.latestPlanName!.plan!.id) {
+                        toastShow(
+                            message:
+                                "You can not subscribe with the active plan");
+                        return;
+                      }
+                    }
+
+                    makeStripePayment(selectedMembership!.amount);
                     setState(() {
                       isShowPlan = false;
                     });
@@ -331,10 +355,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget membershipWidget({MembershipData? membershipData}) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          amount = membershipData.amount;
-          selectedMembership = membershipData.id;
-        });
+        selectedMembership = membershipData;
+        setState(() {});
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -347,22 +369,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: selectedMembership == membershipData!.id
-                    ? ColorConstant.mainColor
-                    : Colors.transparent),
+                color: selectedMembership == null
+                    ? Colors.transparent
+                    : selectedMembership!.id == membershipData!.id
+                        ? ColorConstant.mainColor
+                        : Colors.transparent),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    membershipData.title!,
+                    membershipData!.title!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: selectedMembership == membershipData.id
-                          ? ColorConstant.white
-                          : ColorConstant.mainColor,
+                      color: selectedMembership == null
+                          ? ColorConstant.mainColor
+                          : selectedMembership!.id == membershipData.id
+                              ? ColorConstant.white
+                              : ColorConstant.mainColor,
                     ),
                   ),
                 ),
@@ -377,9 +403,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: selectedMembership == membershipData.id
-                          ? ColorConstant.white
-                          : ColorConstant.black,
+                      color: selectedMembership == null
+                          ? ColorConstant.black
+                          : selectedMembership!.id == membershipData.id
+                              ? ColorConstant.white
+                              : ColorConstant.black,
                     ),
                   ),
                 ),
@@ -390,9 +418,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: selectedMembership == membershipData.id
-                          ? ColorConstant.white
-                          : Colors.transparent,
+                      color: selectedMembership == null
+                          ? Colors.transparent
+                          : selectedMembership!.id == membershipData.id
+                              ? ColorConstant.white
+                              : Colors.transparent,
                       border: Border.all(color: ColorConstant.greyColor),
                     ),
                     child: const Text(
@@ -413,9 +443,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: selectedMembership == membershipData.id
-                            ? ColorConstant.white
-                            : ColorConstant.black),
+                        color: selectedMembership == null
+                            ? ColorConstant.black
+                            : selectedMembership!.id == membershipData.id
+                                ? ColorConstant.white
+                                : ColorConstant.black),
                   ),
                 ),
               ],
@@ -432,6 +464,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Map<String, dynamic> body = {
         'amount': calculateAmount(amount),
         'currency': currency,
+        'payment_method_types[]': 'card',
       };
 
       //Make post request to Stripe
@@ -446,6 +479,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
       paymentIntent = response.data;
+      print(response.data);
+      print("saad");
       return response.data;
     } catch (err) {
       throw Exception(err.toString());
@@ -458,94 +493,195 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> makeStripePayment(String? priceTotal) async {
-    // Stripe.publishableKey = AppConstant.stripePublic;
-    // Stripe.merchantIdentifier = 'Mohd Saad bhati';
-    // await Stripe.instance.applySettings();
-    // int price = double.parse(priceTotal!).toInt();
-    // try {
-    //   paymentIntent = await createPaymentIntent(price.toString(), 'INR');
-    //
-    //   // STEP 2: Initialize Payment Sheet
-    //   await Stripe.instance
-    //       .initPaymentSheet(
-    //           paymentSheetParameters: SetupPaymentSheetParameters(
-    //         paymentIntentClientSecret:
-    //             paymentIntent!['client_secret'], //Gotten from payment intent
-    //         style: ThemeMode.light,
-    //         merchantDisplayName: 'NowoChat',
-    //       ))
-    //       .then((value) {});
-    //
-    //   //STEP 3: Display Payment sheet
-    //   displayPaymentSheet();
-    // } catch (err) {
-    //   throw Exception(err);
-    // }
+    setState(() {
+      isLoading = true;
+    });
+    Stripe.publishableKey = AppConstant.stripePublic;
+    Stripe.merchantIdentifier = 'Munch Mondays';
+    await Stripe.instance.applySettings();
+    int price = double.parse(priceTotal!).toInt();
+    try {
+      paymentIntent = await createPaymentIntent(price.toString(), 'AED');
+      print("client secret ${paymentIntent!['client_secret']}");
+
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Client secret key from payment data
+          paymentIntentClientSecret: paymentIntent!['client_secret'],
+          googlePay: const PaymentSheetGooglePay(
+              // Currency and country code is accourding to India
+              testEnv: true,
+              currencyCode: "AED",
+              merchantCountryCode: "AE"),
+          // Merchant Name
+          merchantDisplayName: 'Munch Mondays',
+          // return URl if you want to add
+          // returnURL: 'flutterstripe://redirect',
+        ),
+      );
+
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+            context: context,
+            builder: (_) => const AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
+                  ),
+                ));
+        _byMembership();
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      debugPrint(e.toString());
+      const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                Text("Payment Failed"),
+              ],
+            ),
+          ],
+        ),
+      );
+
+      //STEP 3: Display Payment sheet
+      // displayPaymentSheet();
+    } catch (err) {
+      print("bhati");
+      throw Exception(err);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   displayPaymentSheet() async {
-    // try {
-    //   await Stripe.instance.initPaymentSheet(
-    //     paymentSheetParameters: SetupPaymentSheetParameters(
-    //       paymentIntentClientSecret: paymentIntent!['client_secret'],
-    //       customFlow: true,
-    //       allowsDelayedPaymentMethods: true,
-    //       googlePay: const PaymentSheetGooglePay(
-    //         merchantCountryCode: 'IN',
-    //         testEnv: true,
-    //       ),
-    //       style: ThemeMode.light,
-    //       merchantDisplayName: 'NowoChat',
-    //     ),
-    //   );
-    //   await Stripe.instance.presentPaymentSheet().then((value) {
-    //     showDialog(
-    //         context: context,
-    //         builder: (_) => const AlertDialog(
-    //               content: Column(
-    //                 mainAxisSize: MainAxisSize.min,
-    //                 children: [
-    //                   Icon(
-    //                     Icons.check_circle,
-    //                     color: Colors.green,
-    //                     size: 100.0,
-    //                   ),
-    //                   SizedBox(height: 10.0),
-    //                   Text("Payment Successful!"),
-    //                 ],
-    //               ),
-    //             ));
-    //     // paymentSuccess(
-    //     //   transactionID: DateTime.now().millisecondsSinceEpoch.toString(),
-    //     // );
-    //     paymentIntent = null;
-    //   }).onError((error, stackTrace) {
-    //     throw Exception(error);
-    //   });
-    // } on StripeException catch (e) {
-    //   debugPrint(e.toString());
-    //   const AlertDialog(
-    //     content: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       children: [
-    //         Row(
-    //           children: [
-    //             Icon(
-    //               Icons.cancel,
-    //               color: Colors.red,
-    //             ),
-    //             Text("Payment Failed"),
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // } catch (e) {
-    //   debugPrint(e.toString());
-    // } finally {
-    //   setState(() {
-    //     isLoading = false;
-    //   });
-    // }
+    try {
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: paymentIntent!['client_secret'],
+          customFlow: true,
+          allowsDelayedPaymentMethods: true,
+          googlePay: const PaymentSheetGooglePay(
+            merchantCountryCode: 'AED',
+            testEnv: true,
+          ),
+          style: ThemeMode.light,
+          merchantDisplayName: 'Munch Mondays',
+        ),
+      );
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+            context: context,
+            builder: (_) => const AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
+                  ),
+                ));
+        _byMembership();
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      debugPrint(e.toString());
+      const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                Text("Payment Failed"),
+              ],
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future _byMembership() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      CommonRes response = await MembershipRepository().byMemberShip(
+        memberShipID: selectedMembership!.id.toString(),
+      );
+      if (response.success == true) {
+        toastShow(message: "Your subscription created");
+        AppConstant.userData!.isPremiumUser = true;
+        AppConstant.userData!.latestPlanName = LatestPlanName();
+        AppConstant.userData!.latestPlanName!.id = 1;
+        AppConstant.userData!.latestPlanName!.updatedAt =
+            DateTime.now().toString();
+        AppConstant.userData!.latestPlanName!.createdAt =
+            DateTime.now().toString();
+        AppConstant.userData!.latestPlanName!.planId = selectedMembership!.id;
+        AppConstant.userData!.latestPlanName!.userId =
+            int.parse(AppConstant.userData!.id ?? "0");
+        AppConstant.userData!.latestPlanName!.plan = Plan();
+        AppConstant.userData!.latestPlanName!.plan!.id = selectedMembership!.id;
+        AppConstant.userData!.latestPlanName!.plan!.amount =
+            selectedMembership!.amount;
+        AppConstant.userData!.latestPlanName!.plan!.days =
+            selectedMembership!.days;
+        AppConstant.userData!.latestPlanName!.plan!.desc =
+            selectedMembership!.desc;
+        AppConstant.userData!.latestPlanName!.plan!.title =
+            selectedMembership!.title;
+        AppConstant.userData!.latestPlanName!.plan!.createdAt =
+            DateTime.now().toString();
+        AppConstant.userData!.latestPlanName!.plan!.updatedAt =
+            DateTime.now().toString();
+        print(AppConstant.userData!.name);
+        print(AppConstant.userData!.latestPlanName);
+        await AppConstant.userDetailSaved(json.encode(AppConstant.userData));
+        Get.to(() => const DashBoardScreen());
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

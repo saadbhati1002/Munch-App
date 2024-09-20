@@ -736,7 +736,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         AppConstant.userData!.userBio = response.data!.userBio;
         AppConstant.userData = response.data;
 
-        await AppConstant.userDetailSaved(json.encode(response));
+        await AppConstant.userDetailSaved(json.encode(response.data));
         Navigator.push(
           context,
           PageTransition(

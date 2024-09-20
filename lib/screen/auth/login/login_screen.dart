@@ -195,8 +195,27 @@ class _LoginScreenState extends State<LoginScreen> {
         AppConstant.bearerToken = response.data!.token!;
         response.data!.userEmail = emailController.text.trim();
         AppConstant.userData = response.data;
-        await AppConstant.userDetailSaved(json.encode(response));
+        await AppConstant.userDetailSaved(json.encode(response.data));
         toastShow(message: response.message);
+        if (AppConstant.userData!.latestPlanName != null) {
+          try {
+            DateTime subscriptionDate = DateTime.parse(
+                AppConstant.userData!.latestPlanName!.createdAt ??
+                    DateTime.now().toString());
+            subscriptionDate = subscriptionDate.add(
+              Duration(
+                days: int.parse(
+                    AppConstant.userData!.latestPlanName!.plan!.days ?? "0"),
+              ),
+            );
+
+            if (DateTime.now().isBefore(subscriptionDate)) {
+              AppConstant.userData!.isPremiumUser = true;
+            }
+          } catch (e) {
+            debugPrint(e.toString());
+          }
+        }
         Navigator.push(
           context,
           PageTransition(

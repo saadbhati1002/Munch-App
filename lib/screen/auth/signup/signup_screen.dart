@@ -407,7 +407,7 @@ class _SignupScreenState extends State<SignupScreen> {
         response.data!.userBio = bioController.text.trim();
         AppConstant.userData = response.data;
 
-        await AppConstant.userDetailSaved(json.encode(response));
+        await AppConstant.userDetailSaved(json.encode(response.data));
         toastShow(message: response.message);
         Navigator.push(
           context,

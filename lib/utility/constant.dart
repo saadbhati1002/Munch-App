@@ -9,10 +9,11 @@ import 'package:share_plus/share_plus.dart';
 class AppConstant {
   static const String appName = 'Munch Monday';
   static int pageAnimationDuration = 300;
+
   static const String stripePublic =
-      'pk_live_51PKbcOSByjgYxhiE8mZfBsZCJHTeMVNA1iWrLKHaguuRT5PjWzkKwnfKnIjsTcN0RIIL0s13AiY784m5U8YuK2ze00BoYLYJPh';
+      'pk_test_51PMRfaEKmR0D8QDCR7iJ7HqsKIgGcUQLbDTsku6eB7vh6cCN8eDhGrUtMUG6mC8h8GKjumX8LE7G1hvImjhDi0YX00w0zyezNX';
   static const String stripeSecretKey =
-      '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';
+      'sk_test_51PMRfaEKmR0D8QDCnbZo8XAvwCRG0HRSXAcFWDKVkb5WNAdV4oo4Kozd2OybnTgRGbOZ8OLOYG1lGhtO1xw65K9d00xbiE7Ibv';
   static const String baseUrl = 'https://munch.yashbanerjee.com/public/api/';
   static const String imagePath =
       'https://munch-media.s3.ap-south-1.amazonaws.com/';

@@ -27,15 +27,40 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigation() async {
     var response = await AppConstant.getUserDetail();
     if (response != null && response != "null") {
-      UserRes responseUser = UserRes.fromJson(jsonDecode(response));
-      AppConstant.userData = responseUser.data;
-      AppConstant.bearerToken = responseUser.data?.token ?? "";
+      print(response);
+      UserData responseUser = UserData.fromJson(
+        jsonDecode(response),
+      );
+      print(responseUser.latestPlanName);
+      AppConstant.userData = responseUser;
+      AppConstant.bearerToken = responseUser.token ?? "";
+      print(AppConstant.userData!.name);
+      print(AppConstant.userData!.latestPlanName);
+      if (AppConstant.userData!.latestPlanName != null) {
+        try {
+          DateTime subscriptionDate = DateTime.parse(
+              AppConstant.userData!.latestPlanName!.createdAt ??
+                  DateTime.now().toString());
+          subscriptionDate = subscriptionDate.add(
+            Duration(
+              days: int.parse(
+                  AppConstant.userData!.latestPlanName!.plan!.days ?? "0"),
+            ),
+          );
+
+          if (DateTime.now().isBefore(subscriptionDate)) {
+            AppConstant.userData!.isPremiumUser = true;
+          }
+        } catch (e) {
+          debugPrint(e.toString());
+        }
+      }
       Navigator.push(
         context,
         PageTransition(
           type: PageTransitionType.leftToRight,
           duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
-          child: DashBoardScreen(),
+          child: const DashBoardScreen(),
         ),
       );
     } else {
@@ -44,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
         PageTransition(
           type: PageTransitionType.rightToLeft,
           duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
-          child: LoginScreen(),
+          child: const LoginScreen(),
         ),
       );
     }

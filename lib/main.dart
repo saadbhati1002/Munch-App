@@ -2,9 +2,15 @@ import 'package:app/screen/splash/splash_screen.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // set the publishable key for Stripe - this is mandatory
+  Stripe.publishableKey = AppConstant.stripePublic;
+  Stripe.merchantIdentifier = 'Munch Mondays';
+  await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
 
