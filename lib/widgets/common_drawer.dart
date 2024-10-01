@@ -343,6 +343,19 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   title: "Log Out",
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                commonRaw(
+                  icon: FaIcon(
+                    FontAwesomeIcons.cancel,
+                    color: ColorConstant.mainColor.withOpacity(0.8),
+                  ),
+                  onTap: () {
+                    deleteAcountPopUp();
+                  },
+                  title: "Delete Account",
+                ),
+                const SizedBox(
                   height: 80,
                 ),
               ],
@@ -585,9 +598,138 @@ class _CommonDrawerState extends State<CommonDrawer> {
       },
     );
   }
+  void deleteAcountPopUp() async {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  side: BorderSide(color: ColorConstant.greyColor),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  )),
+              elevation: 0,
+              backgroundColor: ColorConstant.white,
+              actionsPadding: const EdgeInsets.symmetric(vertical: 0),
+              title: Container(
+                alignment: Alignment.topLeft,
+                decoration: BoxDecoration(
+                    color: ColorConstant.white,
+                    borderRadius: BorderRadius.circular(15)),
+                // height: MediaQuery.of(context).size.height * .25,
+                width: MediaQuery.of(context).size.width * .7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Are you sure?',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 18,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    const Text(
+                      'Do you want to delete your account',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ColorConstant.black,
+                        fontSize: 14,
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorConstant.mainColor.withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(8)),
+                            height: 35,
+                            // width: MediaQuery.of(context).size.width * .2,
+                            alignment: Alignment.center,
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'No',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: ColorConstant.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            userAccountDelete();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorConstant.mainColor.withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(8)),
+                            height: 35,
+                            // width: MediaQuery.of(context).size.width * .2,
+                            alignment: Alignment.center,
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'Yes',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: ColorConstant.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   userLogOut() async {
     toastShow(message: "Log out successfully");
+
+    await AppConstant.userDetailSaved("null");
+    Navigator.push(
+      context,
+      PageTransition(
+          type: PageTransitionType.leftToRight,
+          duration: Duration(milliseconds: AppConstant.pageAnimationDuration),
+          child: const SplashScreen()),
+    );
+  }
+  userAccountDelete() async {
+    toastShow(message: "We received your request. Your account will be deleted in 7 days");
 
     await AppConstant.userDetailSaved("null");
     Navigator.push(

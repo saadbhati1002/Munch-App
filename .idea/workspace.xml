@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="402017d6-206f-478c-89da-c593c515f815" name="Changes" comment="Changes">
 <<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
@@ -20,6 +21,12 @@
       <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/dashboard/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/dashboard/dashboard_screen.dart" afterDir="false" />
 >>>>>>> 4646f3f99b1a3c15e3823193b56d4e13f179e46e
+=======
+    <list default="true" id="402017d6-206f-478c-89da-c593c515f815" name="Changes" comment="ios changes">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/common_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/common_drawer.dart" afterDir="false" />
+>>>>>>> 4823d361 (ios changes)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +88,18 @@
       <option name="presentableId" value="Default" />
       <updated>1706513000061</updated>
     </task>
+    <task id="LOCAL-00001" summary="ios changes">
+      <created>1725703406512</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725703406512</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ios changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios changes" />
   </component>
 </project>
