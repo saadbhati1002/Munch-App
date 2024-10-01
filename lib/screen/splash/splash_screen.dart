@@ -27,15 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigation() async {
     var response = await AppConstant.getUserDetail();
     if (response != null && response != "null") {
-      print(response);
       UserData responseUser = UserData.fromJson(
         jsonDecode(response),
       );
-      print(responseUser.latestPlanName);
       AppConstant.userData = responseUser;
       AppConstant.bearerToken = responseUser.token ?? "";
-      print(AppConstant.userData!.name);
-      print(AppConstant.userData!.latestPlanName);
       if (AppConstant.userData!.latestPlanName != null) {
         try {
           DateTime subscriptionDate = DateTime.parse(

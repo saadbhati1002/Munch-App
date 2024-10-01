@@ -128,7 +128,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
         response.data!.userImage = AppConstant.userData!.image != null
             ? AppConstant.imagePath + AppConstant.userData!.image.toString()
             : null;
-        ;
+
         response.data!.description = commentController.text.trim();
         Get.back(result: jsonEncode(response.data));
       } else {

@@ -23,8 +23,6 @@ class QAndANetwork {
 
   static Future<dynamic> getQuestionList() async {
     final result = await httpManager.get(url: questionsListUrl);
-    print(result);
-
     QuestionRes response = QuestionRes.fromJson(result);
 
     return response;

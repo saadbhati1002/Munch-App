@@ -334,8 +334,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return;
                       }
                     }
-
-                    makeStripePayment(selectedMembership!.amount);
+                    if (selectedMembership!.amount == "0") {
+                      _byMembership(membershipType: 0);
+                    } else {
+                      makeStripePayment(selectedMembership!.amount);
+                    }
                     setState(() {
                       isShowPlan = false;
                     });
@@ -479,8 +482,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
       paymentIntent = response.data;
-      print(response.data);
-      print("saad");
+
       return response.data;
     } catch (err) {
       throw Exception(err.toString());
@@ -502,7 +504,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     int price = double.parse(priceTotal!).toInt();
     try {
       paymentIntent = await createPaymentIntent(price.toString(), 'AED');
-      print("client secret ${paymentIntent!['client_secret']}");
 
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
@@ -537,7 +538,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ));
-        _byMembership();
+        _byMembership(membershipType: 1);
         paymentIntent = null;
       }).onError((error, stackTrace) {
         throw Exception(error);
@@ -564,7 +565,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       //STEP 3: Display Payment sheet
       // displayPaymentSheet();
     } catch (err) {
-      print("bhati");
       throw Exception(err);
     } finally {
       setState(() {
@@ -573,71 +573,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  displayPaymentSheet() async {
-    try {
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentIntent!['client_secret'],
-          customFlow: true,
-          allowsDelayedPaymentMethods: true,
-          googlePay: const PaymentSheetGooglePay(
-            merchantCountryCode: 'AED',
-            testEnv: true,
-          ),
-          style: ThemeMode.light,
-          merchantDisplayName: 'Munch Mondays',
-        ),
-      );
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        showDialog(
-            context: context,
-            builder: (_) => const AlertDialog(
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                        size: 100.0,
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Payment Successful!"),
-                    ],
-                  ),
-                ));
-        _byMembership();
-        paymentIntent = null;
-      }).onError((error, stackTrace) {
-        throw Exception(error);
-      });
-    } on StripeException catch (e) {
-      debugPrint(e.toString());
-      const AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.cancel,
-                  color: Colors.red,
-                ),
-                Text("Payment Failed"),
-              ],
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  Future _byMembership() async {
+  Future _byMembership({int? membershipType}) async {
     try {
       setState(() {
         isLoading = true;
@@ -647,7 +583,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
       if (response.success == true) {
         toastShow(message: "Your subscription created");
-        AppConstant.userData!.isPremiumUser = true;
+        AppConstant.userData!.isPremiumUser =
+            membershipType == 0 ? false : true;
         AppConstant.userData!.latestPlanName = LatestPlanName();
         AppConstant.userData!.latestPlanName!.id = 1;
         AppConstant.userData!.latestPlanName!.updatedAt =
@@ -671,8 +608,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             DateTime.now().toString();
         AppConstant.userData!.latestPlanName!.plan!.updatedAt =
             DateTime.now().toString();
-        print(AppConstant.userData!.name);
-        print(AppConstant.userData!.latestPlanName);
+
         await AppConstant.userDetailSaved(json.encode(AppConstant.userData));
         Get.to(() => const DashBoardScreen());
       }

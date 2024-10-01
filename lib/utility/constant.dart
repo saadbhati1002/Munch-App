@@ -11,10 +11,10 @@ class AppConstant {
   static int pageAnimationDuration = 300;
 
   static const String stripePublic =
-      'pk_test_51PMRfaEKmR0D8QDCR7iJ7HqsKIgGcUQLbDTsku6eB7vh6cCN8eDhGrUtMUG6mC8h8GKjumX8LE7G1hvImjhDi0YX00w0zyezNX';
+      'pk_live_51PMRfaEKmR0D8QDCfnlJOY5gPpk0bsTF0PuPTXFuSyLuNYBBXBfbqimJwlxhfsKKb3z5yfBc7Ow95u1CY2ENw8vK00jNJVy0cK';
   static const String stripeSecretKey =
-      'sk_test_51PMRfaEKmR0D8QDCnbZo8XAvwCRG0HRSXAcFWDKVkb5WNAdV4oo4Kozd2OybnTgRGbOZ8OLOYG1lGhtO1xw65K9d00xbiE7Ibv';
-  static const String baseUrl = 'https://munch.yashbanerjee.com/public/api/';
+      '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';
+  static const String baseUrl = 'https://munchmondays.com/public/api/';
   static const String imagePath =
       'https://munch-media.s3.ap-south-1.amazonaws.com/';
   static const String instagramUrl = 'https://www.instagram.com/';

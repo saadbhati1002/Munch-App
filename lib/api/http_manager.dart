@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:app/screen/auth/login/login_screen.dart';
 import 'package:app/utility/constant.dart';
-import 'package:app/utility/view_utlity.dart';
+import 'package:app/utility/view_utils.dart';
 import 'package:get/get.dart' as navigation;
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,6 @@ class HTTPManager {
         if (response.statusCode == 200 && response.statusCode == 422) {
           return response.data;
         } else {
-          print(response.data);
           if (response.data.toString().contains("Unauthenticated")) {
             toastShow(message: "Your login expired please login again");
             await AppConstant.userDetailSaved("null");
@@ -70,7 +69,6 @@ class HTTPManager {
           return response.data;
         }
       } on DioException catch (error) {
-        print(error);
         if (error.message.toString().contains("401")) {
           toastShow(message: "Your login expired please login again");
           await AppConstant.userDetailSaved("null");

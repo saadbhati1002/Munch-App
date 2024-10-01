@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ViewUtils {
   static Color hexToColor(String code) {
@@ -11,12 +12,12 @@ class ViewUtils {
   static checkInternetConnectionDialog() {}
 
   static Future<bool> isConnected() async {
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.mobile) {
-    //   return true;
-    // } else if (connectivityResult == ConnectivityResult.wifi) {
-    //   return true;
-    // }
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile)) {
+      return true;
+    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+      return true;
+    }
     return true;
   }
 }

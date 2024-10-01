@@ -145,7 +145,7 @@ class _QuestionAndAnswerScreenState extends State<QuestionAndAnswerScreen> {
                       ? AppConstant.imagePath +
                           AppConstant.userData!.image.toString()
                       : null;
-              ;
+
               questionList[questionList.length - 1].replyCount = "0";
             } catch (e) {
               debugPrint(e.toString());

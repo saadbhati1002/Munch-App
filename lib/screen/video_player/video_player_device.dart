@@ -18,7 +18,7 @@ class _VideoPlayerDeviceScreenState extends State<VideoPlayerDeviceScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.videoPath);
+
     _controller = VideoPlayerController.asset(widget.videoPath!,
         videoPlayerOptions: VideoPlayerOptions());
 
@@ -79,7 +79,6 @@ class _VideoPlayerDeviceScreenState extends State<VideoPlayerDeviceScreen> {
                     VideoProgressIndicator(
                       _controller,
                       allowScrubbing: true,
-
                     ),
                     const SizedBox(
                       height: 10,
