@@ -289,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       isRecipeLoading = true;
                                       isRecipe = true;
                                     });
-                                    Future.delayed(const Duration(seconds: 2))
+                                    Future.delayed(const Duration(seconds: 1))
                                         .then((value) {
                                       setState(() {
                                         isRecipeLoading = false;
@@ -326,8 +326,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       isRecipeLoading = true;
                                       isRecipe = false;
                                     });
-                                    Future.delayed(const Duration(seconds: 2))
-                                        .then((value) {
+                                    Future.delayed(
+                                      const Duration(seconds: 1),
+                                    ).then((value) {
                                       setState(() {
                                         isRecipeLoading = false;
                                       });
@@ -452,45 +453,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return (index < articleList.length)
                                     ? GestureDetector(
                                         onTap: () async {
-                                          var response = await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType
-                                                  .leftToRight,
-                                              duration: Duration(
-                                                  milliseconds: AppConstant
-                                                      .pageAnimationDuration),
-                                              child: ArticleDetailScreen(
-                                                articleDate: articleList[index],
+                                          if (articleList[index].featured ==
+                                              1) {
+                                          } else {
+                                            var response = await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: Duration(
+                                                    milliseconds: AppConstant
+                                                        .pageAnimationDuration),
+                                                child: ArticleDetailScreen(
+                                                  articleDate:
+                                                      articleList[index],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                          if (response != null) {
-                                            if (response == 0 &&
-                                                articleList[index]
-                                                        .isLikedByMe ==
-                                                    false) {
-                                              articleList[index].isLikedByMe =
-                                                  true;
-                                              articleList[index].likeCount =
+                                            );
+                                            if (response != null) {
+                                              if (response == 0 &&
                                                   articleList[index]
-                                                          .likeCount! +
-                                                      1;
-                                            } else if (response == 1 &&
-                                                articleList[index]
-                                                        .isLikedByMe ==
-                                                    true) {
-                                              articleList[index].isLikedByMe =
-                                                  false;
-                                              articleList[index].likeCount =
+                                                          .isLikedByMe ==
+                                                      false) {
+                                                articleList[index].isLikedByMe =
+                                                    true;
+                                                articleList[index].likeCount =
+                                                    articleList[index]
+                                                            .likeCount! +
+                                                        1;
+                                              } else if (response == 1 &&
                                                   articleList[index]
-                                                          .likeCount! -
-                                                      1;
+                                                          .isLikedByMe ==
+                                                      true) {
+                                                articleList[index].isLikedByMe =
+                                                    false;
+                                                articleList[index].likeCount =
+                                                    articleList[index]
+                                                            .likeCount! -
+                                                        1;
+                                              }
+                                              setState(() {});
                                             }
-                                            setState(() {});
                                           }
                                         },
                                         child: recipeListWidget(
+                                            isArticle: true,
                                             context: context,
                                             recipeData: articleList[index],
                                             isFromRecipe: false,
@@ -539,13 +546,17 @@ class _HomeScreenState extends State<HomeScreen> {
       width: MediaQuery.of(context).size.width * 1,
       height: MediaQuery.of(context).size.height * .23,
       child: Swiper(
+        autoplay: true,
+        duration: 1000,
         scale: 0.75,
         pagination: const SwiperPagination(),
         viewportFraction: 1,
         itemCount: bannerList.length,
         onTap: (index) {
-          if (bannerList[index].recipeID != null ||
-              bannerList[index].recipeID != "") {
+          print("saad ${bannerList[index].bannerType}");
+          if (bannerList[index].bannerType == "link") {
+            launchUrl(Uri.parse(bannerList[index].url!));
+          } else if (bannerList[index].bannerType == "recipe") {
             for (int i = 0; i < recipeList.length; i++) {
               if (bannerList[index].recipeID == recipeList[i].id) {
                 Navigator.push(
@@ -561,9 +572,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
             }
-          } else if (bannerList[index].url != null ||
-              bannerList[index].url != "") {
-            launchUrl(Uri.parse(bannerList[index].url!));
+          } else if (bannerList[index].bannerType == "artical") {
+            for (int i = 0; i < articleList.length; i++) {
+              if (bannerList[index].articleID == articleList[i].id) {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    duration: Duration(
+                        milliseconds: AppConstant.pageAnimationDuration),
+                    child: ArticleDetailScreen(
+                      articleDate: articleList[i],
+                    ),
+                  ),
+                );
+              }
+            }
+          } else if (bannerList[index].bannerType == "home_maker") {
+            // for (int i = 0; i < articleList.length; i++) {
+            //   if (bannerList[index].articleID == articleList[i].id) {
+            //     Navigator.push(
+            //       context,
+            //       PageTransition(
+            //         type: PageTransitionType.leftToRight,
+            //         duration: Duration(
+            //             milliseconds: AppConstant.pageAnimationDuration),
+            //         child: ArticleDetailScreen(
+            //           articleDate: articleList[i],
+            //         ),
+            //       ),
+            //     );
+            //   }
+            // }
           }
         },
         itemBuilder: (context, index) {

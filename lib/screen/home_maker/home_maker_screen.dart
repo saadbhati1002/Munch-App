@@ -177,56 +177,57 @@ class _HomeMakerScreenState extends State<HomeMakerScreen> {
           const SizedBox(
             height: 15,
           ),
-          userData.thumbnail != null
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        duration: Duration(
-                            milliseconds: AppConstant.pageAnimationDuration),
-                        child: VideoPlayerScreen(
-                          videoPath:
-                              "${AppConstant.imagePath}${userData.video}",
-                        ),
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * .45,
-                    child: Stack(
-                      children: [
-                        CustomImage(
-                          width: MediaQuery.of(context).size.width * 1,
-                          height: MediaQuery.of(context).size.height * .45,
-                          imagePath:
-                              "${AppConstant.imagePath}${userData.thumbnail}",
-                        ),
-                        Center(
-                          child: Container(
-                            height: 45,
-                            width: 45,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: ColorConstant.greyColor),
-                            child: const Icon(
-                              Icons.play_arrow,
-                              size: 35,
-                              color: ColorConstant.mainColor,
-                            ),
-                          ),
-                        )
-                      ],
+          if (userData.mediaType == "IMAGE") ...[
+            CustomImage(
+              width: MediaQuery.of(context).size.width * 1,
+              height: MediaQuery.of(context).size.height * .45,
+              imagePath: "${AppConstant.imagePath}${userData.video}",
+            ),
+          ] else ...[
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    duration: Duration(
+                        milliseconds: AppConstant.pageAnimationDuration),
+                    child: VideoPlayerScreen(
+                      videoPath: "${AppConstant.imagePath}${userData.video}",
                     ),
                   ),
-                )
-              : CustomImage(
-                  width: MediaQuery.of(context).size.width * 1,
-                  height: MediaQuery.of(context).size.height * .45,
-                  imagePath: "${AppConstant.imagePath}${userData.video}",
+                );
+              },
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * .45,
+                child: Stack(
+                  children: [
+                    CustomImage(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: MediaQuery.of(context).size.height * .45,
+                      imagePath:
+                          "${AppConstant.imagePath}${userData.thumbnail}",
+                    ),
+                    Center(
+                      child: Container(
+                        height: 45,
+                        width: 45,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorConstant.greyColor),
+                        child: const Icon(
+                          Icons.play_arrow,
+                          size: 35,
+                          color: ColorConstant.mainColor,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
+              ),
+            )
+          ],
           const SizedBox(
             height: 15,
           ),

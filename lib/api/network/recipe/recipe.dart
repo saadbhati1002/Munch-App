@@ -79,8 +79,8 @@ class RecipeNetwork {
 
   static Future<dynamic> getSavedCalenderRecipe() async {
     final result = await httpManager.get(url: calenderRecipeUrl);
-
-    CalenderRes response = CalenderRes.fromJson(result);
+    print(result);
+    RecipeRes response = RecipeRes.fromJson(result);
     return response;
   }
 

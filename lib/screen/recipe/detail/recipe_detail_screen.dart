@@ -1,7 +1,6 @@
 import 'package:app/api/repository/list/list.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
 import 'package:app/models/list/add/add_list_model.dart';
-import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/profile/profile_screen.dart';
@@ -14,6 +13,7 @@ import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/micro_loader.dart';
 import 'package:blur/blur.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +35,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   bool isLoading = false;
 
   bool isSavedToMyCalender = false;
-  List<CalenderData> calenderRecipeList = [];
+  List<RecipeData> calenderRecipeList = [];
 
   @override
   void initState() {
@@ -54,11 +54,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       setState(() {
         isLoading = true;
       });
-      CalenderRes response =
-          await RecipeRepository().getCalenderRecipeApiCall();
+      RecipeRes response = await RecipeRepository().getCalenderRecipeApiCall();
       if (response.data.isNotEmpty) {
         for (int i = 0; i < response.data.length; i++) {
-          if (response.data[i].userId.toString() ==
+          if (response.data[i].createID.toString() ==
               AppConstant.userData!.id.toString()) {
             calenderRecipeList.add(
               response.data[i],
@@ -81,7 +80,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   _checkForRecipeSaved() {
     var response = calenderRecipeList
-        .where((element) => element.recipeId == widget.recipeData!.id!);
+        .where((element) => element.id == widget.recipeData!.id!);
     if (response.isNotEmpty) {
       isSavedToMyCalender = T;
     }
@@ -136,56 +135,72 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  widget.recipeData!.thumbnail != null
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.leftToRight,
-                                duration: Duration(
-                                    milliseconds:
-                                        AppConstant.pageAnimationDuration),
-                                child: VideoPlayerScreen(
-                                  videoPath: widget.recipeData!.media,
-                                ),
-                              ),
-                            );
-                          },
-                          child: SizedBox(
+                  if (widget.recipeData!.mediaType == "IMAGE") ...[
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: MediaQuery.of(context).size.height * .45,
+                      child: Swiper(
+                        autoplay: false,
+                        duration: 1000,
+                        scale: 1,
+                        pagination: const SwiperPagination(),
+                        viewportFraction: 1,
+                        itemCount: widget.recipeData!.media.length,
+                        onTap: (index) {},
+                        itemBuilder: (context, index) {
+                          return CustomImage(
                             width: MediaQuery.of(context).size.width * 1,
                             height: MediaQuery.of(context).size.height * .45,
-                            child: Stack(
-                              children: [
-                                CustomImage(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height:
-                                      MediaQuery.of(context).size.height * .45,
-                                  imagePath: widget.recipeData!.thumbnail,
-                                ),
-                                Center(
-                                  child: Container(
-                                    height: 45,
-                                    width: 45,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorConstant.greyColor),
-                                    child: const Icon(
-                                      Icons.play_arrow,
-                                      size: 35,
-                                      color: ColorConstant.mainColor,
-                                    ),
-                                  ),
-                                )
-                              ],
+                            imagePath: widget.recipeData!.media[index],
+                          );
+                        },
+                      ),
+                    ),
+                  ] else ...[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: VideoPlayerScreen(
+                              videoPath: widget.recipeData!.media.first,
                             ),
                           ),
-                        )
-                      : CustomImage(
-                          width: MediaQuery.of(context).size.width * 1,
-                          height: MediaQuery.of(context).size.height * .45,
-                          imagePath: widget.recipeData!.media,
+                        );
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 1,
+                        height: MediaQuery.of(context).size.height * .45,
+                        child: Stack(
+                          children: [
+                            CustomImage(
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: MediaQuery.of(context).size.height * .45,
+                              imagePath: widget.recipeData!.thumbnail,
+                            ),
+                            Center(
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorConstant.greyColor),
+                                child: const Icon(
+                                  Icons.play_arrow,
+                                  size: 35,
+                                  color: ColorConstant.mainColor,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(
                     height: 15,
                   ),

@@ -32,6 +32,9 @@ class BannerData {
   String? image;
   String? url;
   String? recipeID;
+  String? articleID;
+  String? homeMakerID;
+  String? bannerType;
   String? createdAt;
   String? updatedAt;
 
@@ -42,6 +45,9 @@ class BannerData {
     image = json['image'];
     url = json['url'];
     recipeID = json['recipie_id'].toString();
+    articleID = json['artical_id'].toString();
+    homeMakerID = json['home_maker_id'].toString();
+    bannerType = json['banner_type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -52,6 +58,9 @@ class BannerData {
     data['image'] = image;
     data['url'] = url;
     data["recipie_id"] = recipeID;
+    data["artical_id"] = articleID;
+    data["home_maker_id"] = homeMakerID;
+    data["banner_type"] = bannerType;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

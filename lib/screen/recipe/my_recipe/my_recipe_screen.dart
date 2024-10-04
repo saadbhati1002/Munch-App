@@ -247,58 +247,58 @@ class _MyRecipeScreenState extends State<MyRecipeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              data!.thumbnail != null
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.leftToRight,
-                            duration: Duration(
-                                milliseconds:
-                                    AppConstant.pageAnimationDuration),
-                            child: VideoPlayerScreen(
-                              videoPath:
-                                  "${AppConstant.imagePath}${data.media}",
-                            ),
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .35,
-                        height: 120,
-                        child: Stack(
-                          children: [
-                            CustomImage(
-                              borderRadius: 0,
-                              imagePath: data.thumbnail,
-                              width: MediaQuery.of(context).size.width * .35,
-                              height: 120,
-                            ),
-                            Center(
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorConstant.greyColor),
-                                child: const Icon(
-                                  Icons.play_arrow,
-                                  size: 35,
-                                  color: ColorConstant.mainColor,
-                                ),
-                              ),
-                            )
-                          ],
+              if (data!.mediaType == "IMAGE") ...[
+                CustomImage(
+                  borderRadius: 0,
+                  imagePath: data.media.first,
+                  width: MediaQuery.of(context).size.width * .35,
+                  height: 120,
+                )
+              ] else ...[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: VideoPlayerScreen(
+                          videoPath: "${AppConstant.imagePath}${data.media}",
                         ),
                       ),
-                    )
-                  : CustomImage(
-                      borderRadius: 0,
-                      imagePath: data.media,
-                      width: MediaQuery.of(context).size.width * .35,
-                      height: 120,
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .35,
+                    height: 120,
+                    child: Stack(
+                      children: [
+                        CustomImage(
+                          borderRadius: 0,
+                          imagePath: data.thumbnail,
+                          width: MediaQuery.of(context).size.width * .35,
+                          height: 120,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorConstant.greyColor),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              size: 35,
+                              color: ColorConstant.mainColor,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
+                  ),
+                ),
+              ],
               Container(
                 height: 120,
                 width: MediaQuery.of(context).size.width * .58,

@@ -48,14 +48,14 @@ class MyMembershipData {
       planDays});
 
   MyMembershipData.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    createdAt = json['created_at'];
-    user = json['user'];
-    planId = json['plan_id'];
+    userId = json['user_id'].toString();
+    createdAt = json['created_at'].toString();
+    user = json['user'].toString();
+    planId = json['plan_id'].toString();
     planName = json['plan_name'];
     planDesc = json['plan_desc'];
-    planAmount = json['plan_amount'];
-    planDays = json['plan_days'];
+    planAmount = json['plan_amount'].toString();
+    planDays = json['plan_days'].toString();
   }
 
   Map<String, dynamic> toJson() {

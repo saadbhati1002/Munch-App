@@ -28,7 +28,7 @@ class _SocialMediaShareScreenState extends State<SocialMediaShareScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * .12,
+            height: MediaQuery.of(context).size.height * .05,
           ),
           Container(
             alignment: Alignment.center,
@@ -44,36 +44,78 @@ class _SocialMediaShareScreenState extends State<SocialMediaShareScreen> {
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
             color: ColorConstant.white,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Column(
               children: [
-                socialMediaWidget(
-                  image: Images.facebook,
-                  onTap: () {
-                    launchUrl(
-                      Uri.parse(AppConstant.facebookUrl),
-                    );
-                  },
-                  title: 'Facebook',
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    socialMediaWidget(
+                      image: Images.facebook,
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(AppConstant.facebookUrl),
+                        );
+                      },
+                      title: 'Facebook',
+                    ),
+                    socialMediaWidget(
+                      image: Images.instagram,
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(AppConstant.instagramUrl),
+                        );
+                      },
+                      title: 'Instagram',
+                    ),
+                    socialMediaWidget(
+                      image: Images.whatsApp,
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(AppConstant.whatsAppUrl),
+                        );
+                      },
+                      title: 'Whatsapp',
+                    ),
+                  ],
                 ),
-                socialMediaWidget(
-                  image: Images.instagram,
-                  onTap: () {
-                    launchUrl(
-                      Uri.parse(AppConstant.instagramUrl),
-                    );
-                  },
-                  title: 'Instagram',
+                const SizedBox(
+                  height: 20,
                 ),
-                socialMediaWidget(
-                  image: Images.whatsApp,
-                  onTap: () {
-                    launchUrl(
-                      Uri.parse(AppConstant.whatsAppUrl),
-                    );
-                  },
-                  title: 'Whatsapp',
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    socialMediaWidget(
+                      image: Images.youtube,
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(AppConstant.youTubeUrl),
+                        );
+                      },
+                      title: 'Youtube',
+                    ),
+                    socialMediaWidget(
+                      image: Images.email,
+                      onTap: () {
+                        final Uri params = Uri(
+                            scheme: 'mailto',
+                            path: AppConstant.emailAddress,
+                            queryParameters: {
+                              'subject': 'Default Subject',
+                              'body': 'Default body'
+                            });
+                        String url = params.toString();
+                        launchUrl(
+                          Uri.parse(url),
+                        );
+                      },
+                      title: 'Email',
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),
@@ -107,9 +149,6 @@ class _SocialMediaShareScreenState extends State<SocialMediaShareScreen> {
           Text(
             title!,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 30,
           ),
         ],
       ),

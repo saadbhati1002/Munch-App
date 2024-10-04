@@ -37,6 +37,7 @@ class CustomImage extends StatelessWidget {
                     height: height,
                     width: width,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(borderRadius ?? 0),
                       image: DecorationImage(
                         image: imageProvider,
                         fit: BoxFit.cover,

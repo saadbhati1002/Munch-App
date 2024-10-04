@@ -33,13 +33,14 @@ class ContestData {
   String? titleTagline;
   List? rules;
   String? numOfParticipate;
-
-  ContestData({id, title, titleTagline, rules, numOfParticipate});
+  List media = [];
+  ContestData({id, title, titleTagline, rules, numOfParticipate, media});
 
   ContestData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     titleTagline = json['title_tagline'];
+    media = json['media'];
     rules = json['rules'] != null ? json['rules'].split(',') : [];
     numOfParticipate = json['num_of_participate'].toString();
   }
@@ -50,6 +51,7 @@ class ContestData {
     data['title'] = title;
     data['title_tagline'] = titleTagline;
     data['rules'] = rules;
+    data['media'] = media;
     data['num_of_participate'] = numOfParticipate;
     return data;
   }

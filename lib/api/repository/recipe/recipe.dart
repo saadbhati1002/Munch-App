@@ -110,7 +110,8 @@ class RecipeRepository {
       "method_tagline": methodTagLine,
       "chefs_whisper": chefWhisper,
       "chefs_whisper_tagline": chefWhisperTagline,
-      "is_approved": status
+      "is_approved": status,
+      "media_type": recipeThumbnail != null ? "VIDEO" : "IMAGE"
     });
     return await RecipeNetwork.createRecipe(body);
   }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:app/api/repository/article/article.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
@@ -12,6 +10,7 @@ import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/custom_image_view_circular.dart';
 import 'package:app/widgets/micro_loader.dart';
 import 'package:app/widgets/show_progress_bar.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
@@ -87,68 +86,72 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  widget.articleDate!.media.toString().contains('.mp4')
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                duration: Duration(
-                                    milliseconds:
-                                        AppConstant.pageAnimationDuration),
-                                child: VideoPlayerScreen(
-                                  videoPath:
-                                      "${AppConstant.imagePath}${widget.articleDate!.media}",
-                                ),
-                              ),
-                            );
-                          },
-                          child: SizedBox(
+                  if (widget.articleDate!.mediaType == "IMAGE") ...[
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: MediaQuery.of(context).size.height * .45,
+                      child: Swiper(
+                        autoplay: false,
+                        duration: 1000,
+                        scale: 1,
+                        pagination: const SwiperPagination(),
+                        viewportFraction: 1,
+                        itemCount: widget.articleDate!.media.length,
+                        onTap: (index) {},
+                        itemBuilder: (context, index) {
+                          return CustomImage(
                             width: MediaQuery.of(context).size.width * 1,
                             height: MediaQuery.of(context).size.height * .45,
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height:
-                                      MediaQuery.of(context).size.height * .45,
-                                  child: widget.articleDate!
-                                              .isVideoThumbnailLoading ==
-                                          true
-                                      ? Container(
-                                          color: ColorConstant.white,
-                                        )
-                                      : Image.file(
-                                          File(widget.articleDate!
-                                                  .videoThumbnail ??
-                                              ""),
-                                          fit: BoxFit.contain,
-                                        ),
-                                ),
-                                Center(
-                                  child: Container(
-                                    height: 45,
-                                    width: 45,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorConstant.greyColor),
-                                    child: const Icon(
-                                      Icons.play_arrow,
-                                      size: 35,
-                                      color: ColorConstant.mainColor,
-                                    ),
-                                  ),
-                                )
-                              ],
+                            imagePath: widget.articleDate!.media[index],
+                          );
+                        },
+                      ),
+                    ),
+                  ] else ...[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            duration: Duration(
+                                milliseconds:
+                                    AppConstant.pageAnimationDuration),
+                            child: VideoPlayerScreen(
+                              videoPath: widget.articleDate!.media.first,
                             ),
                           ),
-                        )
-                      : CustomImage(
-                          width: MediaQuery.of(context).size.width * 1,
-                          height: MediaQuery.of(context).size.height * .45,
-                          imagePath: widget.articleDate!.media,
+                        );
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 1,
+                        height: MediaQuery.of(context).size.height * .45,
+                        child: Stack(
+                          children: [
+                            CustomImage(
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: MediaQuery.of(context).size.height * .45,
+                              imagePath: widget.articleDate!.thumbnail,
+                            ),
+                            Center(
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorConstant.greyColor),
+                                child: const Icon(
+                                  Icons.play_arrow,
+                                  size: 35,
+                                  color: ColorConstant.mainColor,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(
                     height: 15,
                   ),

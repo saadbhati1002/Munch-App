@@ -1,5 +1,4 @@
 import 'package:app/api/repository/recipe/recipe.dart';
-import 'package:app/models/recipe/calender/calender_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
 import 'package:app/screen/add_recipe/add_recipe_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
@@ -23,7 +22,7 @@ class MyPlanesScreen extends StatefulWidget {
 class _MyPlanesScreenState extends State<MyPlanesScreen> {
   bool isRecipeLoading = false;
   List<RecipeData> recipeList = [];
-  List<CalenderData> calenderRecipeList = [];
+  List<RecipeData> calenderRecipeList = [];
   String? selectedDate;
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
   }
 
   _getData() async {
-    selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    // selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     setState(() {
       isRecipeLoading = true;
@@ -56,11 +55,11 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
 
   Future _getCalenderRecipe() async {
     try {
-      CalenderRes response =
-          await RecipeRepository().getCalenderRecipeApiCall();
+      RecipeRes response = await RecipeRepository().getCalenderRecipeApiCall();
+
       if (response.data.isNotEmpty) {
         for (int i = 0; i < response.data.length; i++) {
-          if (response.data[i].userId.toString() ==
+          if (response.data[i].createID.toString() ==
               AppConstant.userData!.id.toString()) {
             calenderRecipeList.add(
               response.data[i],
@@ -246,17 +245,6 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                           return selectedDate == null
                               ? GestureDetector(
                                   onTap: () async {
-                                    int recipeListIndex = 0;
-                                    for (int i = 0;
-                                        i < recipeList.length;
-                                        i++) {
-                                      if (calenderRecipeList[index]
-                                              .recipeId
-                                              .toString() ==
-                                          recipeList[i].id.toString()) {
-                                        recipeListIndex = i;
-                                      }
-                                    }
                                     var response = await Navigator.push(
                                       context,
                                       PageTransition(
@@ -265,30 +253,29 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                                             milliseconds: AppConstant
                                                 .pageAnimationDuration),
                                         child: RecipeDetailScreen(
-                                          recipeData:
-                                              recipeList[recipeListIndex],
+                                          recipeData: calenderRecipeList[index],
                                         ),
                                       ),
                                     );
                                     if (response != null) {
                                       if (response == 0 &&
-                                          recipeList[recipeListIndex]
+                                          calenderRecipeList[index]
                                                   .isLikedByMe ==
                                               false) {
-                                        recipeList[recipeListIndex]
-                                            .isLikedByMe = true;
-                                        recipeList[recipeListIndex].likeCount =
-                                            recipeList[recipeListIndex]
+                                        calenderRecipeList[index].isLikedByMe =
+                                            true;
+                                        calenderRecipeList[index].likeCount =
+                                            calenderRecipeList[index]
                                                     .likeCount! +
                                                 1;
                                       } else if (response == 1 &&
-                                          recipeList[recipeListIndex]
+                                          calenderRecipeList[index]
                                                   .isLikedByMe ==
                                               true) {
-                                        recipeList[recipeListIndex]
-                                            .isLikedByMe = false;
-                                        recipeList[recipeListIndex].likeCount =
-                                            recipeList[recipeListIndex]
+                                        calenderRecipeList[index].isLikedByMe =
+                                            false;
+                                        calenderRecipeList[index].likeCount =
+                                            calenderRecipeList[index]
                                                     .likeCount! -
                                                 1;
                                       }
@@ -302,17 +289,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                               : selectedDate == calenderRecipeList[index].date
                                   ? GestureDetector(
                                       onTap: () async {
-                                        int recipeListIndex = 0;
-                                        for (int i = 0;
-                                            i < recipeList.length;
-                                            i++) {
-                                          if (calenderRecipeList[index]
-                                                  .recipeId
-                                                  .toString() ==
-                                              recipeList[i].id.toString()) {
-                                            recipeListIndex = i;
-                                          }
-                                        }
+                                        // }
                                         var response = await Navigator.push(
                                           context,
                                           PageTransition(
@@ -323,31 +300,31 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
                                                     .pageAnimationDuration),
                                             child: RecipeDetailScreen(
                                               recipeData:
-                                                  recipeList[recipeListIndex],
+                                                  calenderRecipeList[index],
                                             ),
                                           ),
                                         );
                                         if (response != null) {
                                           if (response == 0 &&
-                                              recipeList[recipeListIndex]
+                                              calenderRecipeList[index]
                                                       .isLikedByMe ==
                                                   false) {
-                                            recipeList[recipeListIndex]
+                                            calenderRecipeList[index]
                                                 .isLikedByMe = true;
-                                            recipeList[recipeListIndex]
+                                            calenderRecipeList[index]
                                                     .likeCount =
-                                                recipeList[recipeListIndex]
+                                                calenderRecipeList[index]
                                                         .likeCount! +
                                                     1;
                                           } else if (response == 1 &&
-                                              recipeList[recipeListIndex]
+                                              calenderRecipeList[index]
                                                       .isLikedByMe ==
                                                   true) {
-                                            recipeList[recipeListIndex]
+                                            calenderRecipeList[index]
                                                 .isLikedByMe = false;
-                                            recipeList[recipeListIndex]
+                                            calenderRecipeList[index]
                                                     .likeCount =
-                                                recipeList[recipeListIndex]
+                                                calenderRecipeList[index]
                                                         .likeCount! -
                                                     1;
                                           }
@@ -388,7 +365,7 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
     );
   }
 
-  Widget savedRecipe({CalenderData? calenderData}) {
+  Widget savedRecipe({RecipeData? calenderData}) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -402,57 +379,58 @@ class _MyPlanesScreenState extends State<MyPlanesScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              calenderData!.thumbnail != null
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.leftToRight,
-                            duration: Duration(
-                                milliseconds:
-                                    AppConstant.pageAnimationDuration),
-                            child: VideoPlayerScreen(
-                              videoPath: calenderData.media,
-                            ),
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .35,
-                        height: 120,
-                        child: Stack(
-                          children: [
-                            CustomImage(
-                              borderRadius: 0,
-                              imagePath: calenderData.thumbnail,
-                              width: MediaQuery.of(context).size.width * .35,
-                              height: 120,
-                            ),
-                            Center(
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorConstant.greyColor),
-                                child: const Icon(
-                                  Icons.play_arrow,
-                                  size: 35,
-                                  color: ColorConstant.mainColor,
-                                ),
-                              ),
-                            )
-                          ],
+              if (calenderData!.mediaType == "IMAGE") ...[
+                CustomImage(
+                  borderRadius: 0,
+                  imagePath: calenderData.media.first,
+                  width: MediaQuery.of(context).size.width * .35,
+                  height: 120,
+                ),
+              ] else ...[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: VideoPlayerScreen(
+                          videoPath: calenderData.media.first,
                         ),
                       ),
-                    )
-                  : CustomImage(
-                      borderRadius: 0,
-                      imagePath: calenderData.media,
-                      width: MediaQuery.of(context).size.width * .35,
-                      height: 120,
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .35,
+                    height: 120,
+                    child: Stack(
+                      children: [
+                        CustomImage(
+                          borderRadius: 0,
+                          imagePath: calenderData.thumbnail,
+                          width: MediaQuery.of(context).size.width * .35,
+                          height: 120,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorConstant.greyColor),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              size: 35,
+                              color: ColorConstant.mainColor,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
+                  ),
+                )
+              ],
               Container(
                 width: MediaQuery.of(context).size.width * .6,
                 margin: const EdgeInsets.symmetric(horizontal: 8),

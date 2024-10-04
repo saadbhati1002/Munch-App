@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 10,
                       ),
                       commonTextFieldText(title: 'Email'),
-                      CustomTextFormField(
+                      CustomTextFormFieldNormal(
                         controller: emailController,
                         hintText: 'User Email',
                         context: context,
@@ -88,10 +88,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 12,
                       ),
                       commonTextFieldText(title: 'Password'),
-                      CustomTextFormField(
+                      CustomTextFormFieldNormal(
                         controller: passwordController,
                         isObscureText: isPassword,
+                        isPassword: true,
                         hintText: 'User Password',
+                        suffix: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isPassword = !isPassword;
+                            });
+                          },
+                          child: Icon(
+                            isPassword
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off,
+                          ),
+                        ),
                         context: context,
                       ),
                     ],

@@ -31,7 +31,7 @@ class RecipeData {
   String? id;
   String? nameDish;
   List<String>? categories;
-  String? media;
+  List media = [];
   String? tagLine;
   String? preparationTime;
   String? cookingTime;
@@ -56,6 +56,9 @@ class RecipeData {
   String? createdAt;
   int? featured;
   String? thumbnail;
+  String? mediaType;
+  String? date;
+  String? createID;
 
   RecipeData({
     nameDish,
@@ -84,6 +87,8 @@ class RecipeData {
     this.createdAt,
     this.featured,
     this.thumbnail,
+    this.mediaType,
+    this.createID,
   });
 
   RecipeData.fromJson(Map<String, dynamic> json) {
@@ -100,6 +105,7 @@ class RecipeData {
     ingredientList = json['ingredient_list'] != null
         ? json['ingredient_list'].split(',')
         : [];
+
     method = json['method'];
     methodTagline = json['method_tagline'];
     chefsWhisper = json['chefs_whisper'];
@@ -107,12 +113,19 @@ class RecipeData {
     isApproved = json['is_approved'].toString();
     user = json['user'];
     userImage = json['user_image'];
-    likeCount = int.parse(json['like_count'].toString());
-    commentCount = int.parse(json['comment_count'].toString());
+    likeCount = json['like_count'] != null
+        ? int.parse(json['like_count'].toString())
+        : 0;
+    commentCount = json['comment_count'] != null
+        ? int.parse(json['comment_count'].toString())
+        : 0;
     userID = json['user_id'].toString();
+
     createdAt = json['created_at'].toString();
     thumbnail = json['thumbnail'];
-
+    mediaType = json['media_type'];
+    date = json['date'].toString();
+    createID = json['create_id'].toString();
     featured =
         json["featured"] != null ? int.parse(json["featured"].toString()) : 0;
     if (json['liked_users'] != null) {
@@ -146,7 +159,9 @@ class RecipeData {
     data['created_at'] = createdAt;
     data["featured"] = featured;
     data["thumbnail"] = thumbnail;
-
+    data["media_type"] = mediaType;
+    data['date'] = date;
+    data["create_id"] = createID;
     if (likedUsers.isNotEmpty) {
       data['liked_users'] = likedUsers.map((v) => v.toJson()).toList();
     }

@@ -154,7 +154,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 5,
                       ),
                       commonTextFieldText(title: 'Email'),
-                      CustomTextFormField(
+                      CustomTextFormFieldNormal(
                         controller: emailController,
                         hintText: 'Enter your email',
                         context: context,
@@ -163,28 +163,28 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 5,
                       ),
                       commonTextFieldText(title: 'Password'),
-                      CustomTextFormField(
+                      CustomTextFormFieldNormal(
+                        isPassword: true,
                         hintText: 'Enter your Password',
                         controller: passwordController,
                         context: context,
                         isObscureText: passwordVisibility,
-                        // suffix: GestureDetector(
-                        //   onTap: () {
-                        //     setState(() {
-                        //       passwordVisibility = !passwordVisibility;
-                        //     });
-                        //   },
-                        //   child: Icon(
-                        //     passwordVisibility
-                        //         ? Icons.visibility_off
-                        //         : Icons.remove_red_eye,
-                        //     size: 17,
-                        //   ),
-                        // ),
+                        suffix: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              passwordVisibility = !passwordVisibility;
+                            });
+                          },
+                          child: Icon(
+                            passwordVisibility
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off,
+                          ),
+                        ),
                       ),
-                      // const SizedBox(
-                      //   height: 17,
-                      // ),
+                      const SizedBox(
+                        height: 17,
+                      ),
                       commonTextFieldText(title: 'Your Bio'),
                       CustomTextFormField(
                         controller: bioController,

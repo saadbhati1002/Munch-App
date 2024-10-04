@@ -110,6 +110,34 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                           fontWeight: FontWeight.w500,
                           color: ColorConstant.black),
                     ),
+                    if (widget.contestData!.media.isNotEmpty) ...[
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: GridView.builder(
+                          itemCount: widget.contestData!.media.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 0.9,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 15,
+                          ),
+                          itemBuilder: (context, index) {
+                            return CustomImage(
+                              borderRadius: 15,
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
+                              imagePath: widget.contestData!.media[index],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                     const SizedBox(
                       height: 20,
                     ),

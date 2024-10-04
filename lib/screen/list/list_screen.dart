@@ -279,7 +279,8 @@ class _ListScreenState extends State<ListScreen> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
                             onTap: () {

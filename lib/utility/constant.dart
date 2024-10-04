@@ -17,9 +17,12 @@ class AppConstant {
   static const String baseUrl = 'https://munchmondays.com/public/api/';
   static const String imagePath =
       'https://munch-media.s3.ap-south-1.amazonaws.com/';
-  static const String instagramUrl = 'https://www.instagram.com/';
-  static const String facebookUrl = 'https://www.facebook.com/';
+  static const String instagramUrl = 'https://www.instagram.com/munchmondays/';
+  static const String facebookUrl =
+      'https://www.facebook.com/groups/293187221667379';
   static const String whatsAppUrl = 'https://wa.me/+971 50 348 2117?text=';
+  static const String youTubeUrl = 'https://www.youtube.com/@MunchMondays';
+  static const String emailAddress = 'munchmondays@gmail.com';
   static String bearerToken = "null";
   static UserData? userData;
   static userDetailSaved(String userDetail) async {
@@ -43,7 +46,7 @@ toastShow({String? message}) {
   return Fluttertoast.showToast(
       msg: message!,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: ColorConstant.mainColor,
       textColor: ColorConstant.white,
