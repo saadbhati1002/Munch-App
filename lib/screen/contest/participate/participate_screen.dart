@@ -310,18 +310,20 @@ class _ParticipateScreenState extends State<ParticipateScreen> {
       toastShow(message: "Please enter description");
       return;
     }
-    if (imageSelected == null) {
-      toastShow(message: "Please upload image");
-      return;
-    }
+
     try {
       setState(() {
         isLoading = true;
       });
       FocusManager.instance.primaryFocus?.unfocus();
 
-      CommonRes response = await ContestRepository()
-          .participateInContestApiCall(contestID: widget.contestID);
+      CommonRes response =
+          await ContestRepository().participateInContestApiCall(
+        contestID: widget.contestID,
+        title: titleController.text.toString(),
+        description: descriptionController.text.toString(),
+        media: imageSelected,
+      );
       if (response.success == true) {
         Get.back(result: "1");
         toastShow(message: response.message);

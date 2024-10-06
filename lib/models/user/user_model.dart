@@ -32,7 +32,7 @@ class UserData {
   String? dateOfBirth;
   String? address;
   String? phoneNumber;
-  bool isPremiumUser = true;
+  bool isPremiumUser = false;
   LatestPlanName? latestPlanName;
   UserData({
     token,

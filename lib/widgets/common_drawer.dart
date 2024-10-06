@@ -84,12 +84,19 @@ class _CommonDrawerState extends State<CommonDrawer> {
                     color: ColorConstant.mainColor.withOpacity(0.8),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddRecipeScreen(),
-                      ),
-                    );
+                    if (AppConstant.userData!.isPremiumUser == true) {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(
+                              milliseconds: AppConstant.pageAnimationDuration),
+                          child: const AddRecipeScreen(),
+                        ),
+                      );
+                    } else {
+                      popUpForNormalUsers();
+                    }
                   },
                   title: "Recipe Creation",
                 ),
@@ -598,6 +605,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
       },
     );
   }
+
   void deleteAcountPopUp() async {
     return showDialog(
       context: context,
@@ -728,8 +736,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
           child: const SplashScreen()),
     );
   }
+
   userAccountDelete() async {
-    toastShow(message: "We received your request. Your account will be deleted in 7 days");
+    toastShow(
+        message:
+            "We received your request. Your account will be deleted in 7 days");
 
     await AppConstant.userDetailSaved("null");
     Navigator.push(

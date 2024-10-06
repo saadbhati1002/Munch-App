@@ -2,6 +2,7 @@ import 'package:app/api/repository/contest/contest.dart';
 import 'package:app/models/contest/contest_model.dart';
 import 'package:app/models/contest/contest_user_model.dart';
 import 'package:app/screen/contest/participate/participate_screen.dart';
+import 'package:app/screen/image_view/image_view.dart';
 import 'package:app/utility/color.dart';
 import 'package:app/utility/constant.dart';
 import 'package:app/widgets/app_bar_back.dart';
@@ -9,6 +10,7 @@ import 'package:app/widgets/common_button.dart';
 import 'package:app/widgets/custom_image_view.dart';
 import 'package:app/widgets/show_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ContestDetailScreen extends StatefulWidget {
@@ -128,11 +130,28 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                             mainAxisSpacing: 15,
                           ),
                           itemBuilder: (context, index) {
-                            return CustomImage(
-                              borderRadius: 15,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              imagePath: widget.contestData!.media[index],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.leftToRight,
+                                    duration: Duration(
+                                        milliseconds:
+                                            AppConstant.pageAnimationDuration),
+                                    child: FullImageScreen(
+                                      imageUrl:
+                                          widget.contestData!.media[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: CustomImage(
+                                borderRadius: 15,
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                imagePath: widget.contestData!.media[index],
+                              ),
                             );
                           },
                         ),
@@ -160,19 +179,8 @@ class _ContestDetailScreenState extends State<ContestDetailScreen> {
                         color: ColorConstant.greyColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: ListView.builder(
-                        itemCount: widget.contestData!.rules!.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Text(
-                            '\u2022 1 ${widget.contestData!.rules![index]}',
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: ColorConstant.black,
-                                fontWeight: FontWeight.w400),
-                          );
-                        },
+                      child: Text(
+                        widget.contestData!.rules!,
                       ),
                     ),
                     const SizedBox(

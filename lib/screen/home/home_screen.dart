@@ -1,11 +1,14 @@
 import 'package:app/api/repository/article/article.dart';
 import 'package:app/api/repository/banner/banner.dart';
 import 'package:app/api/repository/recipe/recipe.dart';
+import 'package:app/api/repository/user/user.dart';
 import 'package:app/models/banner/banner_model.dart';
 import 'package:app/models/recipe/like_unlike/like_unlike_model.dart';
 import 'package:app/models/recipe/recipe_model.dart';
+import 'package:app/models/user/admin_user/admin_model.dart';
 import 'package:app/screen/article/detail/article_detail_screen.dart';
 import 'package:app/screen/article/search/search_screen.dart';
+import 'package:app/screen/home_maker/home_maker_detail_screen.dart';
 import 'package:app/screen/recipe/detail/recipe_detail_screen.dart';
 import 'package:app/screen/search/search_screen.dart';
 import 'package:app/utility/color.dart';
@@ -35,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<BannerData> bannerList = [];
   List<RecipeData> recipeList = [];
   List<RecipeData> articleList = [];
+  List<AdminUser> adminList = [];
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final ScrollController _scrollController = ScrollController();
   bool isRecipe = true;
@@ -60,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await _getBanners();
     await _getRecipeList();
     await _getArticleList();
+    await _getAdminUser();
   }
 
   Future _getBanners() async {
@@ -173,6 +178,17 @@ class _HomeScreenState extends State<HomeScreen> {
         _getArticleList();
       }
     }
+  }
+
+  Future _getAdminUser() async {
+    try {
+      AdminRes response = await UserRepository().getUserApiCall();
+      if (response.data.isNotEmpty) {
+        adminList = response.data;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {}
   }
 
   @override
@@ -553,7 +569,6 @@ class _HomeScreenState extends State<HomeScreen> {
         viewportFraction: 1,
         itemCount: bannerList.length,
         onTap: (index) {
-          print("saad ${bannerList[index].bannerType}");
           if (bannerList[index].bannerType == "link") {
             launchUrl(Uri.parse(bannerList[index].url!));
           } else if (bannerList[index].bannerType == "recipe") {
@@ -589,50 +604,106 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             }
           } else if (bannerList[index].bannerType == "home_maker") {
-            // for (int i = 0; i < articleList.length; i++) {
-            //   if (bannerList[index].articleID == articleList[i].id) {
-            //     Navigator.push(
-            //       context,
-            //       PageTransition(
-            //         type: PageTransitionType.leftToRight,
-            //         duration: Duration(
-            //             milliseconds: AppConstant.pageAnimationDuration),
-            //         child: ArticleDetailScreen(
-            //           articleDate: articleList[i],
-            //         ),
-            //       ),
-            //     );
-            //   }
-            // }
+            for (int i = 0; i < adminList.length; i++) {
+              if (bannerList[index].homeMakerID == adminList[i].id.toString()) {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    duration: Duration(
+                        milliseconds: AppConstant.pageAnimationDuration),
+                    child: HomeMakerDetailScreen(
+                      userDetails: adminList[i],
+                    ),
+                  ),
+                );
+              }
+            }
           }
         },
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
-            imageUrl: "${AppConstant.imagePath}${bannerList[index].image!}",
-            imageBuilder: (context, imageProvider) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .75,
-                  height: MediaQuery.of(context).size.height * .25,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
+          return InkWell(
+            onTap: () {
+              if (bannerList[index].bannerType == "link") {
+                launchUrl(Uri.parse(bannerList[index].url!));
+              } else if (bannerList[index].bannerType == "recipe") {
+                for (int i = 0; i < recipeList.length; i++) {
+                  if (bannerList[index].recipeID == recipeList[i].id) {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: RecipeDetailScreen(
+                          recipeData: recipeList[i],
+                        ),
+                      ),
+                    );
+                  }
+                }
+              } else if (bannerList[index].bannerType == "artical") {
+                for (int i = 0; i < articleList.length; i++) {
+                  if (bannerList[index].articleID == articleList[i].id) {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: ArticleDetailScreen(
+                          articleDate: articleList[i],
+                        ),
+                      ),
+                    );
+                  }
+                }
+              } else if (bannerList[index].bannerType == "home_maker") {
+                for (int i = 0; i < adminList.length; i++) {
+                  if (bannerList[index].homeMakerID ==
+                      adminList[i].id.toString()) {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        duration: Duration(
+                            milliseconds: AppConstant.pageAnimationDuration),
+                        child: HomeMakerDetailScreen(
+                          userDetails: adminList[i],
+                        ),
+                      ),
+                    );
+                  }
+                }
+              }
+            },
+            child: CachedNetworkImage(
+              imageUrl: "${AppConstant.imagePath}${bannerList[index].image!}",
+              imageBuilder: (context, imageProvider) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * .75,
+                    height: MediaQuery.of(context).size.height * .25,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-            placeholder: (context, url) {
-              return errorImageBuilder();
-            },
-            errorWidget: (context, url, error) {
-              return errorImageBuilder();
-            },
+                );
+              },
+              placeholder: (context, url) {
+                return errorImageBuilder();
+              },
+              errorWidget: (context, url, error) {
+                return errorImageBuilder();
+              },
+            ),
           );
         },
       ),
